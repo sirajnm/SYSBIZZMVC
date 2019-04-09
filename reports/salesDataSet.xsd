@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="salesDataSet" targetNamespace="http://tempuri.org/salesDataSet.xsd" xmlns:mstns="http://tempuri.org/salesDataSet.xsd" xmlns="http://tempuri.org/salesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="AIN_INVENTORYConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="AIN_INVENTORYConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.AIN_INVENTORYConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="AIN_INVENTORYConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     INV_SALES_DTL.ITEM_CODE AS code, INV_SALES_DTL.ITEM_DESC_ENG AS descriptiom, INV_SALES_DTL.UOM, SUM(INV_SALES_DTL.QUANTITY) AS quantity, 
+                      SUM(INV_SALES_DTL.ITEM_DISCOUNT) AS discount, SUM(INV_SALES_DTL.GROSS_TOTAL) AS total, SUM(INV_SALES_DTL.ITEM_TOTAL) AS itemtotal, 
+                      INV_ITEM_TYPE.DESC_ENG AS type, INV_ITEM_GROUP.DESC_ENG AS [group], INV_ITEM_CATEGORY.DESC_ENG AS category, 
+                      INV_ITEM_TM.DESC_ENG AS trademark, INV_SALES_DTL.DOC_TYPE
+FROM         INV_ITEM_DIRECTORY left JOIN
+                      INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE left JOIN
+                      INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE left JOIN
+                      INV_ITEM_TM ON INV_ITEM_DIRECTORY.TRADEMARK = INV_ITEM_TM.CODE INNER JOIN
+                      INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE inner JOIN
+                      INV_SALES_DTL ON INV_ITEM_DIRECTORY.CODE = INV_SALES_DTL.ITEM_CODE
+GROUP BY INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_SALES_DTL.UOM, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                      INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_SALES_DTL.DOC_TYPE</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="code" DataSetColumn="code" />
+              <Mapping SourceColumn="descriptiom" DataSetColumn="descriptiom" />
+              <Mapping SourceColumn="UOM" DataSetColumn="UOM" />
+              <Mapping SourceColumn="quantity" DataSetColumn="quantity" />
+              <Mapping SourceColumn="discount" DataSetColumn="discount" />
+              <Mapping SourceColumn="total" DataSetColumn="total" />
+              <Mapping SourceColumn="itemtotal" DataSetColumn="itemtotal" />
+              <Mapping SourceColumn="type" DataSetColumn="type" />
+              <Mapping SourceColumn="group" DataSetColumn="group" />
+              <Mapping SourceColumn="category" DataSetColumn="category" />
+              <Mapping SourceColumn="trademark" DataSetColumn="trademark" />
+              <Mapping SourceColumn="DOC_TYPE" DataSetColumn="DOC_TYPE" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="AIN_INVENTORYConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByproduct" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByproduct" GeneratorSourceName="FillByproduct" GetMethodModifier="Public" GetMethodName="GetDataByproduct" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByproduct" UserSourceName="FillByproduct">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     INV_SALES_DTL.ITEM_CODE AS code, INV_SALES_DTL.ITEM_DESC_ENG AS descriptiom, INV_SALES_DTL.UOM, SUM(INV_SALES_DTL.QUANTITY) AS quantity, 
+                      SUM(INV_SALES_DTL.ITEM_DISCOUNT) AS discount, SUM(INV_SALES_DTL.GROSS_TOTAL) AS total, SUM(INV_SALES_DTL.ITEM_TOTAL) AS itemtotal, 
+                      INV_ITEM_TYPE.DESC_ENG AS type, INV_ITEM_GROUP.DESC_ENG AS [group], INV_ITEM_CATEGORY.DESC_ENG AS category, 
+                      INV_ITEM_TM.DESC_ENG AS trademark, INV_SALES_DTL.DOC_TYPE
+FROM         INV_ITEM_DIRECTORY INNER JOIN
+                      INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE INNER JOIN
+                      INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE INNER JOIN
+                      INV_ITEM_TM ON INV_ITEM_DIRECTORY.TRADEMARK = INV_ITEM_TM.CODE INNER JOIN
+                      INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE INNER JOIN
+                      INV_SALES_DTL ON INV_ITEM_DIRECTORY.CODE = INV_SALES_DTL.ITEM_CODE
+WHERE     (INV_SALES_DTL.ITEM_DESC_ENG = @description)
+GROUP BY INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_SALES_DTL.UOM, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                      INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_SALES_DTL.DOC_TYPE</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="description" ColumnName="ITEM_DESC_ENG" DataSourceName="AIN_INVENTORY.dbo.INV_SALES_DTL" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@description" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="descriptiom" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable2TableAdapter" GeneratorDataComponentClassName="DataTable2TableAdapter" Name="DataTable2" UserDataComponentName="DataTable2TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="AIN_INVENTORYConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     INV_SALES_DTL.ITEM_CODE AS code, INV_SALES_DTL.ITEM_DESC_ENG AS descriptiom, INV_SALES_DTL.UOM, SUM(INV_SALES_DTL.QUANTITY) AS quantity, 
+                      SUM(INV_SALES_DTL.ITEM_DISCOUNT) AS discount, SUM(INV_SALES_DTL.GROSS_TOTAL) AS total, SUM(INV_SALES_DTL.ITEM_TOTAL) AS itemtotal, 
+                      INV_ITEM_TYPE.DESC_ENG AS type, INV_ITEM_GROUP.DESC_ENG AS [group], INV_ITEM_CATEGORY.DESC_ENG AS category, 
+                      INV_ITEM_TM.DESC_ENG AS trademark, INV_SALES_DTL.DOC_TYPE, INV_SALES_HDR.DOC_DATE_GRE
+FROM         INV_ITEM_DIRECTORY left JOIN
+                      INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE left JOIN
+                      INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE left JOIN
+                      INV_ITEM_TM ON INV_ITEM_DIRECTORY.TRADEMARK = INV_ITEM_TM.CODE left JOIN
+                      INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE inner JOIN
+                      INV_SALES_DTL ON INV_ITEM_DIRECTORY.CODE = INV_SALES_DTL.ITEM_CODE INNER JOIN
+                      INV_SALES_HDR ON INV_SALES_DTL.DOC_NO = INV_SALES_HDR.DOC_NO
+where INV_SALES_DTL.DOC_TYPE not in('SAL.CREDITNOTE')
+GROUP BY INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_SALES_DTL.UOM, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                      INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_SALES_DTL.DOC_TYPE, INV_SALES_HDR.DOC_DATE_GRE</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="code" DataSetColumn="code" />
+              <Mapping SourceColumn="descriptiom" DataSetColumn="descriptiom" />
+              <Mapping SourceColumn="UOM" DataSetColumn="UOM" />
+              <Mapping SourceColumn="quantity" DataSetColumn="quantity" />
+              <Mapping SourceColumn="discount" DataSetColumn="discount" />
+              <Mapping SourceColumn="total" DataSetColumn="total" />
+              <Mapping SourceColumn="itemtotal" DataSetColumn="itemtotal" />
+              <Mapping SourceColumn="type" DataSetColumn="type" />
+              <Mapping SourceColumn="group" DataSetColumn="group" />
+              <Mapping SourceColumn="category" DataSetColumn="category" />
+              <Mapping SourceColumn="trademark" DataSetColumn="trademark" />
+              <Mapping SourceColumn="DOC_TYPE" DataSetColumn="DOC_TYPE" />
+              <Mapping SourceColumn="DOC_DATE_GRE" DataSetColumn="DOC_DATE_GRE" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="AIN_INVENTORYConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     INV_SALES_DTL.ITEM_CODE AS code, INV_SALES_DTL.ITEM_DESC_ENG AS descriptiom, INV_SALES_DTL.UOM, SUM(INV_SALES_DTL.QUANTITY) AS quantity, 
+                      SUM(INV_SALES_DTL.ITEM_DISCOUNT) AS discount, SUM(INV_SALES_DTL.GROSS_TOTAL) AS total, SUM(INV_SALES_DTL.ITEM_TOTAL) AS itemtotal, 
+                      INV_ITEM_TYPE.DESC_ENG AS type, INV_ITEM_GROUP.DESC_ENG AS [group], INV_ITEM_CATEGORY.DESC_ENG AS category, 
+                      INV_ITEM_TM.DESC_ENG AS trademark, INV_SALES_DTL.DOC_TYPE, INV_SALES_HDR.DOC_DATE_GRE
+FROM         INV_ITEM_DIRECTORY LEFT OUTER JOIN
+                      INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                      INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                      INV_ITEM_TM ON INV_ITEM_DIRECTORY.TRADEMARK = INV_ITEM_TM.CODE LEFT OUTER JOIN
+                      INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE INNER JOIN
+                      INV_SALES_DTL ON INV_ITEM_DIRECTORY.CODE = INV_SALES_DTL.ITEM_CODE INNER JOIN
+                      INV_SALES_HDR ON INV_SALES_DTL.DOC_NO = INV_SALES_HDR.DOC_NO
+WHERE     (INV_SALES_HDR.DOC_DATE_GRE BETWEEN @date1 AND @date2) AND (INV_SALES_DTL.DOC_TYPE NOT IN ('SAL.CREDITNOTE'))
+GROUP BY INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_SALES_DTL.UOM, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                      INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_SALES_DTL.DOC_TYPE, INV_SALES_HDR.DOC_DATE_GRE</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="date1" ColumnName="DOC_DATE_GRE" DataSourceName="AIN_INVENTORY.dbo.INV_SALES_HDR" DataTypeServer="smalldatetime" DbType="DateTime" Direction="Input" ParameterName="@date1" Precision="0" ProviderType="SmallDateTime" Scale="0" Size="4" SourceColumn="DOC_DATE_GRE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date2" ColumnName="DOC_DATE_GRE" DataSourceName="AIN_INVENTORY.dbo.INV_SALES_HDR" DataTypeServer="smalldatetime" DbType="DateTime" Direction="Input" ParameterName="@date2" Precision="0" ProviderType="SmallDateTime" Scale="0" Size="4" SourceColumn="DOC_DATE_GRE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable3TableAdapter" GeneratorDataComponentClassName="DataTable3TableAdapter" Name="DataTable3" UserDataComponentName="DataTable3TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="AIN_INVENTORYConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     INV_SALES_DTL.ITEM_CODE AS code, INV_SALES_DTL.ITEM_DESC_ENG AS descriptiom, INV_SALES_DTL.UOM, SUM(INV_SALES_DTL.QUANTITY) AS quantity, 
+                      SUM(INV_SALES_DTL.ITEM_DISCOUNT) AS discount, SUM(INV_SALES_DTL.GROSS_TOTAL) AS total, SUM(INV_SALES_DTL.ITEM_TOTAL) AS itemtotal, 
+                      INV_ITEM_TYPE.DESC_ENG AS type, INV_ITEM_GROUP.DESC_ENG AS [group], INV_ITEM_CATEGORY.DESC_ENG AS category, 
+                      INV_ITEM_TM.DESC_ENG AS trademark, INV_SALES_DTL.DOC_TYPE, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_HDR.CUSTOMER_CODE, 
+                      INV_SALES_HDR.CUSTOMER_NAME_ENG
+FROM         INV_ITEM_DIRECTORY INNER JOIN
+                      INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE INNER JOIN
+                      INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE INNER JOIN
+                      INV_ITEM_TM ON INV_ITEM_DIRECTORY.TRADEMARK = INV_ITEM_TM.CODE INNER JOIN
+                      INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE INNER JOIN
+                      INV_SALES_DTL ON INV_ITEM_DIRECTORY.CODE = INV_SALES_DTL.ITEM_CODE INNER JOIN
+                      INV_SALES_HDR ON INV_SALES_DTL.DOC_NO = INV_SALES_HDR.DOC_NO
+WHERE     (INV_SALES_DTL.DOC_TYPE NOT IN ('SAL.CREDITNOTE'))
+GROUP BY INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_SALES_DTL.UOM, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                      INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_SALES_DTL.DOC_TYPE, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_HDR.CUSTOMER_CODE, 
+                      INV_SALES_HDR.CUSTOMER_NAME_ENG</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="code" DataSetColumn="code" />
+              <Mapping SourceColumn="descriptiom" DataSetColumn="descriptiom" />
+              <Mapping SourceColumn="UOM" DataSetColumn="UOM" />
+              <Mapping SourceColumn="quantity" DataSetColumn="quantity" />
+              <Mapping SourceColumn="discount" DataSetColumn="discount" />
+              <Mapping SourceColumn="total" DataSetColumn="total" />
+              <Mapping SourceColumn="itemtotal" DataSetColumn="itemtotal" />
+              <Mapping SourceColumn="type" DataSetColumn="type" />
+              <Mapping SourceColumn="group" DataSetColumn="group" />
+              <Mapping SourceColumn="category" DataSetColumn="category" />
+              <Mapping SourceColumn="trademark" DataSetColumn="trademark" />
+              <Mapping SourceColumn="DOC_TYPE" DataSetColumn="DOC_TYPE" />
+              <Mapping SourceColumn="DOC_DATE_GRE" DataSetColumn="DOC_DATE_GRE" />
+              <Mapping SourceColumn="CUSTOMER_CODE" DataSetColumn="CUSTOMER_CODE" />
+              <Mapping SourceColumn="CUSTOMER_NAME_ENG" DataSetColumn="CUSTOMER_NAME_ENG" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="AIN_INVENTORYConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     INV_SALES_DTL.ITEM_CODE AS code, INV_SALES_DTL.ITEM_DESC_ENG AS descriptiom, INV_SALES_DTL.UOM, SUM(INV_SALES_DTL.QUANTITY) AS quantity, 
+                      SUM(INV_SALES_DTL.ITEM_DISCOUNT) AS discount, SUM(INV_SALES_DTL.GROSS_TOTAL) AS total, SUM(INV_SALES_DTL.ITEM_TOTAL) AS itemtotal, 
+                      INV_ITEM_TYPE.DESC_ENG AS type, INV_ITEM_GROUP.DESC_ENG AS [group], INV_ITEM_CATEGORY.DESC_ENG AS category, 
+                      INV_ITEM_TM.DESC_ENG AS trademark, INV_SALES_DTL.DOC_TYPE, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_HDR.CUSTOMER_CODE, 
+                      INV_SALES_HDR.CUSTOMER_NAME_ENG
+FROM         INV_ITEM_DIRECTORY LEFT OUTER JOIN
+                      INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                      INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                      INV_ITEM_TM ON INV_ITEM_DIRECTORY.TRADEMARK = INV_ITEM_TM.CODE LEFT OUTER JOIN
+                      INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE LEFT OUTER JOIN
+                      INV_SALES_DTL ON INV_ITEM_DIRECTORY.CODE = INV_SALES_DTL.ITEM_CODE LEFT OUTER JOIN
+                      INV_SALES_HDR ON INV_SALES_DTL.DOC_NO = INV_SALES_HDR.DOC_NO
+WHERE     (INV_SALES_HDR.CUSTOMER_NAME_ENG = @customer) AND (INV_SALES_DTL.DOC_TYPE NOT IN ('SAL.CREDITNOTE'))
+GROUP BY INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_SALES_DTL.UOM, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                      INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_SALES_DTL.DOC_TYPE, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_HDR.CUSTOMER_CODE, 
+                      INV_SALES_HDR.CUSTOMER_NAME_ENG</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="customer" ColumnName="CUSTOMER_NAME_ENG" DataSourceName="AIN_INVENTORY.dbo.INV_SALES_HDR" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@customer" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="CUSTOMER_NAME_ENG" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="salesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="salesDataSet" msprop:Generator_UserDSName="salesDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" msprop:Generator_ColumnVarNameInTable="columncode" msprop:Generator_ColumnPropNameInRow="code" msprop:Generator_ColumnPropNameInTable="codeColumn" msprop:Generator_UserColumnName="code" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="descriptiom" msprop:Generator_ColumnVarNameInTable="columndescriptiom" msprop:Generator_ColumnPropNameInRow="descriptiom" msprop:Generator_ColumnPropNameInTable="descriptiomColumn" msprop:Generator_UserColumnName="descriptiom" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UOM" msprop:Generator_ColumnVarNameInTable="columnUOM" msprop:Generator_ColumnPropNameInRow="UOM" msprop:Generator_ColumnPropNameInTable="UOMColumn" msprop:Generator_UserColumnName="UOM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="quantity" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnquantity" msprop:Generator_ColumnPropNameInRow="quantity" msprop:Generator_ColumnPropNameInTable="quantityColumn" msprop:Generator_UserColumnName="quantity" type="xs:int" minOccurs="0" />
+              <xs:element name="discount" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columndiscount" msprop:Generator_ColumnPropNameInRow="discount" msprop:Generator_ColumnPropNameInTable="discountColumn" msprop:Generator_UserColumnName="discount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_UserColumnName="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itemtotal" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnitemtotal" msprop:Generator_ColumnPropNameInRow="itemtotal" msprop:Generator_ColumnPropNameInTable="itemtotalColumn" msprop:Generator_UserColumnName="itemtotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="type" msprop:Generator_ColumnVarNameInTable="columntype" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_UserColumnName="type" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="group" msprop:Generator_ColumnVarNameInTable="columngroup" msprop:Generator_ColumnPropNameInRow="group" msprop:Generator_ColumnPropNameInTable="groupColumn" msprop:Generator_UserColumnName="group" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="category" msprop:Generator_ColumnVarNameInTable="columncategory" msprop:Generator_ColumnPropNameInRow="category" msprop:Generator_ColumnPropNameInTable="categoryColumn" msprop:Generator_UserColumnName="category" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="trademark" msprop:Generator_ColumnVarNameInTable="columntrademark" msprop:Generator_ColumnPropNameInRow="trademark" msprop:Generator_ColumnPropNameInTable="trademarkColumn" msprop:Generator_UserColumnName="trademark" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_TYPE" msprop:Generator_ColumnVarNameInTable="columnDOC_TYPE" msprop:Generator_ColumnPropNameInRow="DOC_TYPE" msprop:Generator_ColumnPropNameInTable="DOC_TYPEColumn" msprop:Generator_UserColumnName="DOC_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable2" msprop:Generator_TableClassName="DataTable2DataTable" msprop:Generator_TableVarName="tableDataTable2" msprop:Generator_RowChangedName="DataTable2RowChanged" msprop:Generator_TablePropName="DataTable2" msprop:Generator_RowDeletingName="DataTable2RowDeleting" msprop:Generator_RowChangingName="DataTable2RowChanging" msprop:Generator_RowEvHandlerName="DataTable2RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable2RowDeleted" msprop:Generator_RowClassName="DataTable2Row" msprop:Generator_UserTableName="DataTable2" msprop:Generator_RowEvArgName="DataTable2RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" msprop:Generator_ColumnVarNameInTable="columncode" msprop:Generator_ColumnPropNameInRow="code" msprop:Generator_ColumnPropNameInTable="codeColumn" msprop:Generator_UserColumnName="code" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="descriptiom" msprop:Generator_ColumnVarNameInTable="columndescriptiom" msprop:Generator_ColumnPropNameInRow="descriptiom" msprop:Generator_ColumnPropNameInTable="descriptiomColumn" msprop:Generator_UserColumnName="descriptiom" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UOM" msprop:Generator_ColumnVarNameInTable="columnUOM" msprop:Generator_ColumnPropNameInRow="UOM" msprop:Generator_ColumnPropNameInTable="UOMColumn" msprop:Generator_UserColumnName="UOM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="quantity" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnquantity" msprop:Generator_ColumnPropNameInRow="quantity" msprop:Generator_ColumnPropNameInTable="quantityColumn" msprop:Generator_UserColumnName="quantity" type="xs:int" minOccurs="0" />
+              <xs:element name="discount" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columndiscount" msprop:Generator_ColumnPropNameInRow="discount" msprop:Generator_ColumnPropNameInTable="discountColumn" msprop:Generator_UserColumnName="discount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_UserColumnName="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itemtotal" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnitemtotal" msprop:Generator_ColumnPropNameInRow="itemtotal" msprop:Generator_ColumnPropNameInTable="itemtotalColumn" msprop:Generator_UserColumnName="itemtotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="type" msprop:Generator_ColumnVarNameInTable="columntype" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_UserColumnName="type" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="group" msprop:Generator_ColumnVarNameInTable="columngroup" msprop:Generator_ColumnPropNameInRow="group" msprop:Generator_ColumnPropNameInTable="groupColumn" msprop:Generator_UserColumnName="group" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="category" msprop:Generator_ColumnVarNameInTable="columncategory" msprop:Generator_ColumnPropNameInRow="category" msprop:Generator_ColumnPropNameInTable="categoryColumn" msprop:Generator_UserColumnName="category" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="trademark" msprop:Generator_ColumnVarNameInTable="columntrademark" msprop:Generator_ColumnPropNameInRow="trademark" msprop:Generator_ColumnPropNameInTable="trademarkColumn" msprop:Generator_UserColumnName="trademark" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_TYPE" msprop:Generator_ColumnVarNameInTable="columnDOC_TYPE" msprop:Generator_ColumnPropNameInRow="DOC_TYPE" msprop:Generator_ColumnPropNameInTable="DOC_TYPEColumn" msprop:Generator_UserColumnName="DOC_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_DATE_GRE" msprop:Generator_ColumnVarNameInTable="columnDOC_DATE_GRE" msprop:Generator_ColumnPropNameInRow="DOC_DATE_GRE" msprop:Generator_ColumnPropNameInTable="DOC_DATE_GREColumn" msprop:Generator_UserColumnName="DOC_DATE_GRE" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable3" msprop:Generator_TableClassName="DataTable3DataTable" msprop:Generator_TableVarName="tableDataTable3" msprop:Generator_TablePropName="DataTable3" msprop:Generator_RowDeletingName="DataTable3RowDeleting" msprop:Generator_RowChangingName="DataTable3RowChanging" msprop:Generator_RowEvHandlerName="DataTable3RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable3RowDeleted" msprop:Generator_UserTableName="DataTable3" msprop:Generator_RowChangedName="DataTable3RowChanged" msprop:Generator_RowEvArgName="DataTable3RowChangeEvent" msprop:Generator_RowClassName="DataTable3Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="code" msprop:Generator_ColumnVarNameInTable="columncode" msprop:Generator_ColumnPropNameInRow="code" msprop:Generator_ColumnPropNameInTable="codeColumn" msprop:Generator_UserColumnName="code" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="descriptiom" msprop:Generator_ColumnVarNameInTable="columndescriptiom" msprop:Generator_ColumnPropNameInRow="descriptiom" msprop:Generator_ColumnPropNameInTable="descriptiomColumn" msprop:Generator_UserColumnName="descriptiom" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UOM" msprop:Generator_ColumnVarNameInTable="columnUOM" msprop:Generator_ColumnPropNameInRow="UOM" msprop:Generator_ColumnPropNameInTable="UOMColumn" msprop:Generator_UserColumnName="UOM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="quantity" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnquantity" msprop:Generator_ColumnPropNameInRow="quantity" msprop:Generator_ColumnPropNameInTable="quantityColumn" msprop:Generator_UserColumnName="quantity" type="xs:int" minOccurs="0" />
+              <xs:element name="discount" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columndiscount" msprop:Generator_ColumnPropNameInRow="discount" msprop:Generator_ColumnPropNameInTable="discountColumn" msprop:Generator_UserColumnName="discount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_UserColumnName="total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="itemtotal" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnitemtotal" msprop:Generator_ColumnPropNameInRow="itemtotal" msprop:Generator_ColumnPropNameInTable="itemtotalColumn" msprop:Generator_UserColumnName="itemtotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="type" msprop:Generator_ColumnVarNameInTable="columntype" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_UserColumnName="type" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="group" msprop:Generator_ColumnVarNameInTable="columngroup" msprop:Generator_ColumnPropNameInRow="group" msprop:Generator_ColumnPropNameInTable="groupColumn" msprop:Generator_UserColumnName="group" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="category" msprop:Generator_ColumnVarNameInTable="columncategory" msprop:Generator_ColumnPropNameInRow="category" msprop:Generator_ColumnPropNameInTable="categoryColumn" msprop:Generator_UserColumnName="category" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="trademark" msprop:Generator_ColumnVarNameInTable="columntrademark" msprop:Generator_ColumnPropNameInRow="trademark" msprop:Generator_ColumnPropNameInTable="trademarkColumn" msprop:Generator_UserColumnName="trademark" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_TYPE" msprop:Generator_ColumnVarNameInTable="columnDOC_TYPE" msprop:Generator_ColumnPropNameInRow="DOC_TYPE" msprop:Generator_ColumnPropNameInTable="DOC_TYPEColumn" msprop:Generator_UserColumnName="DOC_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_DATE_GRE" msprop:Generator_ColumnVarNameInTable="columnDOC_DATE_GRE" msprop:Generator_ColumnPropNameInRow="DOC_DATE_GRE" msprop:Generator_ColumnPropNameInTable="DOC_DATE_GREColumn" msprop:Generator_UserColumnName="DOC_DATE_GRE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CUSTOMER_CODE" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER_CODE" msprop:Generator_ColumnPropNameInRow="CUSTOMER_CODE" msprop:Generator_ColumnPropNameInTable="CUSTOMER_CODEColumn" msprop:Generator_UserColumnName="CUSTOMER_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_NAME_ENG" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER_NAME_ENG" msprop:Generator_ColumnPropNameInRow="CUSTOMER_NAME_ENG" msprop:Generator_ColumnPropNameInTable="CUSTOMER_NAME_ENGColumn" msprop:Generator_UserColumnName="CUSTOMER_NAME_ENG" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

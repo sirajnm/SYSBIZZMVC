@@ -1,0 +1,1004 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SalesReportDatasetOnHDR" targetNamespace="http://tempuri.org/SalesReportDatasetOnHDR.xsd" xmlns:mstns="http://tempuri.org/SalesReportDatasetOnHDR.xsd" xmlns="http://tempuri.org/SalesReportDatasetOnHDR.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="9" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="AIN_INVENTORYConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="AIN_INVENTORYConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.AIN_INVENTORYConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString2" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString2 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString2" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString3" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString3 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString3" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString6" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString6 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString6" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString9" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString9 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString9" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString1 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.AIN_INVENTORYConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString10" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString10 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString10" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString11" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString11 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString11" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString7" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString7 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString7" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SYSBIZZConnectionString7 (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillDataOnHDR" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataOnHDR" GeneratorSourceName="FillDataOnHDR" GetMethodModifier="Public" GetMethodName="GetDataOnHDR" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataOnHDR" UserSourceName="FillDataOnHDR">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        INV_SALES_HDR.DOC_ID AS INVOICENO, INV_SALES_HDR.DOC_NO AS Docno, INV_SALES_HDR.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY.TYPE, INV_ITEM_TYPE.DESC_ENG AS TypeName, INV_ITEM_CATEGORY.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM.DESC_ENG AS TMname, INV_ITEM_GROUP.DESC_ENG AS Groupname, INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, 
+                         INV_SALES_DTL.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, INV_ITEM_DIRECTORY.TRADEMARK, 
+                         INV_UNIT.DESC_ENG AS Unitname, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL.ITEM_TAX * - 1 AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR.DOC_NO
+ORDER BY INV_SALES_DTL.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR.DISCOUNT * - 1 ELSE 0 END AS TotalDiscount, INV_SALES_HDR.SALE_TYPE
+FROM            INV_SALES_HDR LEFT OUTER JOIN
+                         INV_SALES_DTL ON INV_SALES_HDR.DOC_NO = INV_SALES_DTL.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY ON INV_SALES_DTL.ITEM_CODE = INV_ITEM_DIRECTORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM ON INV_ITEM_TM.CODE = INV_ITEM_DIRECTORY.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT ON INV_SALES_DTL.UOM = INV_UNIT.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE ON SYS_DOC_TYPE.CODE = INV_SALES_HDR.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY.DESC_ENG LIKE '%' + @item1 + '%') AND (INV_ITEM_DIRECTORY.TRADEMARK LIKE '%' + @trademark + '%') AND 
+                         (INV_SALES_HDR.CUSTOMER_CODE LIKE '%' + @cus + '%') AND (INV_ITEM_DIRECTORY.TYPE LIKE '%' + @type + '%') AND 
+                         (INV_SALES_HDR.DOC_TYPE = 'SAL.CSR') AND (INV_SALES_HDR.FLAGDEL = 'True') AND (INV_SALES_HDR.SALE_TYPE LIKE '%' + @doc + '%') AND 
+                         INV_SALES_DTL.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR.DOC_ID, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_ITEM_DIRECTORY.TYPE, 
+                         INV_SALES_DTL.ITEM_TAX, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                         INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, 
+                         INV_ITEM_DIRECTORY.TRADEMARK, INV_UNIT.DESC_ENG, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG, INV_SALES_HDR.DOC_NO, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG, INV_SALES_HDR.DISCOUNT, INV_SALES_HDR.SALE_TYPE
+UNION ALL
+SELECT        INV_SALES_HDR_3.DOC_ID AS INVOICENO, INV_SALES_HDR_3.DOC_NO AS Docno, INV_SALES_HDR_3.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_3.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_3.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_3.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_3.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_3.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_ITEM_TYPE_3.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_3.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_3.DESC_ENG AS TMname, INV_ITEM_GROUP_3.DESC_ENG AS Groupname, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, 
+                         INV_SALES_DTL_3.GROSS_TOTAL, INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, 
+                         INV_UNIT_3.DESC_ENG AS Unitname, INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_3.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL_3.ITEM_TAX AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_3.DOC_NO
+ORDER BY INV_SALES_DTL_3.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_3.DISCOUNT ELSE 0 END AS TotalDiscount, INV_SALES_HDR_3.SALE_TYPE
+FROM            INV_SALES_HDR AS INV_SALES_HDR_3 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_3 ON INV_SALES_HDR_3.DOC_NO = INV_SALES_DTL_3.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_3 ON INV_SALES_DTL_3.ITEM_CODE = INV_ITEM_DIRECTORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_3 ON INV_ITEM_DIRECTORY_3.TYPE = INV_ITEM_TYPE_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_3 ON INV_ITEM_DIRECTORY_3.CATEGORY = INV_ITEM_CATEGORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_3 ON INV_ITEM_TM_3.CODE = INV_ITEM_DIRECTORY_3.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_3 ON INV_SALES_DTL_3.UOM = INV_UNIT_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_3 ON INV_ITEM_DIRECTORY_3.[GROUP] = INV_ITEM_GROUP_3.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_3 ON SYS_DOC_TYPE_3.CODE = INV_SALES_HDR_3.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_3.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_3.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_3.DESC_ENG LIKE '%' + @item1 + '%') AND (INV_ITEM_DIRECTORY_3.TRADEMARK LIKE '%' + @trademark + '%') AND 
+                         (INV_SALES_HDR_3.CUSTOMER_CODE LIKE '%' + @cus + '%') AND (INV_ITEM_DIRECTORY_3.TYPE LIKE '%' + @type + '%') AND 
+                         (INV_SALES_HDR_3.DOC_TYPE = 'SAL.CRD') AND (INV_SALES_HDR_3.FLAGDEL = 'True') AND (INV_SALES_HDR_3.SALE_TYPE LIKE '%' + @doc + '%') AND 
+                         INV_SALES_DTL_3.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_3.DOC_ID, INV_SALES_HDR_3.DOC_DATE_GRE, INV_SALES_DTL_3.ITEM_CODE, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_SALES_DTL_3.ITEM_TAX, INV_ITEM_TYPE_3.DESC_ENG, INV_ITEM_CATEGORY_3.DESC_ENG, INV_ITEM_TM_3.DESC_ENG, 
+                         INV_ITEM_GROUP_3.DESC_ENG, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, INV_SALES_DTL_3.GROSS_TOTAL, INV_ITEM_DIRECTORY_3.[GROUP], 
+                         INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, INV_UNIT_3.DESC_ENG, INV_SALES_HDR_3.CUSTOMER_CODE, 
+                         SYS_DOC_TYPE_3.DESC_ENG, INV_SALES_HDR_3.DOC_NO, INV_SALES_HDR_3.CUSTOMER_NAME_ENG, INV_SALES_HDR_3.DISCOUNT, 
+                         INV_SALES_HDR_3.SALE_TYPE
+UNION ALL
+SELECT        INV_SALES_HDR_2.DOC_ID AS INVOICENO, INV_SALES_HDR_2.DOC_NO AS Docno, INV_SALES_HDR_2.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_2.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_2.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_2.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_2.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_2.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_ITEM_TYPE_2.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_2.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_2.DESC_ENG AS TMname, INV_ITEM_GROUP_2.DESC_ENG AS Groupname, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, 
+                         INV_SALES_DTL_2.GROSS_TOTAL, INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, 
+                         INV_UNIT_2.DESC_ENG AS Unitname, INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_2.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL_2.ITEM_TAX AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_2.DOC_NO
+ORDER BY INV_SALES_DTL_2.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_2.DISCOUNT ELSE 0 END AS TotalDiscount, INV_SALES_HDR_2.SALE_TYPE
+FROM            INV_SALES_HDR AS INV_SALES_HDR_2 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_2 ON INV_SALES_HDR_2.DOC_NO = INV_SALES_DTL_2.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_2 ON INV_SALES_DTL_2.ITEM_CODE = INV_ITEM_DIRECTORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_2 ON INV_ITEM_DIRECTORY_2.TYPE = INV_ITEM_TYPE_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_2 ON INV_ITEM_DIRECTORY_2.CATEGORY = INV_ITEM_CATEGORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_2 ON INV_ITEM_TM_2.CODE = INV_ITEM_DIRECTORY_2.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_2 ON INV_SALES_DTL_2.UOM = INV_UNIT_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_2 ON INV_ITEM_DIRECTORY_2.[GROUP] = INV_ITEM_GROUP_2.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_2 ON SYS_DOC_TYPE_2.CODE = INV_SALES_HDR_2.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_2.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_2.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_2.DESC_ENG LIKE '%' + @item1 + '%') AND (INV_ITEM_DIRECTORY_2.TRADEMARK LIKE '%' + @trademark + '%') AND 
+                         (INV_SALES_HDR_2.CUSTOMER_CODE LIKE '%' + @cus + '%') AND (INV_ITEM_DIRECTORY_2.TYPE LIKE '%' + @type + '%') AND 
+                         (INV_SALES_HDR_2.DOC_TYPE = 'SAL.CSS') AND (INV_SALES_HDR_2.FLAGDEL = 'True') AND (INV_SALES_HDR_2.SALE_TYPE LIKE '%' + @doc + '%') AND 
+                         INV_SALES_DTL_2.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_2.DOC_ID, INV_SALES_HDR_2.DOC_DATE_GRE, INV_SALES_DTL_2.ITEM_CODE, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_SALES_DTL_2.ITEM_TAX, INV_ITEM_TYPE_2.DESC_ENG, INV_ITEM_CATEGORY_2.DESC_ENG, INV_ITEM_TM_2.DESC_ENG, 
+                         INV_ITEM_GROUP_2.DESC_ENG, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, INV_SALES_DTL_2.GROSS_TOTAL, INV_ITEM_DIRECTORY_2.[GROUP], 
+                         INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, INV_UNIT_2.DESC_ENG, INV_SALES_HDR_2.CUSTOMER_CODE, 
+                         SYS_DOC_TYPE_2.DESC_ENG, INV_SALES_HDR_2.DOC_NO, INV_SALES_HDR_2.CUSTOMER_NAME_ENG, INV_SALES_HDR_2.DISCOUNT, 
+                         INV_SALES_HDR_2.SALE_TYPE
+UNION ALL
+SELECT        INV_SALES_HDR_1.DOC_ID AS INVOICENO, INV_SALES_HDR_1.DOC_NO AS Docno, INV_SALES_HDR_1.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_1.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_1.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL_1.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL_1.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL_1.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_ITEM_TYPE_1.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_1.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_1.DESC_ENG AS TMname, INV_ITEM_GROUP_1.DESC_ENG AS Groupname, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, 
+                         INV_SALES_DTL_1.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, 
+                         INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG AS Unitname, INV_SALES_HDR_1.CUSTOMER_CODE, 
+                         SYS_DOC_TYPE_1.DESC_ENG AS DocumentType, INV_SALES_HDR_1.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL_1.ITEM_TAX * - 1 AS TaxTotal, 
+                         CASE WHEN ROW_NUMBER() OVER (PARTITION BY INV_SALES_HDR_1.DOC_NO
+ORDER BY INV_SALES_DTL_1.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_1.DISCOUNT * - 1 ELSE 0 END AS TotalDiscount, INV_SALES_HDR_1.SALE_TYPE
+FROM            INV_SALES_HDR AS INV_SALES_HDR_1 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_1 ON INV_SALES_HDR_1.DOC_NO = INV_SALES_DTL_1.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_1 ON INV_SALES_DTL_1.ITEM_CODE = INV_ITEM_DIRECTORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_1 ON INV_ITEM_DIRECTORY_1.TYPE = INV_ITEM_TYPE_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_1 ON INV_ITEM_DIRECTORY_1.CATEGORY = INV_ITEM_CATEGORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_1 ON INV_ITEM_TM_1.CODE = INV_ITEM_DIRECTORY_1.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_1 ON INV_SALES_DTL_1.UOM = INV_UNIT_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_1 ON INV_ITEM_DIRECTORY_1.[GROUP] = INV_ITEM_GROUP_1.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_1 ON SYS_DOC_TYPE_1.CODE = INV_SALES_HDR_1.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_1.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_1.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_1.DESC_ENG LIKE '%' + @item1 + '%') AND (INV_ITEM_DIRECTORY_1.TRADEMARK LIKE '%' + @trademark + '%') AND 
+                         (INV_SALES_HDR_1.CUSTOMER_CODE LIKE '%' + @cus + '%') AND (INV_ITEM_DIRECTORY_1.TYPE LIKE '%' + @type + '%') AND 
+                         (INV_SALES_HDR_1.DOC_TYPE = 'SAL.CDR') AND (INV_SALES_HDR_1.FLAGDEL = 'True') AND (INV_SALES_HDR_1.SALE_TYPE LIKE '%' + @doc + '%') AND 
+                         INV_SALES_DTL_1.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_1.DOC_ID, INV_SALES_HDR_1.DOC_DATE_GRE, INV_SALES_DTL_1.ITEM_CODE, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_SALES_DTL_1.ITEM_TAX, INV_ITEM_TYPE_1.DESC_ENG, INV_ITEM_CATEGORY_1.DESC_ENG, INV_ITEM_TM_1.DESC_ENG, 
+                         INV_ITEM_GROUP_1.DESC_ENG, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, INV_SALES_DTL_1.GROSS_TOTAL, INV_ITEM_DIRECTORY_1.[GROUP], 
+                         INV_ITEM_DIRECTORY_1.CATEGORY, INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG, INV_SALES_HDR_1.CUSTOMER_CODE, 
+                         SYS_DOC_TYPE_1.DESC_ENG, INV_SALES_HDR_1.DOC_NO, INV_SALES_HDR_1.CUSTOMER_NAME_ENG, INV_SALES_HDR_1.DISCOUNT, 
+                         INV_SALES_HDR_1.SALE_TYPE</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="group" ColumnName="GROUP" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@group" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="GROUP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="category" ColumnName="CATEGORY" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@category" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="CATEGORY" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="trademark" ColumnName="TRADEMARK" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@trademark" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TRADEMARK" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="cus" ColumnName="CUSTOMER_CODE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@cus" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="CUSTOMER_CODE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="type" ColumnName="TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@type" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="item1" ColumnName="DESC_ENG" DataSourceName="" DataTypeServer="nvarchar(MAX)" DbType="String" Direction="Input" ParameterName="@item1" Precision="0" ProviderType="NVarChar" Scale="0" Size="2147483647" SourceColumn="TypeName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="doc" ColumnName="SALE_TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@doc" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="SALE_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@item" Precision="0" Scale="0" Size="0" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="INVOICENO" DataSetColumn="INVOICENO" />
+              <Mapping SourceColumn="Docno" DataSetColumn="Docno" />
+              <Mapping SourceColumn="Date" DataSetColumn="Date" />
+              <Mapping SourceColumn="Itemcode" DataSetColumn="Itemcode" />
+              <Mapping SourceColumn="Discount" DataSetColumn="Discount" />
+              <Mapping SourceColumn="ITEM_DESC_ENG" DataSetColumn="ITEM_DESC_ENG" />
+              <Mapping SourceColumn="TYPE" DataSetColumn="TYPE" />
+              <Mapping SourceColumn="TypeName" DataSetColumn="TypeName" />
+              <Mapping SourceColumn="Categoryname" DataSetColumn="Categoryname" />
+              <Mapping SourceColumn="TMname" DataSetColumn="TMname" />
+              <Mapping SourceColumn="Groupname" DataSetColumn="Groupname" />
+              <Mapping SourceColumn="DOC_TYPE" DataSetColumn="DOC_TYPE" />
+              <Mapping SourceColumn="UOM" DataSetColumn="UOM" />
+              <Mapping SourceColumn="GROUP" DataSetColumn="GROUP" />
+              <Mapping SourceColumn="CATEGORY" DataSetColumn="CATEGORY" />
+              <Mapping SourceColumn="TRADEMARK" DataSetColumn="TRADEMARK" />
+              <Mapping SourceColumn="Unitname" DataSetColumn="Unitname" />
+              <Mapping SourceColumn="CUSTOMER_CODE" DataSetColumn="CUSTOMER_CODE" />
+              <Mapping SourceColumn="DocumentType" DataSetColumn="DocumentType" />
+              <Mapping SourceColumn="Customer" DataSetColumn="Customer" />
+              <Mapping SourceColumn="TaxTotal" DataSetColumn="TaxTotal" />
+              <Mapping SourceColumn="TotalDiscount" DataSetColumn="TotalDiscount" />
+              <Mapping SourceColumn="SALE_TYPE" DataSetColumn="SALE_TYPE" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="SYSBIZZConnectionString7 (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByDataDate" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByDataDate" GeneratorSourceName="FillByDataDate" GetMethodModifier="Public" GetMethodName="GetDataByDataDate" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByDataDate" UserSourceName="FillByDataDate">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        INV_SALES_HDR.DOC_ID AS INVOICENO, INV_SALES_HDR.DOC_NO AS Docno, INV_SALES_HDR.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY.TYPE, INV_ITEM_TYPE.DESC_ENG AS TypeName, INV_ITEM_CATEGORY.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM.DESC_ENG AS TMname, INV_ITEM_GROUP.DESC_ENG AS Groupname, INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, 
+                         INV_SALES_DTL.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, INV_ITEM_DIRECTORY.TRADEMARK, 
+                         INV_UNIT.DESC_ENG AS Unitname, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG AS Customer, SUM(INV_SALES_DTL.ITEM_TAX) * - 1 AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR.DOC_NO
+ORDER BY INV_SALES_DTL.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR.DISCOUNT * - 1 ELSE 0 END AS TotalDiscount, INV_SALES_HDR.SALE_TYPE
+FROM            INV_SALES_HDR LEFT OUTER JOIN
+                         INV_SALES_DTL ON INV_SALES_HDR.DOC_NO = INV_SALES_DTL.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY ON INV_SALES_DTL.ITEM_CODE = INV_ITEM_DIRECTORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM ON INV_ITEM_TM.CODE = INV_ITEM_DIRECTORY.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT ON INV_SALES_DTL.UOM = INV_UNIT.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE ON SYS_DOC_TYPE.CODE = INV_SALES_HDR.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR.DOC_TYPE = 'SAL.CSR') AND (INV_SALES_HDR.FLAGDEL = 'True') AND 
+                         (convert(varchar, INV_SALES_HDR.DOC_DATE_GRE, 101) &gt;= @date) AND (convert(varchar, INV_SALES_HDR.DOC_DATE_GRE,101) &lt;= @date2) AND (INV_SALES_HDR.SALE_TYPE LIKE '%' + @doc + '%') AND 
+                         INV_SALES_DTL.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR.DOC_ID, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_ITEM_DIRECTORY.TYPE, 
+                         INV_SALES_HDR.TAX_TOTAL, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                         INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, 
+                         INV_ITEM_DIRECTORY.TRADEMARK, INV_UNIT.DESC_ENG, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG, INV_SALES_HDR.DOC_NO, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG, INV_SALES_HDR.DISCOUNT, INV_SALES_HDR.SALE_TYPE
+UNION ALL
+SELECT        INV_SALES_HDR_3.DOC_ID AS INVOICENO, INV_SALES_HDR_3.DOC_NO AS Docno, INV_SALES_HDR_3.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_3.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_3.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_3.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_3.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_3.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_ITEM_TYPE_3.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_3.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_3.DESC_ENG AS TMname, INV_ITEM_GROUP_3.DESC_ENG AS Groupname, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, 
+                         INV_SALES_DTL_3.GROSS_TOTAL, INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, 
+                         INV_UNIT_3.DESC_ENG AS Unitname, INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_3.CUSTOMER_NAME_ENG AS Customer, SUM(INV_SALES_DTL_3.ITEM_TAX) AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_3.DOC_NO
+ORDER BY INV_SALES_DTL_3.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_3.DISCOUNT ELSE 0 END AS TotalDiscount, INV_SALES_HDR_3.SALE_TYPE
+FROM            INV_SALES_HDR AS INV_SALES_HDR_3 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_3 ON INV_SALES_HDR_3.DOC_NO = INV_SALES_DTL_3.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_3 ON INV_SALES_DTL_3.ITEM_CODE = INV_ITEM_DIRECTORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_3 ON INV_ITEM_DIRECTORY_3.TYPE = INV_ITEM_TYPE_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_3 ON INV_ITEM_DIRECTORY_3.CATEGORY = INV_ITEM_CATEGORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_3 ON INV_ITEM_TM_3.CODE = INV_ITEM_DIRECTORY_3.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_3 ON INV_SALES_DTL_3.UOM = INV_UNIT_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_3 ON INV_ITEM_DIRECTORY_3.[GROUP] = INV_ITEM_GROUP_3.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_3 ON SYS_DOC_TYPE_3.CODE = INV_SALES_HDR_3.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_3.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_3.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_3.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_3.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_3.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_3.DOC_TYPE = 'SAL.CRD') AND (INV_SALES_HDR_3.FLAGDEL = 'True') AND 
+                         (convert(varchar, INV_SALES_HDR_3.DOC_DATE_GRE,101) &gt;= @date) AND (convert(varchar, INV_SALES_HDR_3.DOC_DATE_GRE,101) &lt;= @date2) AND (INV_SALES_HDR_3.SALE_TYPE LIKE '%' + @doc + '%') 
+                         AND INV_SALES_DTL_3.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_3.DOC_ID, INV_SALES_HDR_3.DOC_DATE_GRE, INV_SALES_DTL_3.ITEM_CODE, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_SALES_HDR_3.TAX_TOTAL, INV_ITEM_TYPE_3.DESC_ENG, INV_ITEM_CATEGORY_3.DESC_ENG, 
+                         INV_ITEM_TM_3.DESC_ENG, INV_ITEM_GROUP_3.DESC_ENG, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, INV_SALES_DTL_3.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, INV_UNIT_3.DESC_ENG, 
+                         INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG, INV_SALES_HDR_3.DOC_NO, INV_SALES_HDR_3.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_3.DISCOUNT, INV_SALES_HDR_3.SALE_TYPE
+UNION ALL
+SELECT        INV_SALES_HDR_2.DOC_ID AS INVOICENO, INV_SALES_HDR_2.DOC_NO AS Docno, INV_SALES_HDR_2.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_2.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_2.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_2.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_2.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_2.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_ITEM_TYPE_2.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_2.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_2.DESC_ENG AS TMname, INV_ITEM_GROUP_2.DESC_ENG AS Groupname, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, 
+                         INV_SALES_DTL_2.GROSS_TOTAL, INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, 
+                         INV_UNIT_2.DESC_ENG AS Unitname, INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_2.CUSTOMER_NAME_ENG AS Customer, SUM(INV_SALES_DTL_2.ITEM_TAX) AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_2.DOC_NO
+ORDER BY INV_SALES_DTL_2.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_2.DISCOUNT ELSE 0 END AS TotalDiscount, INV_SALES_HDR_2.SALE_TYPE
+FROM            INV_SALES_HDR AS INV_SALES_HDR_2 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_2 ON INV_SALES_HDR_2.DOC_NO = INV_SALES_DTL_2.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_2 ON INV_SALES_DTL_2.ITEM_CODE = INV_ITEM_DIRECTORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_2 ON INV_ITEM_DIRECTORY_2.TYPE = INV_ITEM_TYPE_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_2 ON INV_ITEM_DIRECTORY_2.CATEGORY = INV_ITEM_CATEGORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_2 ON INV_ITEM_TM_2.CODE = INV_ITEM_DIRECTORY_2.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_2 ON INV_SALES_DTL_2.UOM = INV_UNIT_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_2 ON INV_ITEM_DIRECTORY_2.[GROUP] = INV_ITEM_GROUP_2.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_2 ON SYS_DOC_TYPE_2.CODE = INV_SALES_HDR_2.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_2.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_2.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_2.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_2.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_2.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_2.DOC_TYPE = 'SAL.CSS') AND (INV_SALES_HDR_2.FLAGDEL = 'True') AND 
+                         (convert(varchar, INV_SALES_HDR_2.DOC_DATE_GRE,101) &gt;= @date) AND (convert(varchar, INV_SALES_HDR_2.DOC_DATE_GRE,101) &lt;= @date2) AND (INV_SALES_HDR_2.SALE_TYPE LIKE '%' + @doc + '%') 
+                         AND INV_SALES_DTL_2.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_2.DOC_ID, INV_SALES_HDR_2.DOC_DATE_GRE, INV_SALES_DTL_2.ITEM_CODE, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_SALES_HDR_2.TAX_TOTAL, INV_ITEM_TYPE_2.DESC_ENG, INV_ITEM_CATEGORY_2.DESC_ENG, 
+                         INV_ITEM_TM_2.DESC_ENG, INV_ITEM_GROUP_2.DESC_ENG, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, INV_SALES_DTL_2.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, INV_UNIT_2.DESC_ENG, 
+                         INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG, INV_SALES_HDR_2.DOC_NO, INV_SALES_HDR_2.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_2.DISCOUNT, INV_SALES_HDR_2.SALE_TYPE
+UNION ALL
+SELECT        INV_SALES_HDR_1.DOC_ID AS INVOICENO, INV_SALES_HDR_1.DOC_NO AS Docno, INV_SALES_HDR_1.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_1.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_1.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL_1.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL_1.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL_1.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_ITEM_TYPE_1.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_1.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_1.DESC_ENG AS TMname, INV_ITEM_GROUP_1.DESC_ENG AS Groupname, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, 
+                         INV_SALES_DTL_1.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, 
+                         INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG AS Unitname, INV_SALES_HDR_1.CUSTOMER_CODE, 
+                         SYS_DOC_TYPE_1.DESC_ENG AS DocumentType, INV_SALES_HDR_1.CUSTOMER_NAME_ENG AS Customer, SUM(INV_SALES_DTL_1.ITEM_TAX) * - 1 AS TaxTotal, 
+                         CASE WHEN ROW_NUMBER() OVER (PARTITION BY INV_SALES_HDR_1.DOC_NO
+ORDER BY INV_SALES_DTL_1.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_1.DISCOUNT * - 1 ELSE 0 END AS TotalDiscount, INV_SALES_HDR_1.SALE_TYPE
+FROM            INV_SALES_HDR AS INV_SALES_HDR_1 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_1 ON INV_SALES_HDR_1.DOC_NO = INV_SALES_DTL_1.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_1 ON INV_SALES_DTL_1.ITEM_CODE = INV_ITEM_DIRECTORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_1 ON INV_ITEM_DIRECTORY_1.TYPE = INV_ITEM_TYPE_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_1 ON INV_ITEM_DIRECTORY_1.CATEGORY = INV_ITEM_CATEGORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_1 ON INV_ITEM_TM_1.CODE = INV_ITEM_DIRECTORY_1.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_1 ON INV_SALES_DTL_1.UOM = INV_UNIT_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_1 ON INV_ITEM_DIRECTORY_1.[GROUP] = INV_ITEM_GROUP_1.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_1 ON SYS_DOC_TYPE_1.CODE = INV_SALES_HDR_1.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_1.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_1.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_1.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_1.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_1.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_1.DOC_TYPE = 'SAL.CDR') AND (INV_SALES_HDR_1.FLAGDEL = 'True') AND 
+                         (convert(varchar, INV_SALES_HDR_1.DOC_DATE_GRE,101) &gt;= @date) AND (convert(varchar, INV_SALES_HDR_1.DOC_DATE_GRE ,101)&lt;= @date2) AND (INV_SALES_HDR_1.SALE_TYPE LIKE '%' + @doc + '%') 
+                         AND INV_SALES_DTL_1.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_1.DOC_ID, INV_SALES_HDR_1.DOC_DATE_GRE, INV_SALES_DTL_1.ITEM_CODE, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_SALES_HDR_1.TAX_TOTAL, INV_ITEM_TYPE_1.DESC_ENG, INV_ITEM_CATEGORY_1.DESC_ENG, 
+                         INV_ITEM_TM_1.DESC_ENG, INV_ITEM_GROUP_1.DESC_ENG, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, INV_SALES_DTL_1.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG, 
+                         INV_SALES_HDR_1.CUSTOMER_CODE, SYS_DOC_TYPE_1.DESC_ENG, INV_SALES_HDR_1.DOC_NO, INV_SALES_HDR_1.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_1.DISCOUNT, INV_SALES_HDR_1.SALE_TYPE</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="group" ColumnName="GROUP" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@group" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="GROUP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="category" ColumnName="CATEGORY" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@category" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="CATEGORY" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="trademark" ColumnName="TRADEMARK" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@trademark" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TRADEMARK" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="cus" ColumnName="CUSTOMER_CODE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@cus" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="CUSTOMER_CODE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="type" ColumnName="TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@type" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="doc" ColumnName="SALE_TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@doc" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="SALE_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@item" Precision="0" Scale="0" Size="0" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date" ColumnName="DOC_DATE_GRE" DataSourceName="" DataTypeServer="smalldatetime" DbType="DateTime" Direction="Input" ParameterName="@date" Precision="0" ProviderType="SmallDateTime" Scale="0" Size="4" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date2" ColumnName="DOC_DATE_GRE" DataSourceName="" DataTypeServer="smalldatetime" DbType="DateTime" Direction="Input" ParameterName="@date2" Precision="0" ProviderType="SmallDateTime" Scale="0" Size="4" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SYSBIZZConnectionString7 (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByDeletedInvoice" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillByDeletedInvoice" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillByDeletedInvoice">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        INV_SALES_HDR.DOC_ID AS INVOICENO, INV_SALES_HDR.DOC_NO AS Docno, INV_SALES_HDR.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY.TYPE, INV_ITEM_TYPE.DESC_ENG AS TypeName, INV_ITEM_CATEGORY.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM.DESC_ENG AS TMname, INV_ITEM_GROUP.DESC_ENG AS Groupname, INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.U + OM, 
+                         INV_SALES_DTL.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, INV_ITEM_DIRECTORY.TRADEMARK, 
+                         INV_UNIT.DESC_ENG AS Unitname, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG AS Customer, INV_SALES_HDR.TAX_TOTAL * - 1 AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR.DOC_NO
+ORDER BY INV_SALES_DTL.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR.DISCOUNT * - 1 ELSE 0 END AS TotalDiscount
+FROM            INV_SALES_HDR LEFT OUTER JOIN
+                         INV_SALES_DTL ON INV_SALES_HDR.DOC_NO = INV_SALES_DTL.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY ON INV_SALES_DTL.ITEM_CODE = INV_ITEM_DIRECTORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM ON INV_ITEM_TM.CODE = INV_ITEM_DIRECTORY.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT ON INV_SALES_DTL.UOM = INV_UNIT.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE ON SYS_DOC_TYPE.CODE = INV_SALES_HDR.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR.DOC_TYPE LIKE '%' + @doc + '%') AND (INV_SALES_HDR.DOC_TYPE = 'SAL.CSR') AND 
+                         (INV_SALES_HDR.FLAGDEL = 'False') AND INV_SALES_DTL.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR.DOC_ID, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_ITEM_DIRECTORY.TYPE, 
+                         INV_SALES_HDR.TAX_TOTAL, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                         INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, 
+                         INV_ITEM_DIRECTORY.TRADEMARK, INV_UNIT.DESC_ENG, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG, INV_SALES_HDR.DOC_NO, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG, INV_SALES_HDR.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_3.DOC_ID AS INVOICENO, INV_SALES_HDR_3.DOC_NO AS Docno, INV_SALES_HDR_3.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_3.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_3.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_3.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_3.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_3.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_ITEM_TYPE_3.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_3.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_3.DESC_ENG AS TMname, INV_ITEM_GROUP_3.DESC_ENG AS Groupname, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, 
+                         INV_SALES_DTL_3.GROSS_TOTAL, INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, 
+                         INV_UNIT_3.DESC_ENG AS Unitname, INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_3.CUSTOMER_NAME_ENG AS Customer, INV_SALES_HDR_3.TAX_TOTAL AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_3.DOC_NO
+ORDER BY INV_SALES_DTL_3.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_3.DISCOUNT ELSE 0 END AS TotalDiscount
+FROM            INV_SALES_HDR AS INV_SALES_HDR_3 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_3 ON INV_SALES_HDR_3.DOC_NO = INV_SALES_DTL_3.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_3 ON INV_SALES_DTL_3.ITEM_CODE = INV_ITEM_DIRECTORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_3 ON INV_ITEM_DIRECTORY_3.TYPE = INV_ITEM_TYPE_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_3 ON INV_ITEM_DIRECTORY_3.CATEGORY = INV_ITEM_CATEGORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_3 ON INV_ITEM_TM_3.CODE = INV_ITEM_DIRECTORY_3.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_3 ON INV_SALES_DTL_3.UOM = INV_UNIT_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_3 ON INV_ITEM_DIRECTORY_3.[GROUP] = INV_ITEM_GROUP_3.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_3 ON SYS_DOC_TYPE_3.CODE = INV_SALES_HDR_3.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_3.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_3.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_3.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_3.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_3.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_3.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_3.DOC_TYPE = 'SAL.CRD') AND (INV_SALES_HDR_3.FLAGDEL = 'False') AND INV_SALES_DTL_3.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_3.DOC_ID, INV_SALES_HDR_3.DOC_DATE_GRE, INV_SALES_DTL_3.ITEM_CODE, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_SALES_HDR_3.TAX_TOTAL, INV_ITEM_TYPE_3.DESC_ENG, INV_ITEM_CATEGORY_3.DESC_ENG, 
+                         INV_ITEM_TM_3.DESC_ENG, INV_ITEM_GROUP_3.DESC_ENG, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, INV_SALES_DTL_3.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, INV_UNIT_3.DESC_ENG, 
+                         INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG, INV_SALES_HDR_3.DOC_NO, INV_SALES_HDR_3.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_3.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_2.DOC_ID AS INVOICENO, INV_SALES_HDR_2.DOC_NO AS Docno, INV_SALES_HDR_2.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_2.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_2.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_2.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_2.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_2.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_ITEM_TYPE_2.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_2.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_2.DESC_ENG AS TMname, INV_ITEM_GROUP_2.DESC_ENG AS Groupname, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, 
+                         INV_SALES_DTL_2.GROSS_TOTAL, INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, 
+                         INV_UNIT_2.DESC_ENG AS Unitname, INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_2.CUSTOMER_NAME_ENG AS Customer, INV_SALES_HDR_2.TAX_TOTAL AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_2.DOC_NO
+ORDER BY INV_SALES_DTL_2.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_2.DISCOUNT ELSE 0 END AS TotalDiscount
+FROM            INV_SALES_HDR AS INV_SALES_HDR_2 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_2 ON INV_SALES_HDR_2.DOC_NO = INV_SALES_DTL_2.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_2 ON INV_SALES_DTL_2.ITEM_CODE = INV_ITEM_DIRECTORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_2 ON INV_ITEM_DIRECTORY_2.TYPE = INV_ITEM_TYPE_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_2 ON INV_ITEM_DIRECTORY_2.CATEGORY = INV_ITEM_CATEGORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_2 ON INV_ITEM_TM_2.CODE = INV_ITEM_DIRECTORY_2.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_2 ON INV_SALES_DTL_2.UOM = INV_UNIT_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_2 ON INV_ITEM_DIRECTORY_2.[GROUP] = INV_ITEM_GROUP_2.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_2 ON SYS_DOC_TYPE_2.CODE = INV_SALES_HDR_2.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_2.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_2.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_2.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_2.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_2.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_2.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_2.DOC_TYPE = 'SAL.CSS') AND (INV_SALES_HDR_2.FLAGDEL = 'False') AND INV_SALES_DTL_2.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_2.DOC_ID, INV_SALES_HDR_2.DOC_DATE_GRE, INV_SALES_DTL_2.ITEM_CODE, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_SALES_HDR_2.TAX_TOTAL, INV_ITEM_TYPE_2.DESC_ENG, INV_ITEM_CATEGORY_2.DESC_ENG, 
+                         INV_ITEM_TM_2.DESC_ENG, INV_ITEM_GROUP_2.DESC_ENG, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, INV_SALES_DTL_2.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, INV_UNIT_2.DESC_ENG, 
+                         INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG, INV_SALES_HDR_2.DOC_NO, INV_SALES_HDR_2.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_2.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_1.DOC_ID AS INVOICENO, INV_SALES_HDR_1.DOC_NO AS Docno, INV_SALES_HDR_1.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_1.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_1.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL_1.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL_1.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL_1.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_ITEM_TYPE_1.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_1.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_1.DESC_ENG AS TMname, INV_ITEM_GROUP_1.DESC_ENG AS Groupname, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, 
+                         INV_SALES_DTL_1.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, 
+                         INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG AS Unitname, INV_SALES_HDR_1.CUSTOMER_CODE, 
+                         SYS_DOC_TYPE_1.DESC_ENG AS DocumentType, INV_SALES_HDR_1.CUSTOMER_NAME_ENG AS Customer, INV_SALES_HDR_1.TAX_TOTAL * - 1 AS TaxTotal, 
+                         CASE WHEN ROW_NUMBER() OVER (PARTITION BY INV_SALES_HDR_1.DOC_NO
+ORDER BY INV_SALES_DTL_1.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_1.DISCOUNT * - 1 ELSE 0 END AS TotalDiscount
+FROM            INV_SALES_HDR AS INV_SALES_HDR_1 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_1 ON INV_SALES_HDR_1.DOC_NO = INV_SALES_DTL_1.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_1 ON INV_SALES_DTL_1.ITEM_CODE = INV_ITEM_DIRECTORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_1 ON INV_ITEM_DIRECTORY_1.TYPE = INV_ITEM_TYPE_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_1 ON INV_ITEM_DIRECTORY_1.CATEGORY = INV_ITEM_CATEGORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_1 ON INV_ITEM_TM_1.CODE = INV_ITEM_DIRECTORY_1.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_1 ON INV_SALES_DTL_1.UOM = INV_UNIT_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_1 ON INV_ITEM_DIRECTORY_1.[GROUP] = INV_ITEM_GROUP_1.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_1 ON SYS_DOC_TYPE_1.CODE = INV_SALES_HDR_1.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_1.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_1.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_1.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_1.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_1.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_1.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_1.DOC_TYPE = 'SAL.CDR') AND (INV_SALES_HDR_1.FLAGDEL = 'False') AND INV_SALES_DTL_1.ITEM_DESC_ENG LIKE '%' + @item + '%'
+GROUP BY INV_SALES_HDR_1.DOC_ID, INV_SALES_HDR_1.DOC_DATE_GRE, INV_SALES_DTL_1.ITEM_CODE, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_SALES_HDR_1.TAX_TOTAL, INV_ITEM_TYPE_1.DESC_ENG, INV_ITEM_CATEGORY_1.DESC_ENG, 
+                         INV_ITEM_TM_1.DESC_ENG, INV_ITEM_GROUP_1.DESC_ENG, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, INV_SALES_DTL_1.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG, 
+                         INV_SALES_HDR_1.CUSTOMER_CODE, SYS_DOC_TYPE_1.DESC_ENG, INV_SALES_HDR_1.DOC_NO, INV_SALES_HDR_1.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_1.DISCOUNT</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="group" ColumnName="GROUP" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@group" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="GROUP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="category" ColumnName="CATEGORY" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@category" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="CATEGORY" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="trademark" ColumnName="TRADEMARK" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@trademark" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TRADEMARK" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="cus" ColumnName="CUSTOMER_CODE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@cus" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="CUSTOMER_CODE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="type" ColumnName="TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@type" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="doc" ColumnName="DOC_TYPE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@doc" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="DOC_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SYSBIZZConnectionString7 (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByitem" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByitem" GeneratorSourceName="FillByitem" GetMethodModifier="Public" GetMethodName="GetDataByitem" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByitem" UserSourceName="FillByitem">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        INV_SALES_HDR.DOC_ID AS INVOICENO, INV_SALES_HDR.DOC_NO AS Docno, INV_SALES_HDR.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY.TYPE, INV_ITEM_TYPE.DESC_ENG AS TypeName, INV_ITEM_CATEGORY.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM.DESC_ENG AS TMname, INV_ITEM_GROUP.DESC_ENG AS Groupname, INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, 
+                         INV_SALES_DTL.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, INV_ITEM_DIRECTORY.TRADEMARK, 
+                         INV_UNIT.DESC_ENG AS Unitname, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL.ITEM_TAX * - 1 AS TaxTotal, INV_SALES_HDR.DISCOUNT * - 1 AS TotalDiscount
+FROM            INV_SALES_HDR LEFT OUTER JOIN
+                         INV_SALES_DTL ON INV_SALES_HDR.DOC_NO = INV_SALES_DTL.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY ON INV_SALES_DTL.ITEM_CODE = INV_ITEM_DIRECTORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM ON INV_ITEM_TM.CODE = INV_ITEM_DIRECTORY.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT ON INV_SALES_DTL.UOM = INV_UNIT.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE ON SYS_DOC_TYPE.CODE = INV_SALES_HDR.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY.CATEGORY LIKE '%' + @category + '%') AND (INV_ITEM_DIRECTORY.DESC_ENG LIKE '%' + @item1 + '%') AND 
+                         (INV_ITEM_DIRECTORY.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR.DOC_TYPE LIKE '%' + @doc + '%') AND (INV_SALES_HDR.DOC_TYPE = 'SAL.CSR') AND 
+                         (INV_SALES_HDR.FLAGDEL = 'True')
+GROUP BY INV_SALES_HDR.DOC_ID, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_ITEM_DIRECTORY.TYPE, 
+                         INV_SALES_DTL.ITEM_TAX, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                         INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, 
+                         INV_ITEM_DIRECTORY.TRADEMARK, INV_UNIT.DESC_ENG, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG, INV_SALES_HDR.DOC_NO, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG, INV_SALES_HDR.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_3.DOC_ID AS INVOICENO, INV_SALES_HDR_3.DOC_NO AS Docno, INV_SALES_HDR_3.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_3.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_3.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_3.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_3.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_3.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_ITEM_TYPE_3.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_3.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_3.DESC_ENG AS TMname, INV_ITEM_GROUP_3.DESC_ENG AS Groupname, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, 
+                         INV_SALES_DTL_3.GROSS_TOTAL, INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, 
+                         INV_UNIT_3.DESC_ENG AS Unitname, INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_3.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL_3.ITEM_TAX AS TaxTotal, INV_SALES_HDR_3.DISCOUNT AS TotalDiscount
+FROM            INV_SALES_HDR AS INV_SALES_HDR_3 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_3 ON INV_SALES_HDR_3.DOC_NO = INV_SALES_DTL_3.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_3 ON INV_SALES_DTL_3.ITEM_CODE = INV_ITEM_DIRECTORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_3 ON INV_ITEM_DIRECTORY_3.TYPE = INV_ITEM_TYPE_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_3 ON INV_ITEM_DIRECTORY_3.CATEGORY = INV_ITEM_CATEGORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_3 ON INV_ITEM_TM_3.CODE = INV_ITEM_DIRECTORY_3.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_3 ON INV_SALES_DTL_3.UOM = INV_UNIT_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_3 ON INV_ITEM_DIRECTORY_3.[GROUP] = INV_ITEM_GROUP_3.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_3 ON SYS_DOC_TYPE_3.CODE = INV_SALES_HDR_3.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_3.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_3.CATEGORY LIKE '%' + @category + '%') AND (INV_ITEM_DIRECTORY_3.DESC_ENG LIKE '%' + @item1 + '%') AND
+                         (INV_ITEM_DIRECTORY_3.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_3.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_3.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_3.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_3.DOC_TYPE = 'SAL.CRD') AND (INV_SALES_HDR_3.FLAGDEL = 'True')
+GROUP BY INV_SALES_HDR_3.DOC_ID, INV_SALES_HDR_3.DOC_DATE_GRE, INV_SALES_DTL_3.ITEM_CODE, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_SALES_DTL_3.ITEM_TAX, INV_ITEM_TYPE_3.DESC_ENG, INV_ITEM_CATEGORY_3.DESC_ENG, 
+                         INV_ITEM_TM_3.DESC_ENG, INV_ITEM_GROUP_3.DESC_ENG, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, INV_SALES_DTL_3.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, INV_UNIT_3.DESC_ENG, 
+                         INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG, INV_SALES_HDR_3.DOC_NO, INV_SALES_HDR_3.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_3.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_2.DOC_ID AS INVOICENO, INV_SALES_HDR_2.DOC_NO AS Docno, INV_SALES_HDR_2.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_2.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_2.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_2.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_2.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_2.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_ITEM_TYPE_2.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_2.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_2.DESC_ENG AS TMname, INV_ITEM_GROUP_2.DESC_ENG AS Groupname, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, 
+                         INV_SALES_DTL_2.GROSS_TOTAL, INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, 
+                         INV_UNIT_2.DESC_ENG AS Unitname, INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_2.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL_2.ITEM_TAX AS TaxTotal, INV_SALES_HDR_2.DISCOUNT AS TotalDiscount
+FROM            INV_SALES_HDR AS INV_SALES_HDR_2 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_2 ON INV_SALES_HDR_2.DOC_NO = INV_SALES_DTL_2.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_2 ON INV_SALES_DTL_2.ITEM_CODE = INV_ITEM_DIRECTORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_2 ON INV_ITEM_DIRECTORY_2.TYPE = INV_ITEM_TYPE_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_2 ON INV_ITEM_DIRECTORY_2.CATEGORY = INV_ITEM_CATEGORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_2 ON INV_ITEM_TM_2.CODE = INV_ITEM_DIRECTORY_2.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_2 ON INV_SALES_DTL_2.UOM = INV_UNIT_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_2 ON INV_ITEM_DIRECTORY_2.[GROUP] = INV_ITEM_GROUP_2.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_2 ON SYS_DOC_TYPE_2.CODE = INV_SALES_HDR_2.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_2.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_2.CATEGORY LIKE '%' + @category + '%') AND (INV_ITEM_DIRECTORY_2.DESC_ENG LIKE '%' + @item1 + '%') AND
+                         (INV_ITEM_DIRECTORY_2.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_2.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_2.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_2.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_2.DOC_TYPE = 'SAL.CSS') AND (INV_SALES_HDR_2.FLAGDEL = 'True')
+GROUP BY INV_SALES_HDR_2.DOC_ID, INV_SALES_HDR_2.DOC_DATE_GRE, INV_SALES_DTL_2.ITEM_CODE, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_SALES_DTL_2.ITEM_TAX, INV_ITEM_TYPE_2.DESC_ENG, INV_ITEM_CATEGORY_2.DESC_ENG, 
+                         INV_ITEM_TM_2.DESC_ENG, INV_ITEM_GROUP_2.DESC_ENG, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, INV_SALES_DTL_2.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, INV_UNIT_2.DESC_ENG, 
+                         INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG, INV_SALES_HDR_2.DOC_NO, INV_SALES_HDR_2.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_2.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_1.DOC_ID AS INVOICENO, INV_SALES_HDR_1.DOC_NO AS Docno, INV_SALES_HDR_1.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_1.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_1.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL_1.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL_1.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL_1.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_ITEM_TYPE_1.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_1.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_1.DESC_ENG AS TMname, INV_ITEM_GROUP_1.DESC_ENG AS Groupname, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, 
+                         INV_SALES_DTL_1.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, 
+                         INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG AS Unitname, INV_SALES_HDR_1.CUSTOMER_CODE, 
+                         SYS_DOC_TYPE_1.DESC_ENG AS DocumentType, INV_SALES_HDR_1.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL_1.ITEM_TAX * - 1 AS TaxTotal, 
+                         INV_SALES_HDR_1.DISCOUNT * - 1 AS TotalDiscount
+FROM            INV_SALES_HDR AS INV_SALES_HDR_1 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_1 ON INV_SALES_HDR_1.DOC_NO = INV_SALES_DTL_1.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_1 ON INV_SALES_DTL_1.ITEM_CODE = INV_ITEM_DIRECTORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_1 ON INV_ITEM_DIRECTORY_1.TYPE = INV_ITEM_TYPE_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_1 ON INV_ITEM_DIRECTORY_1.CATEGORY = INV_ITEM_CATEGORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_1 ON INV_ITEM_TM_1.CODE = INV_ITEM_DIRECTORY_1.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_1 ON INV_SALES_DTL_1.UOM = INV_UNIT_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_1 ON INV_ITEM_DIRECTORY_1.[GROUP] = INV_ITEM_GROUP_1.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_1 ON SYS_DOC_TYPE_1.CODE = INV_SALES_HDR_1.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_1.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_1.CATEGORY LIKE '%' + @category + '%') AND (INV_ITEM_DIRECTORY_1.DESC_ENG LIKE '%' + @item1 + '%') AND
+                         (INV_ITEM_DIRECTORY_1.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_1.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_1.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_1.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_1.DOC_TYPE = 'SAL.CDR') AND (INV_SALES_HDR_1.FLAGDEL = 'True')
+GROUP BY INV_SALES_HDR_1.DOC_ID, INV_SALES_HDR_1.DOC_DATE_GRE, INV_SALES_DTL_1.ITEM_CODE, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_SALES_DTL_1.ITEM_TAX, INV_ITEM_TYPE_1.DESC_ENG, INV_ITEM_CATEGORY_1.DESC_ENG, 
+                         INV_ITEM_TM_1.DESC_ENG, INV_ITEM_GROUP_1.DESC_ENG, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, INV_SALES_DTL_1.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG, 
+                         INV_SALES_HDR_1.CUSTOMER_CODE, SYS_DOC_TYPE_1.DESC_ENG, INV_SALES_HDR_1.DOC_NO, INV_SALES_HDR_1.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_1.DISCOUNT</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="group" ColumnName="GROUP" DataSourceName="[D:\ABDU\CLASSIC\SYSBIZZ\SYSBIZZ.MDF].dbo.INV_ITEM_DIRECTORY" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@group" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="GROUP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="category" ColumnName="CATEGORY" DataSourceName="[D:\ABDU\CLASSIC\SYSBIZZ\SYSBIZZ.MDF].dbo.INV_ITEM_DIRECTORY" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@category" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="CATEGORY" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="item1" ColumnName="DESC_ENG" DataSourceName="[D:\ABDU\CLASSIC\SYSBIZZ\SYSBIZZ.MDF].dbo.INV_ITEM_TYPE" DataTypeServer="nvarchar(MAX)" DbType="String" Direction="Input" ParameterName="@item1" Precision="0" ProviderType="NVarChar" Scale="0" Size="2147483647" SourceColumn="TypeName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="trademark" ColumnName="TRADEMARK" DataSourceName="[D:\ABDU\CLASSIC\SYSBIZZ\SYSBIZZ.MDF].dbo.INV_ITEM_DIRECTORY" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@trademark" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TRADEMARK" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="cus" ColumnName="CUSTOMER_CODE" DataSourceName="[D:\ABDU\CLASSIC\SYSBIZZ\SYSBIZZ.MDF].dbo.INV_SALES_HDR" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@cus" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="CUSTOMER_CODE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="type" ColumnName="TYPE" DataSourceName="[D:\ABDU\CLASSIC\SYSBIZZ\SYSBIZZ.MDF].dbo.INV_ITEM_DIRECTORY" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@type" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="doc" ColumnName="DOC_TYPE" DataSourceName="[D:\ABDU\CLASSIC\SYSBIZZ\SYSBIZZ.MDF].dbo.INV_SALES_HDR" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@doc" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="DOC_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SYSBIZZConnectionString7 (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByOnHDRDate" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByHDRDate" GeneratorSourceName="FillByOnHDRDate" GetMethodModifier="Public" GetMethodName="GetDataByHDRDate" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByHDRDate" UserSourceName="FillByOnHDRDate">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        INV_SALES_HDR.DOC_ID AS INVOICENO, INV_SALES_HDR.DOC_NO AS Docno, INV_SALES_HDR.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY.TYPE, INV_ITEM_TYPE.DESC_ENG AS TypeName, INV_ITEM_CATEGORY.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM.DESC_ENG AS TMname, INV_ITEM_GROUP.DESC_ENG AS Groupname, INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, 
+                         INV_SALES_DTL.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, INV_ITEM_DIRECTORY.TRADEMARK, 
+                         INV_UNIT.DESC_ENG AS Unitname, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG AS Customer, INV_SALES_HDR.TAX_TOTAL * - 1 AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR.DOC_NO
+ORDER BY INV_SALES_DTL.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR.DISCOUNT*-1  ELSE 0 END AS TotalDiscount
+
+FROM            INV_SALES_HDR LEFT OUTER JOIN
+                         INV_SALES_DTL ON INV_SALES_HDR.DOC_NO = INV_SALES_DTL.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY ON INV_SALES_DTL.ITEM_CODE = INV_ITEM_DIRECTORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM ON INV_ITEM_TM.CODE = INV_ITEM_DIRECTORY.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT ON INV_SALES_DTL.UOM = INV_UNIT.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE ON SYS_DOC_TYPE.CODE = INV_SALES_HDR.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR.DOC_TYPE LIKE '%' + @doc + '%') AND (INV_SALES_HDR.DOC_TYPE = 'SAL.CSR') AND 
+                         (INV_SALES_HDR.FLAGDEL = 'True') AND (INV_SALES_HDR.DOC_DATE_GRE &gt;= @date) AND (INV_SALES_HDR.DOC_DATE_GRE &lt;= @date2)
+GROUP BY INV_SALES_HDR.DOC_ID, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_ITEM_DIRECTORY.TYPE, 
+                         INV_SALES_HDR.TAX_TOTAL, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                         INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, 
+                         INV_ITEM_DIRECTORY.TRADEMARK, INV_UNIT.DESC_ENG, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG, INV_SALES_HDR.DOC_NO, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG, INV_SALES_HDR.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_3.DOC_ID AS INVOICENO, INV_SALES_HDR_3.DOC_NO AS Docno, INV_SALES_HDR_3.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_3.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_3.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_3.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_3.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_3.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_ITEM_TYPE_3.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_3.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_3.DESC_ENG AS TMname, INV_ITEM_GROUP_3.DESC_ENG AS Groupname, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, 
+                         INV_SALES_DTL_3.GROSS_TOTAL, INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, 
+                         INV_UNIT_3.DESC_ENG AS Unitname, INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_3.CUSTOMER_NAME_ENG AS Customer, INV_SALES_HDR_3.TAX_TOTAL AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_3.DOC_NO
+ORDER BY INV_SALES_DTL_3.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_3.DISCOUNT  ELSE 0 END AS TotalDiscount
+
+FROM            INV_SALES_HDR AS INV_SALES_HDR_3 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_3 ON INV_SALES_HDR_3.DOC_NO = INV_SALES_DTL_3.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_3 ON INV_SALES_DTL_3.ITEM_CODE = INV_ITEM_DIRECTORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_3 ON INV_ITEM_DIRECTORY_3.TYPE = INV_ITEM_TYPE_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_3 ON INV_ITEM_DIRECTORY_3.CATEGORY = INV_ITEM_CATEGORY_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_3 ON INV_ITEM_TM_3.CODE = INV_ITEM_DIRECTORY_3.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_3 ON INV_SALES_DTL_3.UOM = INV_UNIT_3.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_3 ON INV_ITEM_DIRECTORY_3.[GROUP] = INV_ITEM_GROUP_3.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_3 ON SYS_DOC_TYPE_3.CODE = INV_SALES_HDR_3.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_3.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_3.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_3.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_3.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_3.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_3.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_3.DOC_TYPE = 'SAL.CRD') AND (INV_SALES_HDR_3.FLAGDEL = 'True') AND (INV_SALES_HDR_3.DOC_DATE_GRE &gt;= @date) AND 
+                         (INV_SALES_HDR_3.DOC_DATE_GRE &lt;= @date2)
+GROUP BY INV_SALES_HDR_3.DOC_ID, INV_SALES_HDR_3.DOC_DATE_GRE, INV_SALES_DTL_3.ITEM_CODE, INV_SALES_DTL_3.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_3.TYPE, INV_SALES_HDR_3.TAX_TOTAL, INV_ITEM_TYPE_3.DESC_ENG, INV_ITEM_CATEGORY_3.DESC_ENG, 
+                         INV_ITEM_TM_3.DESC_ENG, INV_ITEM_GROUP_3.DESC_ENG, INV_SALES_HDR_3.DOC_TYPE, INV_SALES_DTL_3.UOM, INV_SALES_DTL_3.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_3.[GROUP], INV_ITEM_DIRECTORY_3.CATEGORY, INV_ITEM_DIRECTORY_3.TRADEMARK, INV_UNIT_3.DESC_ENG, 
+                         INV_SALES_HDR_3.CUSTOMER_CODE, SYS_DOC_TYPE_3.DESC_ENG, INV_SALES_HDR_3.DOC_NO, INV_SALES_HDR_3.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_3.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_2.DOC_ID AS INVOICENO, INV_SALES_HDR_2.DOC_NO AS Docno, INV_SALES_HDR_2.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_2.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_2.QUANTITY) AS Quantity, SUM(INV_SALES_DTL_2.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL_2.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL_2.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_ITEM_TYPE_2.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_2.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_2.DESC_ENG AS TMname, INV_ITEM_GROUP_2.DESC_ENG AS Groupname, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, 
+                         INV_SALES_DTL_2.GROSS_TOTAL, INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, 
+                         INV_UNIT_2.DESC_ENG AS Unitname, INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR_2.CUSTOMER_NAME_ENG AS Customer, INV_SALES_HDR_2.TAX_TOTAL AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_2.DOC_NO
+ORDER BY INV_SALES_DTL_2.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_2.DISCOUNT  ELSE 0 END AS TotalDiscount
+
+FROM            INV_SALES_HDR AS INV_SALES_HDR_2 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_2 ON INV_SALES_HDR_2.DOC_NO = INV_SALES_DTL_2.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_2 ON INV_SALES_DTL_2.ITEM_CODE = INV_ITEM_DIRECTORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_2 ON INV_ITEM_DIRECTORY_2.TYPE = INV_ITEM_TYPE_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_2 ON INV_ITEM_DIRECTORY_2.CATEGORY = INV_ITEM_CATEGORY_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_2 ON INV_ITEM_TM_2.CODE = INV_ITEM_DIRECTORY_2.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_2 ON INV_SALES_DTL_2.UOM = INV_UNIT_2.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_2 ON INV_ITEM_DIRECTORY_2.[GROUP] = INV_ITEM_GROUP_2.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_2 ON SYS_DOC_TYPE_2.CODE = INV_SALES_HDR_2.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_2.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_2.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_2.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_2.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_2.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_2.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_2.DOC_TYPE = 'SAL.CSS') AND (INV_SALES_HDR_2.FLAGDEL = 'True') AND (INV_SALES_HDR_2.DOC_DATE_GRE &gt;= @date) AND 
+                         (INV_SALES_HDR_2.DOC_DATE_GRE &lt;= @date2)
+GROUP BY INV_SALES_HDR_2.DOC_ID, INV_SALES_HDR_2.DOC_DATE_GRE, INV_SALES_DTL_2.ITEM_CODE, INV_SALES_DTL_2.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_2.TYPE, INV_SALES_HDR_2.TAX_TOTAL, INV_ITEM_TYPE_2.DESC_ENG, INV_ITEM_CATEGORY_2.DESC_ENG, 
+                         INV_ITEM_TM_2.DESC_ENG, INV_ITEM_GROUP_2.DESC_ENG, INV_SALES_HDR_2.DOC_TYPE, INV_SALES_DTL_2.UOM, INV_SALES_DTL_2.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_2.[GROUP], INV_ITEM_DIRECTORY_2.CATEGORY, INV_ITEM_DIRECTORY_2.TRADEMARK, INV_UNIT_2.DESC_ENG, 
+                         INV_SALES_HDR_2.CUSTOMER_CODE, SYS_DOC_TYPE_2.DESC_ENG, INV_SALES_HDR_2.DOC_NO, INV_SALES_HDR_2.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_2.DISCOUNT
+UNION ALL
+SELECT        INV_SALES_HDR_1.DOC_ID AS INVOICENO, INV_SALES_HDR_1.DOC_NO AS Docno, INV_SALES_HDR_1.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL_1.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL_1.QUANTITY) * - 1 AS Quantity, SUM(INV_SALES_DTL_1.GROSS_TOTAL) * - 1 AS GrossTotal, 
+                         SUM(INV_SALES_DTL_1.ITEM_TOTAL) * - 1 AS ItemTotal, SUM(INV_SALES_DTL_1.ITEM_DISCOUNT) * - 1 AS Discount, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_ITEM_TYPE_1.DESC_ENG AS TypeName, INV_ITEM_CATEGORY_1.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM_1.DESC_ENG AS TMname, INV_ITEM_GROUP_1.DESC_ENG AS Groupname, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, 
+                         INV_SALES_DTL_1.GROSS_TOTAL * - 1 AS GROSS_TOTAL, INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, 
+                         INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG AS Unitname, INV_SALES_HDR_1.CUSTOMER_CODE, 
+                         SYS_DOC_TYPE_1.DESC_ENG AS DocumentType, INV_SALES_HDR_1.CUSTOMER_NAME_ENG AS Customer, INV_SALES_HDR_1.TAX_TOTAL * - 1 AS TaxTotal, 
+                        CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR_1.DOC_NO
+ORDER BY INV_SALES_DTL_1.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR_1.DISCOUNT  ELSE 0 END AS TotalDiscount
+
+FROM            INV_SALES_HDR AS INV_SALES_HDR_1 LEFT OUTER JOIN
+                         INV_SALES_DTL AS INV_SALES_DTL_1 ON INV_SALES_HDR_1.DOC_NO = INV_SALES_DTL_1.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY AS INV_ITEM_DIRECTORY_1 ON INV_SALES_DTL_1.ITEM_CODE = INV_ITEM_DIRECTORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE AS INV_ITEM_TYPE_1 ON INV_ITEM_DIRECTORY_1.TYPE = INV_ITEM_TYPE_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY AS INV_ITEM_CATEGORY_1 ON INV_ITEM_DIRECTORY_1.CATEGORY = INV_ITEM_CATEGORY_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM AS INV_ITEM_TM_1 ON INV_ITEM_TM_1.CODE = INV_ITEM_DIRECTORY_1.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT AS INV_UNIT_1 ON INV_SALES_DTL_1.UOM = INV_UNIT_1.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP AS INV_ITEM_GROUP_1 ON INV_ITEM_DIRECTORY_1.[GROUP] = INV_ITEM_GROUP_1.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE AS SYS_DOC_TYPE_1 ON SYS_DOC_TYPE_1.CODE = INV_SALES_HDR_1.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY_1.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY_1.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY_1.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR_1.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY_1.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR_1.DOC_TYPE LIKE '%' + @doc + '%') AND 
+                         (INV_SALES_HDR_1.DOC_TYPE = 'SAL.CDR') AND (INV_SALES_HDR_1.FLAGDEL = 'True') AND (INV_SALES_HDR_1.DOC_DATE_GRE &gt;= @date) AND 
+                         (INV_SALES_HDR_1.DOC_DATE_GRE &lt;= @date2)
+GROUP BY INV_SALES_HDR_1.DOC_ID, INV_SALES_HDR_1.DOC_DATE_GRE, INV_SALES_DTL_1.ITEM_CODE, INV_SALES_DTL_1.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY_1.TYPE, INV_SALES_HDR_1.TAX_TOTAL, INV_ITEM_TYPE_1.DESC_ENG, INV_ITEM_CATEGORY_1.DESC_ENG, 
+                         INV_ITEM_TM_1.DESC_ENG, INV_ITEM_GROUP_1.DESC_ENG, INV_SALES_HDR_1.DOC_TYPE, INV_SALES_DTL_1.UOM, INV_SALES_DTL_1.GROSS_TOTAL, 
+                         INV_ITEM_DIRECTORY_1.[GROUP], INV_ITEM_DIRECTORY_1.CATEGORY, INV_ITEM_DIRECTORY_1.TRADEMARK, INV_UNIT_1.DESC_ENG, 
+                         INV_SALES_HDR_1.CUSTOMER_CODE, SYS_DOC_TYPE_1.DESC_ENG, INV_SALES_HDR_1.DOC_NO, INV_SALES_HDR_1.CUSTOMER_NAME_ENG, 
+                         INV_SALES_HDR_1.DISCOUNT</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="group" ColumnName="GROUP" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@group" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="GROUP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="category" ColumnName="CATEGORY" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@category" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="CATEGORY" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="trademark" ColumnName="TRADEMARK" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@trademark" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TRADEMARK" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="cus" ColumnName="CUSTOMER_CODE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@cus" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="CUSTOMER_CODE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="type" ColumnName="TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@type" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="doc" ColumnName="DOC_TYPE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@doc" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="DOC_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date" ColumnName="DOC_DATE_GRE" DataSourceName="" DataTypeServer="smalldatetime" DbType="DateTime" Direction="Input" ParameterName="@date" Precision="0" ProviderType="SmallDateTime" Scale="0" Size="4" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date2" ColumnName="DOC_DATE_GRE" DataSourceName="" DataTypeServer="smalldatetime" DbType="DateTime" Direction="Input" ParameterName="@date2" Precision="0" ProviderType="SmallDateTime" Scale="0" Size="4" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SYSBIZZConnectionString7 (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBySaleType" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBySaleType" GeneratorSourceName="FillBySaleType" GetMethodModifier="Public" GetMethodName="GetDataBySaleType" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBySaleType" UserSourceName="FillBySaleType">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        INV_SALES_HDR.DOC_ID AS INVOICENO, INV_SALES_HDR.DOC_NO AS Docno, INV_SALES_HDR.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL.QUANTITY) AS Quantity, SUM(INV_SALES_DTL.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY.TYPE, INV_ITEM_TYPE.DESC_ENG AS TypeName, INV_ITEM_CATEGORY.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM.DESC_ENG AS TMname, INV_ITEM_GROUP.DESC_ENG AS Groupname, INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, 
+                         INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, INV_ITEM_DIRECTORY.TRADEMARK, 
+                         INV_UNIT.DESC_ENG AS Unitname, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG AS Customer, INV_SALES_DTL.ITEM_TAX AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR.DOC_NO
+ORDER BY INV_SALES_DTL.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR.DISCOUNT ELSE 0 END AS TotalDiscount, 
+                         INV_SALES_HDR.SALE_TYPE
+FROM            INV_SALES_HDR LEFT OUTER JOIN
+                         INV_SALES_DTL ON INV_SALES_HDR.DOC_NO = INV_SALES_DTL.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY ON INV_SALES_DTL.ITEM_CODE = INV_ITEM_DIRECTORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM ON INV_ITEM_TM.CODE = INV_ITEM_DIRECTORY.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT ON INV_SALES_DTL.UOM = INV_UNIT.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE ON SYS_DOC_TYPE.CODE = INV_SALES_HDR.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_SALES_DTL.ITEM_DESC_ENG LIKE '%' + @item1 + '%') AND (INV_ITEM_DIRECTORY.TRADEMARK LIKE '%' + @trademark + '%') AND 
+                         (INV_SALES_HDR.CUSTOMER_CODE LIKE '%' + @cus + '%') AND (INV_ITEM_DIRECTORY.TYPE LIKE '%' + @type + '%') AND 
+                         (INV_SALES_HDR.DOC_TYPE LIKE '%' + @stype + '%') AND (INV_SALES_HDR.FLAGDEL = 'True') AND (INV_SALES_HDR.SALE_TYPE LIKE '%' + @doc + '%')
+GROUP BY INV_SALES_HDR.DOC_ID, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_ITEM_DIRECTORY.TYPE, 
+                         INV_SALES_DTL.ITEM_TAX, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                         INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, 
+                         INV_ITEM_DIRECTORY.TRADEMARK, INV_UNIT.DESC_ENG, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG, INV_SALES_HDR.DOC_NO, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG, INV_SALES_HDR.DISCOUNT, INV_SALES_HDR.SALE_TYPE</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="group" ColumnName="GROUP" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@group" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="GROUP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="category" ColumnName="CATEGORY" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@category" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="CATEGORY" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="trademark" ColumnName="TRADEMARK" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@trademark" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TRADEMARK" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="cus" ColumnName="CUSTOMER_CODE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@cus" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="CUSTOMER_CODE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="type" ColumnName="TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@type" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="item1" ColumnName="DESC_ENG" DataSourceName="" DataTypeServer="nvarchar(MAX)" DbType="String" Direction="Input" ParameterName="@item1" Precision="0" ProviderType="NVarChar" Scale="0" Size="2147483647" SourceColumn="DESC_ENG" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="stype" ColumnName="DOC_TYPE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@stype" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="DOC_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="doc" ColumnName="SALE_TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@doc" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="SALE_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SYSBIZZConnectionString7 (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBySaleTypeDate" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBySaleTypeDate" GeneratorSourceName="FillBySaleTypeDate" GetMethodModifier="Public" GetMethodName="GetDataBySaleTypeDate" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBySaleTypeDate" UserSourceName="FillBySaleTypeDate">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        INV_SALES_HDR.DOC_ID AS INVOICENO, INV_SALES_HDR.DOC_NO AS Docno, INV_SALES_HDR.DOC_DATE_GRE AS Date, 
+                         INV_SALES_DTL.ITEM_CODE AS Itemcode, SUM(INV_SALES_DTL.QUANTITY) AS Quantity, SUM(INV_SALES_DTL.GROSS_TOTAL) AS GrossTotal, 
+                         SUM(INV_SALES_DTL.ITEM_TOTAL) AS ItemTotal, SUM(INV_SALES_DTL.ITEM_DISCOUNT) AS Discount, INV_SALES_DTL.ITEM_DESC_ENG, 
+                         INV_ITEM_DIRECTORY.TYPE, INV_ITEM_TYPE.DESC_ENG AS TypeName, INV_ITEM_CATEGORY.DESC_ENG AS Categoryname, 
+                         INV_ITEM_TM.DESC_ENG AS TMname, INV_ITEM_GROUP.DESC_ENG AS Groupname, INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, 
+                         INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, INV_ITEM_DIRECTORY.TRADEMARK, 
+                         INV_UNIT.DESC_ENG AS Unitname, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG AS DocumentType, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG AS Customer, SUM(INV_SALES_DTL.ITEM_TAX) AS TaxTotal, CASE WHEN ROW_NUMBER() OVER (PARTITION BY 
+                         INV_SALES_HDR.DOC_NO
+ORDER BY INV_SALES_DTL.ITEM_DESC_ENG) = 1 THEN INV_SALES_HDR.DISCOUNT ELSE 0 END AS TotalDiscount, 
+                         INV_SALES_HDR.SALE_TYPE
+FROM            INV_SALES_HDR LEFT OUTER JOIN
+                         INV_SALES_DTL ON INV_SALES_HDR.DOC_NO = INV_SALES_DTL.DOC_NO LEFT OUTER JOIN
+                         INV_ITEM_DIRECTORY ON INV_SALES_DTL.ITEM_CODE = INV_ITEM_DIRECTORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TYPE ON INV_ITEM_DIRECTORY.TYPE = INV_ITEM_TYPE.CODE LEFT OUTER JOIN
+                         INV_ITEM_CATEGORY ON INV_ITEM_DIRECTORY.CATEGORY = INV_ITEM_CATEGORY.CODE LEFT OUTER JOIN
+                         INV_ITEM_TM ON INV_ITEM_TM.CODE = INV_ITEM_DIRECTORY.TRADEMARK LEFT OUTER JOIN
+                         INV_UNIT ON INV_SALES_DTL.UOM = INV_UNIT.CODE LEFT OUTER JOIN
+                         INV_ITEM_GROUP ON INV_ITEM_DIRECTORY.[GROUP] = INV_ITEM_GROUP.CODE LEFT OUTER JOIN
+                         SYS_DOC_TYPE ON SYS_DOC_TYPE.CODE = INV_SALES_HDR.DOC_TYPE
+WHERE        (INV_ITEM_DIRECTORY.[GROUP] LIKE '%' + @group + '%') AND (INV_ITEM_DIRECTORY.CATEGORY LIKE '%' + @category + '%') AND 
+                         (INV_ITEM_DIRECTORY.TRADEMARK LIKE '%' + @trademark + '%') AND (INV_SALES_HDR.CUSTOMER_CODE LIKE '%' + @cus + '%') AND 
+                         (INV_ITEM_DIRECTORY.TYPE LIKE '%' + @type + '%') AND (INV_SALES_HDR.DOC_TYPE LIKE '%' + @stype + '%') AND (INV_SALES_HDR.FLAGDEL = 'True') AND 
+                         (INV_SALES_HDR.DOC_DATE_GRE &gt;= @date) AND (INV_SALES_HDR.DOC_DATE_GRE &lt;= @date2) AND (INV_SALES_HDR.SALE_TYPE LIKE '%' + @doc + '%')AND ( INV_SALES_DTL.ITEM_DESC_ENG LIKE '%' + @item + '%')
+GROUP BY INV_SALES_HDR.DOC_ID, INV_SALES_HDR.DOC_DATE_GRE, INV_SALES_DTL.ITEM_CODE, INV_SALES_DTL.ITEM_DESC_ENG, INV_ITEM_DIRECTORY.TYPE, 
+                         INV_SALES_HDR.TAX_TOTAL, INV_ITEM_TYPE.DESC_ENG, INV_ITEM_CATEGORY.DESC_ENG, INV_ITEM_TM.DESC_ENG, INV_ITEM_GROUP.DESC_ENG, 
+                         INV_SALES_HDR.DOC_TYPE, INV_SALES_DTL.UOM, INV_SALES_DTL.GROSS_TOTAL, INV_ITEM_DIRECTORY.[GROUP], INV_ITEM_DIRECTORY.CATEGORY, 
+                         INV_ITEM_DIRECTORY.TRADEMARK, INV_UNIT.DESC_ENG, INV_SALES_HDR.CUSTOMER_CODE, SYS_DOC_TYPE.DESC_ENG, INV_SALES_HDR.DOC_NO, 
+                         INV_SALES_HDR.CUSTOMER_NAME_ENG, INV_SALES_HDR.DISCOUNT, INV_SALES_HDR.SALE_TYPE</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="group" ColumnName="GROUP" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@group" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="GROUP" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="category" ColumnName="CATEGORY" DataSourceName="" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@category" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="CATEGORY" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="trademark" ColumnName="TRADEMARK" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@trademark" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TRADEMARK" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="cus" ColumnName="CUSTOMER_CODE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@cus" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="CUSTOMER_CODE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="type" ColumnName="TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@type" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="stype" ColumnName="DOC_TYPE" DataSourceName="" DataTypeServer="nvarchar(15)" DbType="String" Direction="Input" ParameterName="@stype" Precision="0" ProviderType="NVarChar" Scale="0" Size="15" SourceColumn="DOC_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date" ColumnName="DOC_DATE_GRE" DataSourceName="" DataTypeServer="smalldatetime" DbType="DateTime" Direction="Input" ParameterName="@date" Precision="0" ProviderType="SmallDateTime" Scale="0" Size="4" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="date2" ColumnName="DOC_DATE_GRE" DataSourceName="" DataTypeServer="smalldatetime" DbType="DateTime" Direction="Input" ParameterName="@date2" Precision="0" ProviderType="SmallDateTime" Scale="0" Size="4" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="doc" ColumnName="SALE_TYPE" DataSourceName="" DataTypeServer="nvarchar(3)" DbType="String" Direction="Input" ParameterName="@doc" Precision="0" ProviderType="NVarChar" Scale="0" Size="3" SourceColumn="SALE_TYPE" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@item" Precision="0" Scale="0" Size="0" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="SalesReportDatasetOnHDR" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="SalesReportDatasetOnHDR" msprop:Generator_UserDSName="SalesReportDatasetOnHDR">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="INVOICENO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnINVOICENO" msprop:Generator_ColumnPropNameInRow="INVOICENO" msprop:Generator_ColumnPropNameInTable="INVOICENOColumn" msprop:Generator_UserColumnName="INVOICENO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Docno" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDocno" msprop:Generator_ColumnPropNameInRow="Docno" msprop:Generator_ColumnPropNameInTable="DocnoColumn" msprop:Generator_UserColumnName="Docno" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Date" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_UserColumnName="Date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Itemcode" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnItemcode" msprop:Generator_ColumnPropNameInRow="Itemcode" msprop:Generator_ColumnPropNameInTable="ItemcodeColumn" msprop:Generator_UserColumnName="Itemcode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Quantity" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnQuantity" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_UserColumnName="Quantity" type="xs:int" minOccurs="0" />
+              <xs:element name="GrossTotal" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnGrossTotal" msprop:Generator_ColumnPropNameInRow="GrossTotal" msprop:Generator_ColumnPropNameInTable="GrossTotalColumn" msprop:Generator_UserColumnName="GrossTotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ItemTotal" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnItemTotal" msprop:Generator_ColumnPropNameInRow="ItemTotal" msprop:Generator_ColumnPropNameInTable="ItemTotalColumn" msprop:Generator_UserColumnName="ItemTotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Discount" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDiscount" msprop:Generator_ColumnPropNameInRow="Discount" msprop:Generator_ColumnPropNameInTable="DiscountColumn" msprop:Generator_UserColumnName="Discount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ITEM_DESC_ENG" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnITEM_DESC_ENG" msprop:Generator_ColumnPropNameInRow="ITEM_DESC_ENG" msprop:Generator_ColumnPropNameInTable="ITEM_DESC_ENGColumn" msprop:Generator_UserColumnName="ITEM_DESC_ENG" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="550" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TYPE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTYPE" msprop:Generator_ColumnPropNameInRow="TYPE" msprop:Generator_ColumnPropNameInTable="TYPEColumn" msprop:Generator_UserColumnName="TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TypeName" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTypeName" msprop:Generator_ColumnPropNameInRow="TypeName" msprop:Generator_ColumnPropNameInTable="TypeNameColumn" msprop:Generator_UserColumnName="TypeName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Categoryname" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCategoryname" msprop:Generator_ColumnPropNameInRow="Categoryname" msprop:Generator_ColumnPropNameInTable="CategorynameColumn" msprop:Generator_UserColumnName="Categoryname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TMname" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTMname" msprop:Generator_ColumnPropNameInRow="TMname" msprop:Generator_ColumnPropNameInTable="TMnameColumn" msprop:Generator_UserColumnName="TMname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Groupname" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnGroupname" msprop:Generator_ColumnPropNameInRow="Groupname" msprop:Generator_ColumnPropNameInTable="GroupnameColumn" msprop:Generator_UserColumnName="Groupname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DOC_TYPE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDOC_TYPE" msprop:Generator_ColumnPropNameInRow="DOC_TYPE" msprop:Generator_ColumnPropNameInTable="DOC_TYPEColumn" msprop:Generator_UserColumnName="DOC_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UOM" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnUOM" msprop:Generator_ColumnPropNameInRow="UOM" msprop:Generator_ColumnPropNameInTable="UOMColumn" msprop:Generator_UserColumnName="UOM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="GROSS_TOTAL" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnGROSS_TOTAL" msprop:Generator_ColumnPropNameInRow="GROSS_TOTAL" msprop:Generator_ColumnPropNameInTable="GROSS_TOTALColumn" msprop:Generator_UserColumnName="GROSS_TOTAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="GROUP" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnGROUP" msprop:Generator_ColumnPropNameInRow="GROUP" msprop:Generator_ColumnPropNameInTable="GROUPColumn" msprop:Generator_UserColumnName="GROUP" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CATEGORY" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCATEGORY" msprop:Generator_ColumnPropNameInRow="CATEGORY" msprop:Generator_ColumnPropNameInTable="CATEGORYColumn" msprop:Generator_UserColumnName="CATEGORY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TRADEMARK" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTRADEMARK" msprop:Generator_ColumnPropNameInRow="TRADEMARK" msprop:Generator_ColumnPropNameInTable="TRADEMARKColumn" msprop:Generator_UserColumnName="TRADEMARK" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Unitname" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnUnitname" msprop:Generator_ColumnPropNameInRow="Unitname" msprop:Generator_ColumnPropNameInTable="UnitnameColumn" msprop:Generator_UserColumnName="Unitname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CUSTOMER_CODE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER_CODE" msprop:Generator_ColumnPropNameInRow="CUSTOMER_CODE" msprop:Generator_ColumnPropNameInTable="CUSTOMER_CODEColumn" msprop:Generator_UserColumnName="CUSTOMER_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DocumentType" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDocumentType" msprop:Generator_ColumnPropNameInRow="DocumentType" msprop:Generator_ColumnPropNameInTable="DocumentTypeColumn" msprop:Generator_UserColumnName="DocumentType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Customer" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCustomer" msprop:Generator_ColumnPropNameInRow="Customer" msprop:Generator_ColumnPropNameInTable="CustomerColumn" msprop:Generator_UserColumnName="Customer" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TaxTotal" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTaxTotal" msprop:Generator_ColumnPropNameInRow="TaxTotal" msprop:Generator_ColumnPropNameInTable="TaxTotalColumn" msprop:Generator_UserColumnName="TaxTotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalDiscount" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTotalDiscount" msprop:Generator_ColumnPropNameInRow="TotalDiscount" msprop:Generator_ColumnPropNameInTable="TotalDiscountColumn" msprop:Generator_UserColumnName="TotalDiscount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SALE_TYPE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSALE_TYPE" msprop:Generator_ColumnPropNameInRow="SALE_TYPE" msprop:Generator_ColumnPropNameInTable="SALE_TYPEColumn" msprop:Generator_UserColumnName="SALE_TYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SalesmanReport" msprop:Generator_TableClassName="SalesmanReportDataTable" msprop:Generator_TableVarName="tableSalesmanReport" msprop:Generator_TablePropName="SalesmanReport" msprop:Generator_RowDeletingName="SalesmanReportRowDeleting" msprop:Generator_RowChangingName="SalesmanReportRowChanging" msprop:Generator_RowEvHandlerName="SalesmanReportRowChangeEventHandler" msprop:Generator_RowDeletedName="SalesmanReportRowDeleted" msprop:Generator_UserTableName="SalesmanReport" msprop:Generator_RowChangedName="SalesmanReportRowChanged" msprop:Generator_RowEvArgName="SalesmanReportRowChangeEvent" msprop:Generator_RowClassName="SalesmanReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="INVOICENO" msprop:Generator_ColumnVarNameInTable="columnINVOICENO" msprop:Generator_ColumnPropNameInRow="INVOICENO" msprop:Generator_ColumnPropNameInTable="INVOICENOColumn" msprop:Generator_UserColumnName="INVOICENO" type="xs:string" minOccurs="0" />
+              <xs:element name="Docno" msprop:Generator_ColumnVarNameInTable="columnDocno" msprop:Generator_ColumnPropNameInRow="Docno" msprop:Generator_ColumnPropNameInTable="DocnoColumn" msprop:Generator_UserColumnName="Docno" type="xs:string" minOccurs="0" />
+              <xs:element name="Date" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_UserColumnName="Date" type="xs:string" minOccurs="0" />
+              <xs:element name="Itemcode" msprop:Generator_ColumnVarNameInTable="columnItemcode" msprop:Generator_ColumnPropNameInRow="Itemcode" msprop:Generator_ColumnPropNameInTable="ItemcodeColumn" msprop:Generator_UserColumnName="Itemcode" type="xs:string" minOccurs="0" />
+              <xs:element name="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_UserColumnName="Quantity" type="xs:string" minOccurs="0" />
+              <xs:element name="GrossTotal" msprop:Generator_ColumnVarNameInTable="columnGrossTotal" msprop:Generator_ColumnPropNameInRow="GrossTotal" msprop:Generator_ColumnPropNameInTable="GrossTotalColumn" msprop:Generator_UserColumnName="GrossTotal" type="xs:string" minOccurs="0" />
+              <xs:element name="ItemTotal" msprop:Generator_ColumnVarNameInTable="columnItemTotal" msprop:Generator_ColumnPropNameInRow="ItemTotal" msprop:Generator_ColumnPropNameInTable="ItemTotalColumn" msprop:Generator_UserColumnName="ItemTotal" type="xs:string" minOccurs="0" />
+              <xs:element name="Discount" msprop:Generator_ColumnVarNameInTable="columnDiscount" msprop:Generator_ColumnPropNameInRow="Discount" msprop:Generator_ColumnPropNameInTable="DiscountColumn" msprop:Generator_UserColumnName="Discount" type="xs:string" minOccurs="0" />
+              <xs:element name="ITEM_DESC_ENG" msprop:Generator_ColumnVarNameInTable="columnITEM_DESC_ENG" msprop:Generator_ColumnPropNameInRow="ITEM_DESC_ENG" msprop:Generator_ColumnPropNameInTable="ITEM_DESC_ENGColumn" msprop:Generator_UserColumnName="ITEM_DESC_ENG" type="xs:string" minOccurs="0" />
+              <xs:element name="TYPE" msprop:Generator_ColumnVarNameInTable="columnTYPE" msprop:Generator_ColumnPropNameInRow="TYPE" msprop:Generator_ColumnPropNameInTable="TYPEColumn" msprop:Generator_UserColumnName="TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="TypeName" msprop:Generator_ColumnVarNameInTable="columnTypeName" msprop:Generator_ColumnPropNameInRow="TypeName" msprop:Generator_ColumnPropNameInTable="TypeNameColumn" msprop:Generator_UserColumnName="TypeName" type="xs:string" minOccurs="0" />
+              <xs:element name="Categoryname" msprop:Generator_ColumnVarNameInTable="columnCategoryname" msprop:Generator_ColumnPropNameInRow="Categoryname" msprop:Generator_ColumnPropNameInTable="CategorynameColumn" msprop:Generator_UserColumnName="Categoryname" type="xs:string" minOccurs="0" />
+              <xs:element name="TMname" msprop:Generator_ColumnVarNameInTable="columnTMname" msprop:Generator_ColumnPropNameInRow="TMname" msprop:Generator_ColumnPropNameInTable="TMnameColumn" msprop:Generator_UserColumnName="TMname" type="xs:string" minOccurs="0" />
+              <xs:element name="Groupname" msprop:Generator_ColumnVarNameInTable="columnGroupname" msprop:Generator_ColumnPropNameInRow="Groupname" msprop:Generator_ColumnPropNameInTable="GroupnameColumn" msprop:Generator_UserColumnName="Groupname" type="xs:string" minOccurs="0" />
+              <xs:element name="DOC_TYPE" msprop:Generator_ColumnVarNameInTable="columnDOC_TYPE" msprop:Generator_ColumnPropNameInRow="DOC_TYPE" msprop:Generator_ColumnPropNameInTable="DOC_TYPEColumn" msprop:Generator_UserColumnName="DOC_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="UOM" msprop:Generator_ColumnVarNameInTable="columnUOM" msprop:Generator_ColumnPropNameInRow="UOM" msprop:Generator_ColumnPropNameInTable="UOMColumn" msprop:Generator_UserColumnName="UOM" type="xs:string" minOccurs="0" />
+              <xs:element name="GROSS_TOTAL" msprop:Generator_ColumnVarNameInTable="columnGROSS_TOTAL" msprop:Generator_ColumnPropNameInRow="GROSS_TOTAL" msprop:Generator_ColumnPropNameInTable="GROSS_TOTALColumn" msprop:Generator_UserColumnName="GROSS_TOTAL" type="xs:string" minOccurs="0" />
+              <xs:element name="GROUP" msprop:Generator_ColumnVarNameInTable="columnGROUP" msprop:Generator_ColumnPropNameInRow="GROUP" msprop:Generator_ColumnPropNameInTable="GROUPColumn" msprop:Generator_UserColumnName="GROUP" type="xs:string" minOccurs="0" />
+              <xs:element name="CATEGORY" msprop:Generator_ColumnVarNameInTable="columnCATEGORY" msprop:Generator_ColumnPropNameInRow="CATEGORY" msprop:Generator_ColumnPropNameInTable="CATEGORYColumn" msprop:Generator_UserColumnName="CATEGORY" type="xs:string" minOccurs="0" />
+              <xs:element name="TRADEMARK" msprop:Generator_ColumnVarNameInTable="columnTRADEMARK" msprop:Generator_ColumnPropNameInRow="TRADEMARK" msprop:Generator_ColumnPropNameInTable="TRADEMARKColumn" msprop:Generator_UserColumnName="TRADEMARK" type="xs:string" minOccurs="0" />
+              <xs:element name="Unitname" msprop:Generator_ColumnVarNameInTable="columnUnitname" msprop:Generator_ColumnPropNameInRow="Unitname" msprop:Generator_ColumnPropNameInTable="UnitnameColumn" msprop:Generator_UserColumnName="Unitname" type="xs:string" minOccurs="0" />
+              <xs:element name="CUSTOMER_CODE" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER_CODE" msprop:Generator_ColumnPropNameInRow="CUSTOMER_CODE" msprop:Generator_ColumnPropNameInTable="CUSTOMER_CODEColumn" msprop:Generator_UserColumnName="CUSTOMER_CODE" type="xs:string" minOccurs="0" />
+              <xs:element name="DocumentType" msprop:Generator_ColumnVarNameInTable="columnDocumentType" msprop:Generator_ColumnPropNameInRow="DocumentType" msprop:Generator_ColumnPropNameInTable="DocumentTypeColumn" msprop:Generator_UserColumnName="DocumentType" type="xs:string" minOccurs="0" />
+              <xs:element name="Customer" msprop:Generator_ColumnVarNameInTable="columnCustomer" msprop:Generator_ColumnPropNameInRow="Customer" msprop:Generator_ColumnPropNameInTable="CustomerColumn" msprop:Generator_UserColumnName="Customer" type="xs:string" minOccurs="0" />
+              <xs:element name="TaxTotal" msprop:Generator_ColumnVarNameInTable="columnTaxTotal" msprop:Generator_ColumnPropNameInRow="TaxTotal" msprop:Generator_ColumnPropNameInTable="TaxTotalColumn" msprop:Generator_UserColumnName="TaxTotal" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalDiscount" msprop:Generator_ColumnVarNameInTable="columnTotalDiscount" msprop:Generator_ColumnPropNameInRow="TotalDiscount" msprop:Generator_ColumnPropNameInTable="TotalDiscountColumn" msprop:Generator_UserColumnName="TotalDiscount" type="xs:string" minOccurs="0" />
+              <xs:element name="SalesMan" msprop:Generator_ColumnVarNameInTable="columnSalesMan" msprop:Generator_ColumnPropNameInRow="SalesMan" msprop:Generator_ColumnPropNameInTable="SalesManColumn" msprop:Generator_UserColumnName="SalesMan" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

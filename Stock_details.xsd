@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Stock_details" targetNamespace="http://tempuri.org/Stock_details.xsd" xmlns:mstns="http://tempuri.org/Stock_details.xsd" xmlns="http://tempuri.org/Stock_details.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Stock_details" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Stock_details" msprop:Generator_UserDSName="Stock_details">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MinimumStock" msprop:Generator_TableClassName="MinimumStockDataTable" msprop:Generator_TableVarName="tableMinimumStock" msprop:Generator_TablePropName="MinimumStock" msprop:Generator_RowDeletingName="MinimumStockRowDeleting" msprop:Generator_RowChangingName="MinimumStockRowChanging" msprop:Generator_RowEvHandlerName="MinimumStockRowChangeEventHandler" msprop:Generator_RowDeletedName="MinimumStockRowDeleted" msprop:Generator_UserTableName="MinimumStock" msprop:Generator_RowChangedName="MinimumStockRowChanged" msprop:Generator_RowEvArgName="MinimumStockRowChangeEvent" msprop:Generator_RowClassName="MinimumStockRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnPropNameInTable="CodeColumn" msprop:Generator_UserColumnName="Code" type="xs:string" minOccurs="0" />
+              <xs:element name="Stock" msprop:Generator_ColumnVarNameInTable="columnStock" msprop:Generator_ColumnPropNameInRow="Stock" msprop:Generator_ColumnPropNameInTable="StockColumn" msprop:Generator_UserColumnName="Stock" type="xs:string" minOccurs="0" />
+              <xs:element name="MinQty" msprop:Generator_ColumnVarNameInTable="columnMinQty" msprop:Generator_ColumnPropNameInRow="MinQty" msprop:Generator_ColumnPropNameInTable="MinQtyColumn" msprop:Generator_UserColumnName="MinQty" type="xs:string" minOccurs="0" />
+              <xs:element name="ReodrQty" msprop:Generator_ColumnVarNameInTable="columnReodrQty" msprop:Generator_ColumnPropNameInRow="ReodrQty" msprop:Generator_ColumnPropNameInTable="ReodrQtyColumn" msprop:Generator_UserColumnName="ReodrQty" type="xs:string" minOccurs="0" />
+              <xs:element name="Mqty" msprop:Generator_ColumnVarNameInTable="columnMqty" msprop:Generator_ColumnPropNameInRow="Mqty" msprop:Generator_ColumnPropNameInTable="MqtyColumn" msprop:Generator_UserColumnName="Mqty" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

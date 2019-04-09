@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsPayables" targetNamespace="http://tempuri.org/dsPayables.xsd" xmlns:mstns="http://tempuri.org/dsPayables.xsd" xmlns="http://tempuri.org/dsPayables.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SYSBIZZConnectionString3" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SYSBIZZConnectionString3 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Sys_Sols_Inventory.Properties.Settings.GlobalReference.Default.SYSBIZZConnectionString3" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PayablesTableAdapter" GeneratorDataComponentClassName="PayablesTableAdapter" Name="Payables" UserDataComponentName="PayablesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SYSBIZZConnectionString3 (Settings)" DbObjectName="dbo.Payables" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ACCTYPE, VOUCHERNO, VOUCHERTYPE, ACCNAME, TRANSACTIONDATE, AMOUNT FROM dbo.Payables</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ACCTYPE" DataSetColumn="ACCTYPE" />
+              <Mapping SourceColumn="VOUCHERNO" DataSetColumn="VOUCHERNO" />
+              <Mapping SourceColumn="VOUCHERTYPE" DataSetColumn="VOUCHERTYPE" />
+              <Mapping SourceColumn="ACCNAME" DataSetColumn="ACCNAME" />
+              <Mapping SourceColumn="TRANSACTIONDATE" DataSetColumn="TRANSACTIONDATE" />
+              <Mapping SourceColumn="AMOUNT" DataSetColumn="AMOUNT" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsPayables" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsPayables" msprop:Generator_UserDSName="dsPayables">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Payables" msprop:Generator_TableClassName="PayablesDataTable" msprop:Generator_TableVarName="tablePayables" msprop:Generator_TablePropName="Payables" msprop:Generator_RowDeletingName="PayablesRowDeleting" msprop:Generator_RowChangingName="PayablesRowChanging" msprop:Generator_RowEvHandlerName="PayablesRowChangeEventHandler" msprop:Generator_RowDeletedName="PayablesRowDeleted" msprop:Generator_UserTableName="Payables" msprop:Generator_RowChangedName="PayablesRowChanged" msprop:Generator_RowEvArgName="PayablesRowChangeEvent" msprop:Generator_RowClassName="PayablesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ACCTYPE" msprop:Generator_ColumnVarNameInTable="columnACCTYPE" msprop:Generator_ColumnPropNameInRow="ACCTYPE" msprop:Generator_ColumnPropNameInTable="ACCTYPEColumn" msprop:Generator_UserColumnName="ACCTYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VOUCHERNO" msprop:Generator_ColumnVarNameInTable="columnVOUCHERNO" msprop:Generator_ColumnPropNameInRow="VOUCHERNO" msprop:Generator_ColumnPropNameInTable="VOUCHERNOColumn" msprop:Generator_UserColumnName="VOUCHERNO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VOUCHERTYPE" msprop:Generator_ColumnVarNameInTable="columnVOUCHERTYPE" msprop:Generator_ColumnPropNameInRow="VOUCHERTYPE" msprop:Generator_ColumnPropNameInTable="VOUCHERTYPEColumn" msprop:Generator_UserColumnName="VOUCHERTYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ACCNAME" msprop:Generator_ColumnVarNameInTable="columnACCNAME" msprop:Generator_ColumnPropNameInRow="ACCNAME" msprop:Generator_ColumnPropNameInTable="ACCNAMEColumn" msprop:Generator_UserColumnName="ACCNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TRANSACTIONDATE" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTRANSACTIONDATE" msprop:Generator_ColumnPropNameInRow="TRANSACTIONDATE" msprop:Generator_ColumnPropNameInTable="TRANSACTIONDATEColumn" msprop:Generator_UserColumnName="TRANSACTIONDATE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AMOUNT" msprop:Generator_ColumnVarNameInTable="columnAMOUNT" msprop:Generator_ColumnPropNameInRow="AMOUNT" msprop:Generator_ColumnPropNameInTable="AMOUNTColumn" msprop:Generator_UserColumnName="AMOUNT" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
