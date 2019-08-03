@@ -81,7 +81,7 @@
             this.metroTabControl1.Controls.Add(this.POSMenu);
             this.metroTabControl1.Location = new System.Drawing.Point(23, 63);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(1147, 560);
             this.metroTabControl1.TabIndex = 13;
             this.metroTabControl1.UseSelectable = true;

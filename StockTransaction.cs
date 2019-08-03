@@ -235,6 +235,13 @@ namespace Sys_Sols_Inventory
                         query += ",TAX_PER,TAX_AMOUNT";
                     }
                     query += ")";
+
+                    ItemLedger il = new ItemLedger();
+                    il.DocumentNo = DOC_NO.Text;
+                    il.Branch = lg.Branch;
+                    il.EntryDate = DOC_DATE_GRE.Value;
+                    il.EntryType = type;
+
                     for (int i = 0; i < dgItems.Rows.Count; i++)
                     {
                         DataGridViewCellCollection c = dgItems.Rows[i].Cells;
@@ -242,7 +249,30 @@ namespace Sys_Sols_Inventory
                        //not validated
                         query += ",'" + c["uUOM_QTY"].Value + "','" + c["colBATCH"].Value + "'";
                         //not validated
-                        if (hasBatch)
+                        il.ItemNo = c["uCode"].Value.ToString();
+                        il.UOM = c["uUnit"].Value.ToString();
+                        il.UnitCostApplied = (float)c["uPrice"].Value;
+                        il.EntryNo = InventoryRepositery.GetMaxEntryNO();
+                        if (type == "INV.STK.IN")
+                        {
+                            il.UOMQuantity = (float)c["uUOM_QTY"].Value;
+                            il.Quantity = (float)c["uQty"].Value;
+                            il.CostValueApplied = il.Quantity * il.UnitCostApplied;
+                            il.BatchEntryNo = il.EntryNo;
+
+                        }
+                        if (type == "INV.STK.OUT")
+                        {
+                            
+
+                            il.UOMQuantity = (float)c["uUOM_QTY"].Value *-1;
+                            il.Quantity = (float)c["uQty"].Value *-1;
+                            il.CostValueApplied = il.Quantity * il.UnitCostApplied;
+
+
+                        }
+
+                            if (hasBatch)
                         {
                             query += ",'" + c["uBatch"].Value + "','" + DateTime.ParseExact(c["uExpDate"].Value.ToString(), "dd/MM/yyyy", null).ToString("yyyy/MM/dd") + "'";
                            // query += ",'" + c["uBatch"].Value + "','" + Convert.ToDateTime(c["uExpDate"].Value.ToString()) + "'";

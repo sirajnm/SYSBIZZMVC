@@ -165,14 +165,18 @@ namespace Sys_Sols_Inventory.Model
 
         private bool UpdateSalesHeaderDetail()
         {
+
+            
             //Updating Sales Header and Sales Detail as Retail Transaction
-            string headerquery = "Begin Tran ";
-            headerquery += " Insert Into INV_SALES_HDR (BRANCH, DOC_NO, DOC_TYPE, DOC_DATE_GRE,  CURRENCY_CODE, SALE_TYPE,  TAX_TOTAL, VAT, DISCOUNT, TOTAL_AMOUNT,  CESS, POSTED)  ";
-            headerquery += " select h.Branch, h.ShiftNo DOC_NO, 'SAL.RET' DOC_TYPE, sh.ShiftStartDate DOC_DATE_GRE, s.StoreCurrency CURRENCY_CODE , 'B2C' SALE_TYPE, sum(VATAmount) TAX_TOTAL, sum(VATAmount) VAT, sum(h.DiscountAmount) DISCOUNT, sum(h.AmountForPay) TOTAL_AMOUNT,  sum(h.CESSAmount) CESS, 'N' POSTED  from POS_Transaction_Header h inner join POS_Setup s";
+            string headerquery = "Declare @MaxDocID as int  ";
+            headerquery += "Begin Tran ";
+            headerquery += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1 from INV_SALES_HDR p right join tbl_FinancialYear f on Convert(Varchar, p.DOC_DATE_GRE, 111) between f.SDate and f.EDate ";
+            headerquery += " Insert Into INV_SALES_HDR (BRANCH, DOC_NO, DOC_ID, DOC_TYPE, DOC_DATE_GRE,  CURRENCY_CODE, SALE_TYPE,  TAX_TOTAL, VAT, DISCOUNT, TOTAL_AMOUNT,  CESS, POSTED)  ";
+            headerquery += " select h.Branch, h.ShiftNo DOC_NO, @MaxDOCID DOC_ID, 'SAL.RET' DOC_TYPE, sh.ShiftStartDate DOC_DATE_GRE, s.StoreCurrency CURRENCY_CODE , 'B2C' SALE_TYPE, sum(VATAmount) TAX_TOTAL, sum(VATAmount) VAT, sum(h.DiscountAmount) DISCOUNT, sum(h.AmountForPay) TOTAL_AMOUNT,  sum(h.CESSAmount) CESS, 'N' POSTED  from POS_Transaction_Header h inner join POS_Setup s";
             headerquery += " on h.Branch = s.LocalStoreNo inner join POS_ShiftMaster sh on h.ShiftNo = sh.ShiftNo   where h.ShiftNo = @ShiftNo group by h.Branch, h.ShiftNo,  sh.ShiftStartDate, s.StoreCurrency";
-            headerquery += " Declare @DOC_ID int = SCOPE_IDENTITY()";
+            //headerquery += " Declare @DOC_ID int = SCOPE_IDENTITY()";
             headerquery += " Insert Into INV_SALES_DTL (DOC_ID, DOC_TYPE, DOC_NO, BRANCH, ITEM_CODE, ITEM_DESC_ENG, UOM, UOM_QTY, QUANTITY, PRICE,  DISC_VALUE, ITEM_TAX) ";
-            headerquery += " Select @DOC_ID DOC_ID, 'SAL.RET' DOC_TYPE, sh.ShiftNo DOC_NO,  sh.Branch, d.ItemNo ITEM_CODE, d.ItemDescription ITEM_DESC_ENG, UOM,sum(UOMQty) UOM_QTY, sum(Quantity) QUANTITY, d.PriceVAT PRICE, sum(d.DiscountAmount) DISC_VALUE, sum(VATAmount) ITEM_TAX from POS_Transaction_Detail d inner join POS_ShiftMaster sh on d.ShiftNo = sh.ShiftNo ";
+            headerquery += " Select @MaxDocID DOC_ID, 'SAL.RET' DOC_TYPE, sh.ShiftNo DOC_NO,  sh.Branch, d.ItemNo ITEM_CODE, d.ItemDescription ITEM_DESC_ENG, UOM,sum(UOMQty) UOM_QTY, sum(Quantity) QUANTITY, d.PriceVAT PRICE, sum(d.DiscountAmount) DISC_VALUE, sum(VATAmount) ITEM_TAX from POS_Transaction_Detail d inner join POS_ShiftMaster sh on d.ShiftNo = sh.ShiftNo ";
             headerquery += " where sh.ShiftNo = @ShiftNo ";
             headerquery += " Group by sh.ShiftNo, sh.Branch, d.ItemNo, d.ItemDescription, UOM, PriceVAT ";
             headerquery += "commit tran";
@@ -206,7 +210,8 @@ namespace Sys_Sols_Inventory.Model
                 Trans.BRANCH = Branch;
                 Trans.VOUCHERNO = ShiftNo;
                 Trans.VOUCHERTYPE = "Sales";
-                Trans.DATED = ShiftStartDate.ToLongDateString();
+                Trans.DATED = ShiftStartDate.ToShortDateString();
+                Trans.CurrentDate = DateTime.Now;
                 Trans.SYSTEMTIME = DateTime.Now.ToShortTimeString();
                 Trans.PARTICULARS = "Retail Sales" + Branch + " " + ShiftNo;
                 Trans.NARRATION = "Retail Sales" + Branch + " " + ShiftNo;
@@ -252,7 +257,7 @@ namespace Sys_Sols_Inventory.Model
                         AccountTrans.NARRATION = "Retail Sales " + Branch + " " + ShiftNo; ;
                         AccountTrans.ACCID = transtemp.CustomerAccount;
                         AccountTrans.ACCNAME = ledger.GetLedgerName(transtemp.CustomerAccount);
-                        AccountTrans.DEBIT = transtemp.NetAmount.ToString();
+                        AccountTrans.DEBIT = transtemp.AmountForPay.ToString();
                         AccountTrans.CREDIT = "0";
                         AccountTransactions.Add(AccountTrans);
 
@@ -350,9 +355,13 @@ namespace Sys_Sols_Inventory.Model
             }
 
             //update Receivable Account
+            Single debit = AccountTransactions.Sum(a => Convert.ToSingle(a.DEBIT));
+            Single credit = AccountTransactions.Sum(a => Convert.ToSingle(a.CREDIT));
+//            System.Windows.MessageBox.Show(AccountTransactions.Sum(a => Convert.ToSingle(a.DEBIT)).ToString());
+ //           System.Windows.MessageBox.Show(AccountTransactions.Sum(a => Convert.ToSingle(a.CREDIT)).ToString());
 
-            if (AccountTransactions.Sum(a => Convert.ToSingle(a.DEBIT)) == AccountTransactions.Sum(a => Convert.ToSingle(a.CREDIT)))
-            {
+
+            if (Math.Abs(debit-credit) <= 1) { 
                 foreach (Transactions trs in AccountTransactions)
                 {
                     trs.insertTransaction();
@@ -368,19 +377,6 @@ namespace Sys_Sols_Inventory.Model
 
         }
 
-        private bool UpdateInventory()
-        {
-
-            InvStkTrxHdrDB invheader = new InvStkTrxHdrDB();
-            List<InvStkTrxDtlDB> indetails = new List<InvStkTrxDtlDB>();
-            invheader.Branch = Branch;
-            invheader.DocDateGre = ShiftStartDate;
-            invheader.DocType = "SAL.POS";
-            invheader.DocNo = ShiftNo;
-           
-
-
-            return false;
-        }
+        
     }
 }

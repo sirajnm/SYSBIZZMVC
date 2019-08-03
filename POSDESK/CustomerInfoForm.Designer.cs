@@ -38,89 +38,97 @@
             this.Address2TextBox = new System.Windows.Forms.TextBox();
             this.OKbutton = new System.Windows.Forms.Button();
             this.Cancelbutton = new System.Windows.Forms.Button();
-            this.iscreditcustomertoggle = new MetroFramework.Controls.MetroToggle();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.CustomerListComboBox = new MetroFramework.Controls.MetroComboBox();
+            this.iscreditcustomertoggle = new System.Windows.Forms.CheckBox();
+            this.CustomerListComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // CustomerMobileTextBox
             // 
-            this.CustomerMobileTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CustomerMobileTextBox.Location = new System.Drawing.Point(191, 120);
+            this.CustomerMobileTextBox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomerMobileTextBox.Location = new System.Drawing.Point(255, 185);
+            this.CustomerMobileTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CustomerMobileTextBox.Name = "CustomerMobileTextBox";
-            this.CustomerMobileTextBox.Size = new System.Drawing.Size(235, 26);
+            this.CustomerMobileTextBox.Size = new System.Drawing.Size(312, 27);
             this.CustomerMobileTextBox.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(33, 126);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(44, 194);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 20);
+            this.label1.Size = new System.Drawing.Size(83, 21);
             this.label1.TabIndex = 1;
             this.label1.Text = "Mobile No";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(32, 165);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(43, 254);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 20);
+            this.label2.Size = new System.Drawing.Size(52, 21);
             this.label2.TabIndex = 3;
             this.label2.Text = "Name";
             // 
             // CustomerNameTextBox
             // 
-            this.CustomerNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CustomerNameTextBox.Location = new System.Drawing.Point(190, 159);
+            this.CustomerNameTextBox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomerNameTextBox.Location = new System.Drawing.Point(253, 245);
+            this.CustomerNameTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CustomerNameTextBox.Name = "CustomerNameTextBox";
-            this.CustomerNameTextBox.Size = new System.Drawing.Size(235, 26);
+            this.CustomerNameTextBox.Size = new System.Drawing.Size(312, 27);
             this.CustomerNameTextBox.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(33, 204);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(44, 314);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(116, 20);
+            this.label3.Size = new System.Drawing.Size(112, 21);
             this.label3.TabIndex = 5;
             this.label3.Text = "Address1Label";
             // 
             // Address1TextBox
             // 
-            this.Address1TextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Address1TextBox.Location = new System.Drawing.Point(191, 198);
+            this.Address1TextBox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Address1TextBox.Location = new System.Drawing.Point(255, 305);
+            this.Address1TextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Address1TextBox.Name = "Address1TextBox";
-            this.Address1TextBox.Size = new System.Drawing.Size(376, 26);
+            this.Address1TextBox.Size = new System.Drawing.Size(500, 27);
             this.Address1TextBox.TabIndex = 4;
             // 
             // Address2Label
             // 
             this.Address2Label.AutoSize = true;
-            this.Address2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Address2Label.Location = new System.Drawing.Point(35, 243);
+            this.Address2Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Address2Label.Location = new System.Drawing.Point(47, 374);
+            this.Address2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Address2Label.Name = "Address2Label";
-            this.Address2Label.Size = new System.Drawing.Size(116, 20);
+            this.Address2Label.Size = new System.Drawing.Size(112, 21);
             this.Address2Label.TabIndex = 7;
             this.Address2Label.Text = "Address1Label";
             // 
             // Address2TextBox
             // 
-            this.Address2TextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Address2TextBox.Location = new System.Drawing.Point(193, 237);
+            this.Address2TextBox.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Address2TextBox.Location = new System.Drawing.Point(257, 365);
+            this.Address2TextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Address2TextBox.Name = "Address2TextBox";
-            this.Address2TextBox.Size = new System.Drawing.Size(374, 26);
+            this.Address2TextBox.Size = new System.Drawing.Size(497, 27);
             this.Address2TextBox.TabIndex = 6;
             // 
             // OKbutton
             // 
-            this.OKbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OKbutton.Location = new System.Drawing.Point(363, 305);
+            this.OKbutton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OKbutton.Location = new System.Drawing.Point(484, 469);
+            this.OKbutton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.OKbutton.Name = "OKbutton";
-            this.OKbutton.Size = new System.Drawing.Size(86, 28);
+            this.OKbutton.Size = new System.Drawing.Size(115, 43);
             this.OKbutton.TabIndex = 8;
             this.OKbutton.Text = "OK";
             this.OKbutton.UseVisualStyleBackColor = true;
@@ -128,10 +136,11 @@
             // 
             // Cancelbutton
             // 
-            this.Cancelbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Cancelbutton.Location = new System.Drawing.Point(469, 305);
+            this.Cancelbutton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Cancelbutton.Location = new System.Drawing.Point(625, 469);
+            this.Cancelbutton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Cancelbutton.Name = "Cancelbutton";
-            this.Cancelbutton.Size = new System.Drawing.Size(86, 28);
+            this.Cancelbutton.Size = new System.Drawing.Size(115, 43);
             this.Cancelbutton.TabIndex = 9;
             this.Cancelbutton.Text = "Cancel";
             this.Cancelbutton.UseVisualStyleBackColor = true;
@@ -140,41 +149,33 @@
             // iscreditcustomertoggle
             // 
             this.iscreditcustomertoggle.AutoSize = true;
-            this.iscreditcustomertoggle.Location = new System.Drawing.Point(178, 78);
+            this.iscreditcustomertoggle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iscreditcustomertoggle.Location = new System.Drawing.Point(47, 120);
+            this.iscreditcustomertoggle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.iscreditcustomertoggle.Name = "iscreditcustomertoggle";
-            this.iscreditcustomertoggle.Size = new System.Drawing.Size(80, 17);
+            this.iscreditcustomertoggle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.iscreditcustomertoggle.Size = new System.Drawing.Size(172, 25);
             this.iscreditcustomertoggle.TabIndex = 10;
-            this.iscreditcustomertoggle.Text = "Off";
-            this.iscreditcustomertoggle.UseSelectable = true;
+            this.iscreditcustomertoggle.Text = "Is Customer Account";
             this.iscreditcustomertoggle.CheckStateChanged += new System.EventHandler(this.iscreditcustomertoggle_CheckStateChanged);
-            // 
-            // metroLabel1
-            // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(39, 78);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(129, 19);
-            this.metroLabel1.TabIndex = 11;
-            this.metroLabel1.Text = "Is Account Customer";
             // 
             // CustomerListComboBox
             // 
             this.CustomerListComboBox.FormattingEnabled = true;
-            this.CustomerListComboBox.ItemHeight = 23;
-            this.CustomerListComboBox.Location = new System.Drawing.Point(270, 78);
+            this.CustomerListComboBox.ItemHeight = 20;
+            this.CustomerListComboBox.Location = new System.Drawing.Point(253, 120);
+            this.CustomerListComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CustomerListComboBox.Name = "CustomerListComboBox";
-            this.CustomerListComboBox.Size = new System.Drawing.Size(296, 29);
+            this.CustomerListComboBox.Size = new System.Drawing.Size(393, 28);
             this.CustomerListComboBox.TabIndex = 12;
-            this.CustomerListComboBox.UseSelectable = true;
             this.CustomerListComboBox.SelectedIndexChanged += new System.EventHandler(this.CustomerListComboBox_SelectedIndexChanged);
             // 
             // CustomerInfoForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 356);
+            this.ClientSize = new System.Drawing.Size(821, 548);
             this.Controls.Add(this.CustomerListComboBox);
-            this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.iscreditcustomertoggle);
             this.Controls.Add(this.Cancelbutton);
             this.Controls.Add(this.OKbutton);
@@ -186,6 +187,8 @@
             this.Controls.Add(this.CustomerNameTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CustomerMobileTextBox);
+            this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CustomerInfoForm";
             this.Text = "Customer Details";
             this.ResumeLayout(false);
@@ -205,8 +208,7 @@
         private System.Windows.Forms.TextBox Address2TextBox;
         private System.Windows.Forms.Button OKbutton;
         private System.Windows.Forms.Button Cancelbutton;
-        private MetroFramework.Controls.MetroToggle iscreditcustomertoggle;
-        private MetroFramework.Controls.MetroLabel metroLabel1;
-        private MetroFramework.Controls.MetroComboBox CustomerListComboBox;
+        private System.Windows.Forms.CheckBox iscreditcustomertoggle;
+        private System.Windows.Forms.ComboBox CustomerListComboBox;
     }
 }

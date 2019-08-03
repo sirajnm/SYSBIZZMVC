@@ -24,6 +24,7 @@ namespace Sys_Sols_Inventory.Class
         public String CST_No { get; set; }
         public String PAN_No { get; set; }
         public String Country { get; set; }
+        public string FYCODE { get; set; }
         public DateTime SDate { get; set; }
         public DateTime EDate { get; set; }
         public bool Status { get; set; }
@@ -120,6 +121,11 @@ namespace Sys_Sols_Inventory.Class
         public string Rep_LoadinDays { get; set; }
         public decimal PUR_expcper { get; set; }
         public decimal Dec_qty { get; set; }
+        public int PurchaseAccountLedger { get; set; }
+        public int InventoryAccountLedger { get; set; }
+
+        public int SalesLedger { get; set; }
+        public int COGSLedger { get; set; }
 
         public string CREDIT_PERIOD { get; set; }
         public bool ACTIVE_PERIOD { get; set; }
@@ -223,8 +229,9 @@ namespace Sys_Sols_Inventory.Class
 
         public void insertFinancialYear()
         {
-            string Query = "insert into tbl_FinancialYear(SDate, EDate, Status) values(@SDate, @EDate, @Status)";
+            string Query = "insert into tbl_FinancialYear(FinancialYearCode, SDate, EDate, Status, CurrentFY) values(@FYCODE, @SDate, @EDate, @Status, 1)";
             Dictionary<string, object> parameters =new Dictionary<string,object>();
+            parameters.Add("@FYCODE", FYCODE);
             parameters.Add("@SDate", SDate);
             parameters.Add("@EDate", EDate);
             parameters.Add("@Status", true);
@@ -333,14 +340,18 @@ namespace Sys_Sols_Inventory.Class
 
         public void UpdateGeneralSetup()
         {
-            
-            string Query ="update SYS_SETUP set MoveToPrice=@MoveToPrice,SelectLastPurchase=@SelectLastPurchase,"
+
+            string Query = "update SYS_SETUP set MoveToPrice=@MoveToPrice,SelectLastPurchase=@SelectLastPurchase,"
             + "MoveToDisc=@MoveToDisc,ShowPurchase=@ShowPurchase,FocusCustomer=@FocusCustomer,FocusSalesMan=@FocusSalesMan,"
             + "MoveToUnit=@MoveToUnit,MoveToQty=@MoveToQty,SalebyItemName=@SalebyItemName,SalebyItemCode=@SalebyItemCode,"
             + "SalebyBarcode=@SalebyBarcode,MoveToTaxper=@MoveToTaxper,DiscountPerct=@DiscountPerct,DiscountAmt=@DiscountAmt,"
             + "HasDiscountLimit=@HasDiscountLimit,FocusDate=@FocusDate, AllowCustomerDiscount=@AllowCustomerDiscount,"
             + "StockOut=@StockOut,Free=@Free,Mrp=@Mrp,GrossValue=@GrossValue,NetValue=@NetValue,Description=@Description,DefaultRateType=@DefaultRateType, DefaultSaleType=@DefaultSaleType,"
-            + "PrintInvoice=@PrintInvoice,Focus_Rate_type=@Focus_Rate_Type,Focus_Sale_Type=@Focus_Sale_Type,Exclusive_tax=@Exclusive_tax where DESC_ENG=@CompanyName";
+            + "PrintInvoice=@PrintInvoice,Focus_Rate_type=@Focus_Rate_Type,Focus_Sale_Type=@Focus_Sale_Type,Exclusive_tax=@Exclusive_tax, "
+                        + "SalesLedger=@SalesLedgerAccountLedger, COGSLedger=@COGSLedgerAccountLedger "
+                        + " where DESC_ENG=@CompanyName ";
+                        
+
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@CompanyName", Company_Name);
             parameters.Add("@MoveToPrice", MoveToPrice);
@@ -373,6 +384,8 @@ namespace Sys_Sols_Inventory.Class
             parameters.Add("@Focus_Rate_Type", Focus_Rate_type);
             parameters.Add("@Focus_Sale_Type", Focus_Sale_Type);
             parameters.Add("@Exclusive_tax", ExclusiveTax);
+            parameters.Add("@SalesLedgerAccountLedger", SalesLedger);
+            parameters.Add("@COGSLedgerAccountLedger", COGSLedger);
        
             DbFunctions.InsertUpdate(Query, parameters);
 
@@ -423,7 +436,7 @@ namespace Sys_Sols_Inventory.Class
 
         public void UpdateGeneralPurchaseSetup()
         {
-            string Query = "UPDATE SYS_SETUP SET PUR_MoveDisc = @PUR_MoveDisc, PUR_MoveRtlper = @PUR_MoveRtlper, PUR_MoveRtlAmt = @PUR_MoveRtlAmt, PURMoveTaxper = @PUR_MoveTaxper, PURMoveTaxAmt = @PUR_MoveTaxAmt, PURMoveTotal = @PUR_MoveTotal, PURFocusDate = @PUR_FocusDate, PURFocusSupplier = @PUR_FocusSupplier, PUR_FocusInvoice = @PUR_FocusInvoice, PUR_FocusReference = @PUR_FocusReference, PUR_FocusBarcode = @PUR_FocusBarcode, PUR_FocusItemCode = @PUR_FocusItemCode,PUR_FocusItemName=@PUR_FocusItemName,PUR_expcper=@PUR_expcper,Pur_Exclusive_tax=@Pur_Exclusive_tax where DESC_ENG=@Company_Name ";
+            string Query = "UPDATE SYS_SETUP SET PurchaseLedger = @PurchaseAccountLedger, InventoryLedger = @InventoryAccountLedger,  PUR_MoveDisc = @PUR_MoveDisc, PUR_MoveRtlper = @PUR_MoveRtlper, PUR_MoveRtlAmt = @PUR_MoveRtlAmt, PURMoveTaxper = @PUR_MoveTaxper, PURMoveTaxAmt = @PUR_MoveTaxAmt, PURMoveTotal = @PUR_MoveTotal, PURFocusDate = @PUR_FocusDate, PURFocusSupplier = @PUR_FocusSupplier, PUR_FocusInvoice = @PUR_FocusInvoice, PUR_FocusReference = @PUR_FocusReference, PUR_FocusBarcode = @PUR_FocusBarcode, PUR_FocusItemCode = @PUR_FocusItemCode,PUR_FocusItemName=@PUR_FocusItemName,PUR_expcper=@PUR_expcper,Pur_Exclusive_tax=@Pur_Exclusive_tax where DESC_ENG=@Company_Name ";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@PUR_FocusBarcode", PUR_FocusBarcode);
             parameters.Add("@PUR_FocusDate", PUR_FocusDate);
@@ -441,6 +454,8 @@ namespace Sys_Sols_Inventory.Class
             parameters.Add("@Company_Name", Company_Name);
             parameters.Add("@PUR_expcper", PUR_expcper);
             parameters.Add("@Pur_Exclusive_tax", PUR_tax_Exclusive);
+            parameters.Add("@PurchaseAccountLedger", PurchaseAccountLedger);
+            parameters.Add("@InventoryAccountLedger", InventoryAccountLedger);
           
             DbFunctions.InsertUpdate(Query, parameters);
         }
@@ -471,6 +486,18 @@ namespace Sys_Sols_Inventory.Class
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@Status", Status);
             return DbFunctions.GetDataTable(Query, parameters);
+
+        }
+
+        public Boolean IsCurrentFY(DateTime transdate)
+        {
+            string query = "Select * from tbl_FinancialYear where CurrentFY = 1 and @transdate between SDate and EDate";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@transdate", transdate);
+            DataTable dt = DbFunctions.GetDataTable(query, parameters);
+            if (dt.Rows.Count >= 1) return true;
+            return false;
+
 
         }
 

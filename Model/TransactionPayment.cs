@@ -30,7 +30,7 @@ namespace Sys_Sols_Inventory.Model
             set
             {
                 _currency = value;
-                string query = "Select Max(Curr_rate) CurrRate from ACC_CURRENCY where curr_code = @curcode";
+                string query = "Select Max(RATE) CurrRate from GEN_CURRENCY where CODE = @curcode";
                 Dictionary<string, object> parameter = new Dictionary<string, object>();
                 parameter.Add("@curcode", value);
                 object obj = DbFunctions.GetAValue(query, parameter);

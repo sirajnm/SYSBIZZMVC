@@ -59,7 +59,9 @@
             this.panel15 = new System.Windows.Forms.Panel();
             this.kryptonLabel43 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.txtRoundOff = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.kryptonLabel34 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.chkCredit = new System.Windows.Forms.RadioButton();
+            this.VOUCHNUM = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.chkDebit = new System.Windows.Forms.RadioButton();
             this.kryptonLabel25 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -146,8 +148,6 @@
             this.btnup = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbl_prefix = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel34 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.VOUCHNUM = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.pnlacct = new System.Windows.Forms.Panel();
             this.txt_cusbalance = new System.Windows.Forms.TextBox();
             this.txt_drcr = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -461,6 +461,14 @@
             this.txtRoundOff.Text = "0.00";
             this.txtRoundOff.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // kryptonLabel34
+            // 
+            this.kryptonLabel34.Location = new System.Drawing.Point(976, 272);
+            this.kryptonLabel34.Name = "kryptonLabel34";
+            this.kryptonLabel34.Size = new System.Drawing.Size(71, 20);
+            this.kryptonLabel34.TabIndex = 47;
+            this.kryptonLabel34.Values.Text = "Vouch No :";
+            // 
             // chkCredit
             // 
             this.chkCredit.AutoSize = true;
@@ -472,6 +480,16 @@
             this.chkCredit.Text = "Credit";
             this.chkCredit.UseVisualStyleBackColor = true;
             this.chkCredit.CheckedChanged += new System.EventHandler(this.chkCredit_CheckedChanged);
+            // 
+            // VOUCHNUM
+            // 
+            this.VOUCHNUM.Location = new System.Drawing.Point(227, 6);
+            this.VOUCHNUM.Name = "VOUCHNUM";
+            this.VOUCHNUM.ReadOnly = true;
+            this.VOUCHNUM.Size = new System.Drawing.Size(42, 23);
+            this.VOUCHNUM.TabIndex = 44;
+            this.VOUCHNUM.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VOUCHNUM_KeyDown);
+            this.VOUCHNUM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.VOUCHNUM_KeyPress);
             // 
             // chkDebit
             // 
@@ -1327,29 +1345,12 @@
             // 
             this.lbl_prefix.AutoSize = false;
             this.lbl_prefix.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.BoldPanel;
-            this.lbl_prefix.Location = new System.Drawing.Point(71, 2);
+            this.lbl_prefix.Location = new System.Drawing.Point(3, 2);
             this.lbl_prefix.Name = "lbl_prefix";
-            this.lbl_prefix.Size = new System.Drawing.Size(38, 20);
+            this.lbl_prefix.Size = new System.Drawing.Size(27, 21);
             this.lbl_prefix.TabIndex = 49;
             this.lbl_prefix.Values.Text = "--";
-            // 
-            // kryptonLabel34
-            // 
-            this.kryptonLabel34.Location = new System.Drawing.Point(976, 272);
-            this.kryptonLabel34.Name = "kryptonLabel34";
-            this.kryptonLabel34.Size = new System.Drawing.Size(71, 20);
-            this.kryptonLabel34.TabIndex = 47;
-            this.kryptonLabel34.Values.Text = "Vouch No :";
-            // 
-            // VOUCHNUM
-            // 
-            this.VOUCHNUM.Location = new System.Drawing.Point(227, 6);
-            this.VOUCHNUM.Name = "VOUCHNUM";
-            this.VOUCHNUM.ReadOnly = true;
-            this.VOUCHNUM.Size = new System.Drawing.Size(42, 23);
-            this.VOUCHNUM.TabIndex = 44;
-            this.VOUCHNUM.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VOUCHNUM_KeyDown);
-            this.VOUCHNUM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.VOUCHNUM_KeyPress);
+            this.lbl_prefix.Visible = false;
             // 
             // pnlacct
             // 

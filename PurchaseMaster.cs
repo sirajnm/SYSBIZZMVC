@@ -63,7 +63,7 @@ namespace Sys_Sols_Inventory
         InvStkTrxHdrDB stkHdr = new InvStkTrxHdrDB();
         InvStkTrxDtlDB stkDtl = new InvStkTrxDtlDB();
         PaySupplierDB clsSupplier = new PaySupplierDB();
-
+        List<String> purchasemasterlist = new List<string>();
         StockDB stkdb = new StockDB();
         bool firstitemlistbyname = false;
         bool clearitemname = false;
@@ -306,7 +306,7 @@ namespace Sys_Sols_Inventory
             } 
 
             string query = "Declare @MaxDocID as int, @NoSeriesSuffix as varchar(5) ";
-            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from INV_PURCHASE_HDR p right join tbl_FinancialYear f on p.DOC_DATE_GRE between f.SDate and f.EDate ";
+            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from INV_PURCHASE_HDR p right join tbl_FinancialYear f on Convert(Varchar, p.DOC_DATE_GRE, 111) between f.SDate and f.EDate ";
             if (purchasetype == "PurchEstimate") query += " and p.DOC_TYPE = 'PUR.EST' ";
             if (purchasetype == "Purchase") query += " and p.DOC_TYPE in ('PUR.CRD','PUR.CSS') ";
             query += " where f.CurrentFY = 1 ";
@@ -317,6 +317,7 @@ namespace Sys_Sols_Inventory
             {
                 Billno = VOUCHNUM.Text = dt.Rows[0]["DOCID"].ToString();
                 DOC_NO.Text = dt.Rows[0]["DOCNo"].ToString();
+                invHdr.DocNo = dt.Rows[0]["DOCNo"].ToString();
             }
 
             
@@ -554,6 +555,13 @@ namespace Sys_Sols_Inventory
             {
                 dgvGSTTaxes.Visible = false;
             }
+
+            string query = "Select distinct DOC_NO, DOC_DATE_GRE, DOC_ID from Inv_Purchase_hdr p inner join tbl_FinancialYear f on Convert(Varchar, p.DOC_DATE_GRE, 111) between f.SDate and f.EDate and f.CurrentFY = 1 order by DOC_DATE_GRE, DOC_ID";
+            DataTable dt = DbFunctions.GetDataTable(query);
+            foreach(DataRow dr in dt.Rows)
+            {
+                purchasemasterlist.Add(dr["DOC_NO"].ToString());
+            }
             decimalFormat = Common.getDecimalFormat();
             PRICE_FOB.Text = decimalFormat;
             txtMRP.Text = decimalFormat;
@@ -644,7 +652,7 @@ namespace Sys_Sols_Inventory
             dgSubPrices.BringToFront();
             addRate_column();
             dgSubPrices.Visible = false;
-            btnup.Enabled = false;
+          //  btnup.Enabled = false;
             if (PUR_FocusDate)
             {
                 ActiveControl = DOC_DATE_GRE;
@@ -1893,6 +1901,13 @@ namespace Sys_Sols_Inventory
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             string branch = ComSet.ReadBranch();
             TransDate = DOC_DATE_GRE.Value;
+            invHdr.DocDateGre = TransDate;
+
+           if (!ComSet.IsCurrentFY(TransDate))
+            {
+                MessageBox.Show("Transaction date not within Financial Year Range!!!");
+                return;
+            }
             if (cmbInvType.SelectedIndex < 1)
             {
                 MessageBox.Show("Select any purchase type");
@@ -1969,6 +1984,8 @@ namespace Sys_Sols_Inventory
                     parameters.Add("@PurType", cmbInvType.SelectedValue.ToString());
                     parameters.Add("@OTHEREXPENSES", txtLoadingCharge.Text);
                     parameters.Add("@PROJECTID", cmb_projects.SelectedValue);
+
+
                 }
                 else
                 {
@@ -2082,6 +2099,7 @@ namespace Sys_Sols_Inventory
                     {
                         total_qty = -1 * total_qty;
                     }
+
                     string PRICE_BATCH = stockEntry.addStock_with_batch(item_id, total_qty.ToString(), c_price.ToString(), SUPPLIER_CODE.Text, MRP, dt_rates, unit_code, price_batch, Exdat, flag, hasPriceBatch);
                     dgItems.Rows[i].Cells["colBATCH"].Value = PRICE_BATCH;
 
@@ -2117,6 +2135,7 @@ namespace Sys_Sols_Inventory
                 //cmd.ExecuteNonQuery();
                 //conn.Close();
                 DbFunctions.InsertUpdate(Query,parameters);
+                InventoryRepositery.InventoryPurchase(invHdr);
                 //SqlConnection conn2 = new SqlConnection(Properties.Settings.Default.ConnectionStrings);
                 //conn2.Open();
                 //for (int i = 0; i < dgItems.Rows.Count; i++)
@@ -4429,7 +4448,7 @@ namespace Sys_Sols_Inventory
                     File.Delete(Application.StartupPath + "\\Barcode\\Barcode1.pdf");
                 }
              
-                //pdfdoc = new Document(PageSize.A4, -2, 20, -1, 20);
+                pdfdoc = new Document(PageSize.A4, -2, 20, -1, 20);
                 PdfWriter writer = PdfWriter.GetInstance(pdfdoc, new FileStream(Application.StartupPath + "\\Barcode\\Barcode1.pdf", FileMode.Create));
                 PdfPTable tbl = new PdfPTable(5);
                 tbl.WidthPercentage = 100;
@@ -4492,7 +4511,7 @@ namespace Sys_Sols_Inventory
                          }
                          else
                          {
-                             strBarcodeValue = dgbarcodeprint.Rows[i].Cells["Barcode"].Value.ToString();
+                             strBarcodeValue = dgbarcodeprint.Rows[i].Cells["Barcode"].Value == DBNull.Value? "": dgbarcodeprint.Rows[i].Cells["Barcode"].Value.ToString();
                          }
                             if (IsCompany == true)
                                 strCompanyName = companyname;
@@ -4585,14 +4604,14 @@ namespace Sys_Sols_Inventory
                     System.Diagnostics.Process.Start(Application.StartupPath + "\\Barcode\\Barcode1.pdf");
                 }
             }
-            catch (Exception ex)
+           catch (Exception ex)
             {
-                if (ex.Message.Contains("The process cannot access the file") && ex.Message.Contains("Barcode.pdf' because it is being used by another process."))
+               if (ex.Message.Contains("The process cannot access the file") && ex.Message.Contains("Barcode.pdf' because it is being used by another process."))
                 {
                     MessageBox.Show("Close the PDF file and try again", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
-                {
+               {
                     MessageBox.Show("Error:" + ex.Message, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -4605,7 +4624,7 @@ namespace Sys_Sols_Inventory
                 catch
                 {
                 }
-            }
+           }
         }
         public void TotalCountOfCopies()
         {
@@ -4684,16 +4703,32 @@ namespace Sys_Sols_Inventory
         //}
         private void btndown_Click(object sender, EventArgs e)
         {
-            
+            string docno = DOC_NO.Text;
             if (!initialload)
             {
                 Clear2();
-                int lastVoucherID = Convert.ToInt32(VOUCHNUM.Text);
-                VOUCHNUM.Text = (lastVoucherID - 1).ToString();
-                checkvoucher(Convert.ToInt32(VOUCHNUM.Text));
+                //       int lastVoucherID = Convert.ToInt32(VOUCHNUM.Text);
+                //       VOUCHNUM.Text = (lastVoucherID - 1).ToString();
+                //       checkvoucher(Convert.ToInt32(VOUCHNUM.Text));
+                if (purchasemasterlist.IndexOf(docno) <= 0)
+                {
+                    string xxxx = VOUCHNUM.Text;
+                    if (purchasemasterlist.Count() > 0)
+                        DOC_NO.Text = purchasemasterlist.ElementAt(purchasemasterlist.Count() - 1);
+                    else return;
+
+
+                }
+                else
+                {
+                    DOC_NO.Text = purchasemasterlist.ElementAt(purchasemasterlist.IndexOf(docno) - 1);
+                }
+
+
+
                 try
                 {
-                    invHdr.DocNo = VOUCHNUM.Text;
+                    invHdr.DocNo = DOC_NO.Text;
                     if (cmbInvType.SelectedValue != null)
                     {
                         invHdr.PurType = cmbInvType.SelectedValue.ToString();
@@ -4714,6 +4749,7 @@ namespace Sys_Sols_Inventory
                     {
                         ID = Convert.ToString(dt.Rows[0]["DOC_NO"]);
                         DOC_NO.Text = ID;
+                        VOUCHNUM.Text = dt.Rows[0]["DOC_ID"].ToString();
                         POSTID = ID;
                         DOC_DATE_GRE.Text = Convert.ToDateTime(dt.Rows[0]["DOC_DATE_GRE"].ToString()).ToShortDateString();
                         DOC_DATE_HIJ.Text = Convert.ToString(dt.Rows[0]["DOC_DATE_HIJ"]);
@@ -4881,6 +4917,7 @@ namespace Sys_Sols_Inventory
             {
                 vouchmax = Convert.ToInt32(stringMaxVoucherID);
             }
+            /*
             if (cvouch == startVouch && vouchmax < startVouch)
             {
                 btnup.Enabled = false;
@@ -4912,15 +4949,29 @@ namespace Sys_Sols_Inventory
                 btndown.Enabled = true;
                 btnup.Enabled = true;
             }
-
+            */
         }
         private void btnup_Click(object sender, EventArgs e)
         {
+            string docno = DOC_NO.Text;
             if (!initialload)
             {
                 Clear2();
-                VOUCHNUM.Text = (Convert.ToInt32(VOUCHNUM.Text) + 1).ToString();
-                checkvoucher(Convert.ToInt32(VOUCHNUM.Text));
+                // VOUCHNUM.Text = (Convert.ToInt32(VOUCHNUM.Text) + 1).ToString();
+                // checkvoucher(Convert.ToInt32(VOUCHNUM.Text));
+
+                if ((purchasemasterlist.IndexOf(docno) + 1) >= purchasemasterlist.Count())
+                {
+                    btnClear.PerformClick();
+                    GetMaxDocID();
+                    return;
+                }
+                else
+                {
+                    DOC_NO.Text = purchasemasterlist.ElementAt(purchasemasterlist.IndexOf(docno) + 1);
+                }
+
+
                 //DataTable dt = new DataTable();
                 //cmd.CommandText = "SELECT * FROM INV_PURCHASE_HDR WHERE DOC_ID = '" + VOUCHNUM.Text + "' AND FLAGDEL='TRUE'";
                 //cmd.CommandType = CommandType.Text;
@@ -4934,6 +4985,7 @@ namespace Sys_Sols_Inventory
                     ID = Convert.ToString(dt.Rows[0]["DOC_NO"]);
                     DOC_NO.Text = ID;
                     POSTID = ID;
+                    VOUCHNUM.Text = dt.Rows[0]["DOC_ID"].ToString();
                     DOC_DATE_GRE.Text = Convert.ToDateTime(dt.Rows[0]["DOC_DATE_GRE"].ToString()).ToShortDateString();
                     DOC_DATE_HIJ.Text = Convert.ToString(dt.Rows[0]["DOC_DATE_HIJ"]);
                     SUPPLIER_CODE.Text = Convert.ToString(dt.Rows[0]["SUPPLIER_CODE"]);

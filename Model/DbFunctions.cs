@@ -17,12 +17,26 @@ namespace Sys_Sols_Inventory.Model
         static SqlDataAdapter da = new SqlDataAdapter();
         static SqlDataReader dr;
         static DataTable dt = new DataTable();
-       // conn.ConnectionString = Properties.Settings.Default.ConnectionStrings;
+        
+     //  conn.ConnectionString = Properties.Settings.Default.ConnectionStrings;
         public static SqlConnection GetConnection()
         {
-           // conn = new SqlConnection(connection);
+          
+            // conn = new SqlConnection(connection);
             if (conn.State == ConnectionState.Closed)
             {
+                
+                conn.Open();
+            }
+            return conn;
+        }
+
+        public static SqlConnection GetNewConnection()
+        {
+            // conn = new SqlConnection(connection);
+            if (conn.State == ConnectionState.Closed)
+            {
+
                 conn.Open();
             }
             return conn;
@@ -36,6 +50,43 @@ namespace Sys_Sols_Inventory.Model
             }
         }
 
+        public static int Transactions (List<SqlCommand> Commands)
+        {
+            SqlConnection con = new SqlConnection();
+         //       CloseConnection();
+            using ( con = GetNewConnection())
+            {
+              SqlTransaction trans =   con.BeginTransaction(IsolationLevel.ReadCommitted);
+                try
+                {
+                    foreach (SqlCommand cmd in Commands)
+                    {
+                        cmd.Connection = con;
+                        cmd.Transaction = trans;
+                        cmd.ExecuteNonQuery();
+                    }
+                    trans.Commit();
+   //                 trans.Connection.Close();
+                    
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                    trans.Rollback();
+                    trans.Connection.Close();
+                    con.Close();
+                    CloseConnection();
+                    return -1;
+
+                }
+                
+                
+            }
+            
+            con.Close();
+            CloseConnection();
+            return 1;
+        }
         public static int InsertUpdate(string Command)
         {
             try
@@ -386,6 +437,7 @@ namespace Sys_Sols_Inventory.Model
 
         public static object GetAValue(string Command)
         {
+            
             object var = "";
             try
             {
@@ -395,12 +447,14 @@ namespace Sys_Sols_Inventory.Model
                 cmd.CommandText = Command;
                 cmd.Parameters.Clear();
                 var = (cmd.ExecuteScalar());
+                
                 CloseConnection();
                 return var;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("Error:GetAValue- " + ex);
+                MessageBox.Show("Error:GetAValue- " + ex);
+                
                 CloseConnection();
                 return var;
             }

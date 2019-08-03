@@ -170,6 +170,8 @@ namespace Sys_Sols_Inventory.Model
             string query = "SELECT (DOC_NO) FROM INV_STK_TRX_DTL WHERE ITEM_CODE='" + itemCode + "'";
             return DbFunctions.GetDataTable(query);
         }
+        
+
         public DataTable selectUnits()
         {
             string query = "SELECT UNIT_CODE,PACK_SIZE FROM INV_ITEM_DIRECTORY_UNITS WHERE ITEM_CODE = '" + itemCode + "'";

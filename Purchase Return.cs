@@ -647,10 +647,11 @@ namespace Sys_Sols_Inventory
 
 
         }
-        public long GetMaxDocID()
+        public string GetMaxDocID()
         {
             long maxId;
             String value;
+            /*
             //  cmd.CommandText = "SELECT ISNULL(MAX(DOC_ID), 0) FROM INV_PURCHASE_HDR WHERE DOC_TYPE = '" + type + "' AND FLAGDEL='True'";
             value = Convert.ToString(purchHdrObj.getMaxDocId("LGR.CPR','LGR.PRT"));
             if (value.Equals("0"))
@@ -662,6 +663,28 @@ namespace Sys_Sols_Inventory
                 maxId = Convert.ToInt64(value) + 1;
                 return maxId;
             }
+            */
+            string doctype = "PurchaseReturn";
+            string saletype = "PurchaseReturn";
+            string query = "Declare @MaxDocID as int, @NoSeriesSuffix as varchar(5) ";
+            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from INV_PURCHASE_HDR p right join tbl_FinancialYear f on Convert(Varchar, p.DOC_DATE_GRE, 111) between f.SDate and f.EDate ";
+            if (saletype == "PurchaseReturn") query += " and p.DOC_TYPE = 'LGR.ESR' ";
+            if (saletype == "PurchaseReturn") query += " and p.DOC_TYPE in ('LGR.CPR','LGR.PRT') ";
+            query += " where f.CurrentFY = 1 ";
+            query += " Select s.PRIFIX + @NoSeriesSuffix + Right(Replicate('0', s.SERIAL_LENGTH) + cast(@MaxDocID as varchar), s.SERIAL_LENGTH) DOCNo, @MaxDocID DocID from GEN_DOC_SERIAL s ";
+            query += " where s.DOC_TYPE = '" + saletype + "' ";
+            DataTable dt = DbFunctions.GetDataTable(query);
+            if (dt.Rows.Count >= 1)
+            {
+                Billno = txt_srno.Text = dt.Rows[0]["DOCID"].ToString();
+                DOC_NO.Text = dt.Rows[0]["DOCNO"].ToString();
+
+                return dt.Rows[0]["DOCID"].ToString();
+            }
+
+            return "";
+
+
 
 
         }

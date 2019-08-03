@@ -25,7 +25,7 @@ namespace Sys_Sols_Inventory
         Class.Ledgers led = new Class.Ledgers();
         Ledgers ldgObj = new Ledgers();
         ProjectDB ProjectDB = new ProjectDB();
-
+        List<string> accountvouchers = new List<string>();
         private DataTable table = new DataTable();
         private BindingSource source = new BindingSource();
         private DateTime TransDate;
@@ -380,11 +380,18 @@ namespace Sys_Sols_Inventory
                     if (valid())
                     {
                         TransDate = Convert.ToDateTime(DOC_DATE_GRE.Value);
+                        if (!ComSet.IsCurrentFY(TransDate))
+                        {
+                            MessageBox.Show("Transaction date not within Financial Year Range!!!");
+                            return;
+                        }
+
                         string status = "Added!";
                         if (ID == "")
                         {
 
-                            DOC_NO.Text = General.generateAccVoucherCode();
+                            //DOC_NO.Text = General.generateAccVoucherCode();
+                            GetMaxPayVouch();
                             accvhdrObj.PayCode = PAY_CODE.Text;
                             //if (PAY_CODE.Text != "CHQ")
                             //{
@@ -395,6 +402,7 @@ namespace Sys_Sols_Inventory
                             //    cmd.CommandText = "INSERT INTO ACCOUNT_VOUCHER_HDR (DOC_NO,REC_NO,DOC_DATE_GRE,DOC_DATE_HIJ,CUR_CODE,AMOUNT,PAY_CODE,BANK_CODE,ACC_DETAILS,CHQ_NO,CHQ_DATE,CREDIT_CODE,DESC2,DEBIT_CODE,DESC1,NOTES,TOTAL_PAID,TOTAL_CURRENT,TOTAL_BALANCE) VALUES('" + DOC_NO.Text + "','" + txtVoucherNo.Text + "','" + DOC_DATE_GRE.Value.ToString("yyyy/MM/dd") + "','" + DOC_DATE_HIJ.Text + "','" + CUR_CODE.Text + "','" + Convert.ToDecimal(AMOUNT.Text) + "','" + PAY_CODE.Text + "','" + BANK_CODE.Text + "','" + txtAccDetails.Text + "','" + CHQ_NO.Text + "','" + CHQ_DATE.Value.ToString("yyyy/MM/dd") + "','" + CASHACC.SelectedValue + "','" + CASHACC.Text + "','" + PARTYACC.SelectedValue + "','" + PARTYACC.Text + "','" + Common.sqlEscape(NOTES.Text) + "','" + TOTAL_PAID.Text + "','" + TOTAL_CURRENT.Text + "','" + TOTAL_BALANCE.Text + "')";
                             //}
                             accvhdrObj.DocNo= DOC_NO.Text;
+                            accvhdrObj.DocId = Convert.ToInt16(txtVoucherNo.Text);
                             accvhdrObj.RecNo=Convert.ToDecimal(txtVoucherNo.Text);
                             accvhdrObj.DocDateGre=DOC_DATE_GRE.Value;
                             accvhdrObj.DocDateHij= DOC_DATE_HIJ.Text;
@@ -417,7 +425,8 @@ namespace Sys_Sols_Inventory
                             accvhdrObj.TotalCurrent=Convert.ToDecimal(TOTAL_CURRENT.Text);
                             accvhdrObj.TotalBalance= Convert.ToDecimal(TOTAL_BALANCE.Text) ;
                             accvhdrObj.ProjectId =Convert.ToInt32(cmb_projects.SelectedValue);
-                            accvhdrObj.insertData();
+                            if (accvhdrObj.insertData() >= 1)
+                            accountvouchers.Add(DOC_NO.Text);
 
                         }
                         else
@@ -710,7 +719,7 @@ namespace Sys_Sols_Inventory
         }
 
 
-        void GetMaxPayVouch()
+        string GetMaxPayVouch()
         {
             int maxId;
             String value;
@@ -718,7 +727,7 @@ namespace Sys_Sols_Inventory
             //cmd.CommandText = "SELECT ISNULL(MAX(CONVERT(DECIMAL(18,0),REC_NO)), 0) FROM ACCOUNT_VOUCHER_HDR";
           //  cmd.CommandType = CommandType.Text;
            // conn.Open();
-
+           /*
             value = Convert.ToString(accvhdrObj.getMaxRecNo());
            // conn.Close();
 
@@ -736,10 +745,36 @@ namespace Sys_Sols_Inventory
                 maxId = Convert.ToInt32(value);
                 txtVoucherNo.Text = (maxId + 1).ToString();
             }
+            */
+            string vouchertype = "AccountVoucher";
+
+            string query = "Declare @MaxDocID as int, @NoSeriesSuffix as varchar(5) ";
+            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from ACCOUNT_VOUCHER_HDR p right join tbl_FinancialYear f on Convert(Varchar, p.DOC_DATE_GRE, 111) between f.SDate and f.EDate ";
+            query += " where f.CurrentFY = 1 ";
+            query += " Select s.PRIFIX + @NoSeriesSuffix + Right(Replicate('0', s.SERIAL_LENGTH) + cast(@MaxDocID as varchar), s.SERIAL_LENGTH) DOCNo, @MaxDocID DocID from GEN_DOC_SERIAL s ";
+            query += " where s.DOC_TYPE = '" + vouchertype + "' ";
+            DataTable dt = DbFunctions.GetDataTable(query);
+            if (dt.Rows.Count >= 1)
+            {
+                Billno = txtVoucherNo.Text = dt.Rows[0]["DOCID"].ToString();
+                DOC_NO.Text = dt.Rows[0]["DOCNo"].ToString();
+                return dt.Rows[0]["DOCNo"].ToString();
+            }
+            return "";
         }
+
+
+
+
+    
         private void PaymentVoucher_Load(object sender, EventArgs e)
         {
-
+            string query1 = "Select Distinct DOC_NO, DOC_DATE_GRE, DOC_ID from ACCOUNT_VOUCHER_HDR a inner join tbl_financialYear f on Convert(Varchar, a.DOC_DATE_GRE, 111) between f.SDate and f.EDate Order by DOC_DATE_GRE, DOC_ID ";
+            DataTable dt = DbFunctions.GetDataTable(query1);
+            foreach (DataRow dr in dt.Rows)
+            {
+                accountvouchers.Add(dr["DOC_NO"].ToString());
+            }
             HasAccounts = Properties.Settings.Default.Account;
             DOC_DATE_GRE.Text = ComSet.GettDate();
 
@@ -1623,7 +1658,22 @@ namespace Sys_Sols_Inventory
 
             decimal value=Convert.ToDecimal(accvhdrObj.getMaxRecNo());
 
-           // conn.Close();
+            if ((accountvouchers.IndexOf(DOC_NO.Text) + 1) >= accountvouchers.Count())
+            {
+                btnClear.PerformClick();
+                
+                GetMaxPayVouch();
+                return;
+            }
+            else
+            {
+                DOC_NO.Text = accountvouchers.ElementAt(accountvouchers.IndexOf(DOC_NO.Text) + 1);
+                /*
+            }
+
+
+
+            // conn.Close();
             if (Convert.ToDecimal(txtVoucherNo.Text) + 1 >= ++value)
             {
                 ID = "";
@@ -1632,20 +1682,26 @@ namespace Sys_Sols_Inventory
             }
             else
             {
+            
                 txtVoucherNo.Text = (Convert.ToDecimal(txtVoucherNo.Text) + 1).ToString();
 
+    
                 //cmd = new SqlCommand("SELECT * FROM ACCOUNT_VOUCHER_HDR LEFT OUTER JOIN GEN_PAYTYPE ON ACCOUNT_VOUCHER_HDR.PAY_CODE=GEN_PAYTYPE.CODE WHERE REC_NO='" + txtVoucherNo.Text + "'", conn);
-                DataTable dt = new DataTable();
+                
                 //SqlDataAdapter adptr = new SqlDataAdapter(cmd);
                 //adptr.Fill(dt);
                // conn.Close();
                 accvhdrObj.RecNo = Convert.ToDecimal(txtVoucherNo.Text);
-                dt = accvhdrObj.getAllData();
+                */
+                DataTable dt = new DataTable();
+                dt = accvhdrObj.getAllData(DOC_NO.Text);
                 if (dt.Rows.Count > 0)
                 {
                     DOC_NO.Text = dt.Rows[0]["DOC_NO"].ToString();
                     ID = DOC_NO.Text;
-                    tableHDR = "ACCOUNT_VOUCHER_HDR";
+
+    
+                tableHDR = "ACCOUNT_VOUCHER_HDR";
                     tableDTL = "ACCOUNT_VOUCHER_DTL";
                     fld = "SUP_CODE";
                     title = "Account Voucher";
@@ -1676,7 +1732,7 @@ namespace Sys_Sols_Inventory
                     }
                     //conn.Open();
                     //cmd = new SqlCommand("SELECT DOC_DATE_GRE FROM ACCOUNT_VOUCHER_HDR WHERE REC_NO='" + txtVoucherNo.Text + "'", conn);
-                    DOC_DATE_GRE.Value = Convert.ToDateTime(accvhdrObj.getDocDateGre());
+                    DOC_DATE_GRE.Value = Convert.ToDateTime(dt.Rows[0]["DOC_DATE_GRE"]);
                     //conn.Close();
 
                 }
@@ -1686,11 +1742,12 @@ namespace Sys_Sols_Inventory
         private void btn_minus_Click(object sender, EventArgs e)
         {
             //conn.Open();
-           // cmd = new SqlCommand("SELECT VouchStartFrom FROM GEN_VOUCH_STARTFROM WHERE vouchtypecode='ACC'", conn);
-           // string MIN_ = Convert.ToString(cmd.ExecuteScalar());
+            // cmd = new SqlCommand("SELECT VouchStartFrom FROM GEN_VOUCH_STARTFROM WHERE vouchtypecode='ACC'", conn);
+            // string MIN_ = Convert.ToString(cmd.ExecuteScalar());
             //conn.Close();
             //dgDetail.Rows.Clear();
             //dgDetail.DataSource = null;
+            /*
             string MIN_ = Convert.ToString(accvhdrObj.getVouchStartFrom());
             decimal CURRENT = Convert.ToDecimal(txtVoucherNo.Text) - 1;
 
@@ -1702,17 +1759,35 @@ namespace Sys_Sols_Inventory
             else
             {
 
-                txtVoucherNo.Text = (Convert.ToDecimal(txtVoucherNo.Text) - 1).ToString();
+
+*/
+            if (accountvouchers.IndexOf(DOC_NO.Text) <= 0)
+            {
+                if (accountvouchers.Count() > 0)
+                    DOC_NO.Text = accountvouchers.ElementAt(accountvouchers.Count() - 1);
+                else return;
+
+
+            }
+            else
+            {
+                DOC_NO.Text = accountvouchers.ElementAt(accountvouchers.IndexOf(DOC_NO.Text) - 1);
+            }
+
+
+
+            txtVoucherNo.Text = (Convert.ToDecimal(txtVoucherNo.Text) - 1).ToString();
               //  cmd = new SqlCommand("SELECT * FROM ACCOUNT_VOUCHER_HDR LEFT OUTER JOIN GEN_PAYTYPE ON ACCOUNT_VOUCHER_HDR.PAY_CODE=GEN_PAYTYPE.CODE WHERE REC_NO='" + txtVoucherNo.Text + "'", conn);
                 DataTable dt = new DataTable();
               //  SqlDataAdapter adptr = new SqlDataAdapter(cmd);
              //   adptr.Fill(dt);
              //   conn.Close();
                 accvhdrObj.RecNo =Convert.ToDecimal(txtVoucherNo.Text);
-                dt = accvhdrObj.getAllData();
+                dt = accvhdrObj.getAllData(DOC_NO.Text);
                 if (dt.Rows.Count > 0)
                 {
                     btnDelete.Enabled = true;
+                txtVoucherNo.Text = dt.Rows[0]["DOC_ID"].ToString();
                     DOC_NO.Text = dt.Rows[0]["DOC_NO"].ToString();
                     ID = DOC_NO.Text;
                     tableHDR = "ACCOUNT_VOUCHER_HDR";
@@ -1740,7 +1815,7 @@ namespace Sys_Sols_Inventory
                    // cmd = new SqlCommand("SELECT DOC_DATE_GRE FROM ACCOUNT_VOUCHER_HDR WHERE REC_NO='" + txtVoucherNo.Text + "'", conn);
                    // DOC_DATE_GRE.Value = Convert.ToDateTime(cmd.ExecuteScalar());
                     accvhdrObj.RecNo =Convert.ToDecimal(txtVoucherNo.Text);
-                    DOC_DATE_GRE.Value = Convert.ToDateTime(accvhdrObj.getDocDateGre());
+                    DOC_DATE_GRE.Value = Convert.ToDateTime(dt.Rows[0]["DOC_DATE_GRE"]);
                     if (Convert.ToInt32(dt.Rows[0]["Project_Id"].ToString()) <= 0 || dt.Rows[0]["Project_Id"] == null)
                     {
                         cmb_projects.SelectedIndex = 0;
@@ -1753,7 +1828,7 @@ namespace Sys_Sols_Inventory
                 }
 
             }
-        }
+        
 
         private void btn_InvSearch_LinkClicked(object sender, EventArgs e)
         {

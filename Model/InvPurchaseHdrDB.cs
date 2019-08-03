@@ -466,7 +466,7 @@ namespace Sys_Sols_Inventory.Model
          }
          public DataTable getPurchaseHdrWthDelFlag()
          {
-             string query = "SELECT * FROM INV_PURCHASE_HDR WHERE DOC_ID = '" + docNo + "'AND FLAGDEL='TRUE' AND PUR_TYPE='" + purType+"'";
+             string query = "SELECT * FROM INV_PURCHASE_HDR WHERE DOC_NO = '" + docNo + "'AND FLAGDEL='TRUE' AND PUR_TYPE='" + purType+"'";
             
              return DbFunctions.GetDataTable(query);
          }

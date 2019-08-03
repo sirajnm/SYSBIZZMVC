@@ -411,6 +411,7 @@ namespace Sys_Sols_Inventory
             RATE_CODE.ValueMember = "key";
             RATE_CODE.DataSource = rateTable;
             bindledgers();
+            GetMaxDocID();
         }
 
         public Sales_Return(string docNo)
@@ -1186,6 +1187,12 @@ namespace Sys_Sols_Inventory
         private void btnSave_Click(object sender, EventArgs e)
         {
             TransDate = Convert.ToDateTime(DOC_DATE_GRE.Value.ToString());
+            if (!ComSet.IsCurrentFY(TransDate))
+            {
+                MessageBox.Show("Transaction date not within Financial Year Range!!!");
+                return;
+            }
+
             if (valid())
             {
                 if (DialogResult.Yes == MessageBox.Show("Are you sure to return the products", "Product Return Alert", MessageBoxButtons.YesNo))
@@ -1412,10 +1419,11 @@ namespace Sys_Sols_Inventory
             }
         }
 
-        public  long GetMaxDocID()
+        public  string GetMaxDocID()
         {
             long maxId;
             String value;
+            /*
             invslhdrObj.DocType = "SAL.CDR','SAL.CSR";
             value = Convert.ToString(invslhdrObj.getMaxDocId());
             if (value.Equals("0"))
@@ -1426,9 +1434,31 @@ namespace Sys_Sols_Inventory
             {
                 maxId = Convert.ToInt64(value)+1;
                 return maxId;
+            }*/
+
+            string doctype = "SaleReturn";
+            string saletype = "SaleReturn";
+            string query = "Declare @MaxDocID as int, @NoSeriesSuffix as varchar(5) ";
+            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from INV_SALES_HDR p right join tbl_FinancialYear f on Convert(Varchar, p.DOC_DATE_GRE, 111) between f.SDate and f.EDate ";
+            if (saletype == "SalesReturn") query += " and p.DOC_TYPE = 'SAL.ESR' ";
+            if (saletype == "SalesReturn") query += " and p.DOC_TYPE in ('SAL.CDR','SAL.CSR') ";
+            query += " where f.CurrentFY = 1 ";
+            query += " Select s.PRIFIX + @NoSeriesSuffix + Right(Replicate('0', s.SERIAL_LENGTH) + cast(@MaxDocID as varchar), s.SERIAL_LENGTH) DOCNo, @MaxDocID DocID from GEN_DOC_SERIAL s ";
+            query += " where s.DOC_TYPE = '" + saletype + "' ";
+            DataTable dt = DbFunctions.GetDataTable(query);
+            if (dt.Rows.Count >= 1)
+            {
+                Billno = txt_srno.Text = dt.Rows[0]["DOCID"].ToString();
+                DOC_NO.Text = dt.Rows[0]["DOCNO"].ToString();
+
+                return dt.Rows[0]["DOCID"].ToString();
             }
 
-        
+            return "";
+
+
+
+
         }
         public void modifiedtransaction()
         {

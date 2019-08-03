@@ -180,20 +180,38 @@ namespace Sys_Sols_Inventory
             {
             }
         }
-        void GetMaxPayVouch()
+        string GetMaxPayVouch()
         {
             int maxId;
             String value;
-            value = Convert.ToString(getMaxRecNo());
-            if (value.Equals("0"))
+            /*    value = Convert.ToString(getMaxRecNo());
+                if (value.Equals("0"))
+                {
+                    txtVoucherNo.Text = Convert.ToString(getVouchStartFrom());
+                }
+                else
+                {
+                    maxId = Convert.ToInt32(value);
+                    txtVoucherNo.Text = (maxId + 1).ToString();
+                } */
+
+            string vouchertype = "PayrollVoucher";
+
+            string query = "Declare @MaxDocID as int, @NoSeriesSuffix as varchar(5) ";
+            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from ACCOUNT_VOUCHER_HDR p right join tbl_FinancialYear f on p.DOC_DATE_GRE between f.SDate and f.EDate ";
+            query += " where f.CurrentFY = 1 ";
+            query += " Select s.PRIFIX + @NoSeriesSuffix + Right(Replicate('0', s.SERIAL_LENGTH) + cast(@MaxDocID as varchar), s.SERIAL_LENGTH) DOCNo, @MaxDocID DocID from GEN_DOC_SERIAL s ";
+            query += " where s.DOC_TYPE = '" + vouchertype + "' ";
+            DataTable dt = Sys_Sols_Inventory.Model.DbFunctions.GetDataTable(query);
+            if (dt.Rows.Count >= 1)
             {
-                txtVoucherNo.Text = Convert.ToString(getVouchStartFrom());
+                Billno = txtVoucherNo.Text = dt.Rows[0]["DOCID"].ToString();
+                DOC_NO.Text = dt.Rows[0]["DOCNo"].ToString();
+                return dt.Rows[0]["DOCNo"].ToString();
             }
-            else
-            {
-                maxId = Convert.ToInt32(value);
-                txtVoucherNo.Text = (maxId + 1).ToString();
-            }
+            return "";
+
+
         }
         private object getMaxRecNo()
         {

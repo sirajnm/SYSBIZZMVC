@@ -219,12 +219,12 @@ namespace Sys_Sols_Inventory.Model
 
        public bool Update()
         {
-            TotalQty = TransactionDetails.Sum(s => s.Quantity);
-            AmountForPay = TransactionDetails.Sum(s => s.AmountForPay);
-            DiscountAmount = TransactionDetails.Sum(s => s.DiscountAmount);
-            VATAmount = TransactionDetails.Sum(s => s.VATAmount);
-            CESSAmount = TransactionDetails.Sum(s => s.CESSAmount);
-            NetAmount = TransactionDetails.Sum(s => s.NetAmount);
+            TotalQty = TransactionDetails.Where(s=> s.VoidStatus == false).Sum(s => s.Quantity);
+            AmountForPay = TransactionDetails.Where(s => s.VoidStatus == false).Sum(s => s.AmountForPay);
+            DiscountAmount = TransactionDetails.Where(s => s.VoidStatus == false).Sum(s => s.DiscountAmount);
+            VATAmount = TransactionDetails.Where(s => s.VoidStatus == false).Sum(s => s.VATAmount);
+            CESSAmount = TransactionDetails.Where(s => s.VoidStatus == false).Sum(s => s.CESSAmount);
+            NetAmount = TransactionDetails.Where(s => s.VoidStatus == false).Sum(s => s.NetAmount);
             string transheadupdatequery = "Update [dbo].[POS_Transaction_Header] set  AmountForPay = @amountforpay, TotalQty = @totqty, DiscountAmount=@DiscountAmount, VATAmount= @vatamount, CESSAmount=@cessamount, NETAmount=@netamount, TransactionStatus=@TransactionStatus, IsCustomerAccount = @IsCustomerAccount where [TransactionNo] = @transnotemp";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@transnotemp", TransactionNo);
@@ -253,7 +253,7 @@ namespace Sys_Sols_Inventory.Model
             CustomerAccount = customer.CustomerLedger;
 
 
-            string query = "Update [dbo].[POS_Transaction_Header] set CustomerMobileNo = @CustomerMobileNo, CustomerName = @CustomerName, CustomerAddress1 = @CustomerAddress1, CustomerAddress2 = @CustomerAddress2, IsCustomerAccount = @IsCustomerAccount, CustomerAccount=@CustomerAccount  ";
+            string query = "Update [dbo].[POS_Transaction_Header] set CustomerMobileNo = @CustomerMobileNo, CustomerName = @CustomerName, CustomerAddress1 = @CustomerAddress1, CustomerAddress2 = @CustomerAddress2, IsCustomerAccount = @IsCustomerAccount, CustomerAccount = @CustomerAccount  ";
             query = query + " where TransactionNo = @TransactionNo and Branch = @Branch and TillID = @TillID ";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@TransactionNo", TransactionNo);
@@ -264,7 +264,7 @@ namespace Sys_Sols_Inventory.Model
             parameters.Add("@CustomerAddress1", customer.CustomerAddress1);
             parameters.Add("@CustomerAddress2", customer.CustomerAddress2);
             parameters.Add("@IsCustomerAccount", IsCustomerAccount?1:0  );
-            parameters.Add("@CustomerAccount", CustomerAccount);
+            parameters.Add("@CustomerAccount", CustomerAccount );
             
             if (DbFunctions.InsertUpdate(query,parameters) >= 1)
             {
@@ -289,6 +289,21 @@ namespace Sys_Sols_Inventory.Model
             Update();
             return true;    
         }
+        public bool VoidTransaction()
+        {
+            if (PaidAmount != 0)
+            {
+                return false;
+            }
+            foreach (TransactionDetailTEMP tdetail in this.TransactionDetails)
+            {
+                tdetail.Void();
+            }
+            this.TransactionStatus = "Voided";
+            Update();
+            return true;
+
+        }
 
         public int Post()
         {
@@ -302,8 +317,16 @@ namespace Sys_Sols_Inventory.Model
             TransactionStatus = "Closed";
 
             string transheadupdatequery = "Update [dbo].[POS_Transaction_Header] set [TransactionNo] = @transnonew, AmountForPay = @amountforpay, TotalQty = @totqty, DiscountAmount=@DiscountAmount, VATAmount= @vatamount, CESSAmount=@cessamount, NETAmount=@netamount, TransactionStatus = @TransactionStatus where [TransactionNo] = @transnotemp";
+            System.Data.SqlClient.SqlCommand transheadupdate = new System.Data.SqlClient.SqlCommand();
+            transheadupdate.CommandText = transheadupdatequery;
+
             string transdetailupdatequery = "Update POS_Transaction_Detail set [TransactionNo] = @transnonew where [TransactionNo] = @transnotemp";
+            System.Data.SqlClient.SqlCommand transdetailupdate = new System.Data.SqlClient.SqlCommand();
+            transdetailupdate.CommandText = transdetailupdatequery;
             string transpaymentupdatequery = "Update POS_PaymentEntry set [TransactionNo] = @transnonew where [TransactionNo] = @transnotemp";
+            System.Data.SqlClient.SqlCommand transpaymentupdate = new System.Data.SqlClient.SqlCommand();
+            transpaymentupdate.CommandText = transpaymentupdatequery;
+           // System.Data.SqlClient.SqlParameter parameters = new System.Data.SqlClient.SqlParameter();
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@transnotemp", TransactionNo);
             string NewTransactionNo = SerialNo();
@@ -315,18 +338,40 @@ namespace Sys_Sols_Inventory.Model
             parameters.Add("@cessamount", CESSAmount);
             parameters.Add("@netamount", NetAmount);
             parameters.Add("@TransactionStatus", TransactionStatus);
-            
-            if (DbFunctions.InsertUpdate(transheadupdatequery, parameters) >= 1)
+            for(int i=0; i < parameters.Count(); ++i )
+            {
+            transheadupdate.Parameters.Add(new System.Data.SqlClient.SqlParameter(parameters.ElementAt(i).Key, parameters.ElementAt(i).Value));
+            transdetailupdate.Parameters.Add(new System.Data.SqlClient.SqlParameter(parameters.ElementAt(i).Key, parameters.ElementAt(i).Value));
+            transpaymentupdate.Parameters.Add(new System.Data.SqlClient.SqlParameter(parameters.ElementAt(i).Key, parameters.ElementAt(i).Value));
+
+            }
+           /* 
+            List<System.Data.SqlClient.SqlCommand> TransCommand = new List<System.Data.SqlClient.SqlCommand>();
+            TransCommand.Add(transheadupdate);
+            TransCommand.Add(transdetailupdate);
+            TransCommand.Add(transpaymentupdate);
+            if (DbFunctions.Transactions(TransCommand) >= 1)
+            {
+               // InventoryRepositery.InventoryRetailSales(this);
+                TransactionNo = NewTransactionNo;
+                return 1;
+            }
+            return 0; */
+
+              if (DbFunctions.InsertUpdate(transheadupdatequery, parameters) >= 1)
                 if (DbFunctions.InsertUpdate(transdetailupdatequery, parameters) >= 1)
                     if (DbFunctions.InsertUpdate(transpaymentupdatequery, parameters) >= 1)
                     {
+                        if (!InventoryRepositery.InventoryRetailSales(this))
+                            System.Windows.MessageBox.Show("Inventory Not Posted");
                         TransactionNo = NewTransactionNo;
+
                         return 1;
                     }
                      
                         return 0;
                     
-
+            
 
 
 

@@ -461,6 +461,12 @@
     <Compile Include="BatchHelp.Designer.cs">
       <DependentUpon>BatchHelp.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChartofAccountsNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChartofAccountsNew.Designer.cs">
+      <DependentUpon>ChartofAccountsNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\AccountGroup.cs" />
     <Compile Include="Class\Activation.cs" />
     <Compile Include="Class\ArchiveManager.cs" />
@@ -833,6 +839,7 @@
     <Compile Include="Model\DebitNoteDB.cs" />
     <Compile Include="Model\EmpEmployeesDB.cs" />
     <Compile Include="Model\HardwareInfo.cs" />
+    <Compile Include="Model\InventoryRepositery.cs" />
     <Compile Include="Model\InvItemCategoryDB.cs" />
     <Compile Include="Model\InvItemDirectoryPictureDB.cs" />
     <Compile Include="Model\InvItemDirectoryUnits.cs" />
@@ -848,6 +855,7 @@
     <Compile Include="Model\InvStkTrxDtlDB.cs" />
     <Compile Include="Model\InvStkTrxHdrDB.cs" />
     <Compile Include="Model\ItemDirectoryDB.cs" />
+    <Compile Include="Model\ItemLedter.cs" />
     <Compile Include="Model\PayPaymentVoucherHdrDB.cs" />
     <Compile Include="Model\PaySupplierDB.cs" />
     <Compile Include="Model\POS_Customer.cs" />
@@ -1467,6 +1475,7 @@
     <Compile Include="Search_Items.Designer.cs">
       <DependentUpon>Search_Items.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="StartUp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1664,6 +1673,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BatchHelp.resx">
       <DependentUpon>BatchHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChartofAccountsNew.resx">
+      <DependentUpon>ChartofAccountsNew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CommonHelp.resx">
       <DependentUpon>CommonHelp.cs</DependentUpon>
@@ -2363,6 +2375,7 @@
     <None Include="reports\SalesSummaryEach.xss">
       <DependentUpon>SalesSummaryEach.xsd</DependentUpon>
     </None>
+    <None Include="Resources\1.png" />
     <None Include="Resources\classic.png" />
     <None Include="reports\StockADJDS.xsc">
       <DependentUpon>StockADJDS.xsd</DependentUpon>
@@ -2519,7 +2532,6 @@
     <None Include="Resources\6.png" />
     <None Include="Resources\3.png" />
     <None Include="Resources\4.png" />
-    <None Include="Resources\1.png" />
     <None Include="Resources\7.png" />
     <Content Include="Resources\daily.png" />
     <Content Include="Resources\document_new.png" />

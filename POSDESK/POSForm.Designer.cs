@@ -41,7 +41,6 @@ namespace Sys_Sols_Inventory.POSDESK
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSubStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.POSGridView = new Sys_Sols_Inventory.Class.DataGridViewExt();
             this.POSSubLayout2 = new System.Windows.Forms.FlowLayoutPanel();
             this.NumericButtonLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.numeric_7 = new System.Windows.Forms.Button();
@@ -117,8 +116,8 @@ namespace Sys_Sols_Inventory.POSDESK
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.POSGridView = new Sys_Sols_Inventory.Class.DataGridViewExt();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.POSGridView)).BeginInit();
             this.POSSubLayout2.SuspendLayout();
             this.NumericButtonLayout.SuspendLayout();
             this.TotalPanalLayout.SuspendLayout();
@@ -139,6 +138,7 @@ namespace Sys_Sols_Inventory.POSDESK
             this.POSLayout.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.POSGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -232,23 +232,6 @@ namespace Sys_Sols_Inventory.POSDESK
             this.toolStripSubStatus.Name = "toolStripSubStatus";
             this.toolStripSubStatus.Size = new System.Drawing.Size(74, 21);
             this.toolStripSubStatus.Text = "SubStatus";
-            // 
-            // POSGridView
-            // 
-            this.POSGridView.AllowUserToAddRows = false;
-            this.POSGridView.AllowUserToDeleteRows = false;
-            this.POSGridView.AllowUserToResizeColumns = false;
-            this.POSGridView.AllowUserToResizeRows = false;
-            this.POSGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
-            this.POSGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.POSGridView.Location = new System.Drawing.Point(3, 3);
-            this.POSGridView.MultiSelect = false;
-            this.POSGridView.Name = "POSGridView";
-            this.POSGridView.ReadOnly = true;
-            this.POSGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.POSGridView.Size = new System.Drawing.Size(660, 300);
-            this.POSGridView.TabIndex = 9;
-            this.POSGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.POSGridView_CellContentClick);
             // 
             // POSSubLayout2
             // 
@@ -754,7 +737,7 @@ namespace Sys_Sols_Inventory.POSDESK
             this.NewTransactionPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.NewTransactionPanel.Location = new System.Drawing.Point(0, 0);
             this.NewTransactionPanel.Name = "NewTransactionPanel";
-            this.NewTransactionPanel.Size = new System.Drawing.Size(292, 663);
+            this.NewTransactionPanel.Size = new System.Drawing.Size(292, 670);
             this.NewTransactionPanel.TabIndex = 0;
             // 
             // SalesTab
@@ -773,7 +756,7 @@ namespace Sys_Sols_Inventory.POSDESK
             this.SalesButtonLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.SalesButtonLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.SalesButtonLayoutPanel.Name = "SalesButtonLayoutPanel";
-            this.SalesButtonLayoutPanel.Size = new System.Drawing.Size(292, 663);
+            this.SalesButtonLayoutPanel.Size = new System.Drawing.Size(292, 670);
             this.SalesButtonLayoutPanel.TabIndex = 0;
             // 
             // Transactionstab
@@ -792,7 +775,7 @@ namespace Sys_Sols_Inventory.POSDESK
             this.TransactionLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TransactionLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.TransactionLayoutPanel.Name = "TransactionLayoutPanel";
-            this.TransactionLayoutPanel.Size = new System.Drawing.Size(292, 663);
+            this.TransactionLayoutPanel.Size = new System.Drawing.Size(292, 670);
             this.TransactionLayoutPanel.TabIndex = 0;
             // 
             // PayOnDelivery
@@ -810,7 +793,7 @@ namespace Sys_Sols_Inventory.POSDESK
             this.PayOnDeliveryPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PayOnDeliveryPanel.Location = new System.Drawing.Point(0, 0);
             this.PayOnDeliveryPanel.Name = "PayOnDeliveryPanel";
-            this.PayOnDeliveryPanel.Size = new System.Drawing.Size(292, 663);
+            this.PayOnDeliveryPanel.Size = new System.Drawing.Size(292, 670);
             this.PayOnDeliveryPanel.TabIndex = 0;
             // 
             // ReceivePayments
@@ -828,7 +811,7 @@ namespace Sys_Sols_Inventory.POSDESK
             this.ReceivePaymentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ReceivePaymentPanel.Location = new System.Drawing.Point(0, 0);
             this.ReceivePaymentPanel.Name = "ReceivePaymentPanel";
-            this.ReceivePaymentPanel.Size = new System.Drawing.Size(292, 663);
+            this.ReceivePaymentPanel.Size = new System.Drawing.Size(292, 670);
             this.ReceivePaymentPanel.TabIndex = 0;
             // 
             // LoginTabControl
@@ -1171,6 +1154,23 @@ namespace Sys_Sols_Inventory.POSDESK
             this.flowLayoutPanel4.Size = new System.Drawing.Size(646, 100);
             this.flowLayoutPanel4.TabIndex = 1;
             // 
+            // POSGridView
+            // 
+            this.POSGridView.AllowUserToAddRows = false;
+            this.POSGridView.AllowUserToDeleteRows = false;
+            this.POSGridView.AllowUserToResizeColumns = false;
+            this.POSGridView.AllowUserToResizeRows = false;
+            this.POSGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
+            this.POSGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.POSGridView.Location = new System.Drawing.Point(3, 3);
+            this.POSGridView.MultiSelect = false;
+            this.POSGridView.Name = "POSGridView";
+            this.POSGridView.ReadOnly = true;
+            this.POSGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.POSGridView.Size = new System.Drawing.Size(660, 300);
+            this.POSGridView.TabIndex = 9;
+            this.POSGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.POSGridView_CellContentClick);
+            // 
             // POSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1185,7 +1185,6 @@ namespace Sys_Sols_Inventory.POSDESK
             this.Load += new System.EventHandler(this.POSForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.POSGridView)).EndInit();
             this.POSSubLayout2.ResumeLayout(false);
             this.NumericButtonLayout.ResumeLayout(false);
             this.TotalPanalLayout.ResumeLayout(false);
@@ -1211,6 +1210,7 @@ namespace Sys_Sols_Inventory.POSDESK
             this.POSLayout.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.POSGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

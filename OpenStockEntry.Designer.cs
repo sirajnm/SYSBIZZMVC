@@ -143,7 +143,7 @@
             // 
             this.DOC_NO.Location = new System.Drawing.Point(111, 12);
             this.DOC_NO.Name = "DOC_NO";
-            this.DOC_NO.Size = new System.Drawing.Size(137, 20);
+            this.DOC_NO.Size = new System.Drawing.Size(137, 23);
             this.DOC_NO.TabIndex = 0;
             this.DOC_NO.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DOC_NO_KeyDown);
             // 
@@ -177,7 +177,7 @@
             this.DOC_DATE_HIJ.Location = new System.Drawing.Point(78, 7);
             this.DOC_DATE_HIJ.Mask = "00/00/0000";
             this.DOC_DATE_HIJ.Name = "DOC_DATE_HIJ";
-            this.DOC_DATE_HIJ.Size = new System.Drawing.Size(150, 20);
+            this.DOC_DATE_HIJ.Size = new System.Drawing.Size(150, 23);
             this.DOC_DATE_HIJ.TabIndex = 3;
             this.DOC_DATE_HIJ.Text = "  -  -";
             // 
@@ -185,7 +185,7 @@
             // 
             this.DOC_REFERENCE.Location = new System.Drawing.Point(111, 64);
             this.DOC_REFERENCE.Name = "DOC_REFERENCE";
-            this.DOC_REFERENCE.Size = new System.Drawing.Size(159, 20);
+            this.DOC_REFERENCE.Size = new System.Drawing.Size(159, 23);
             this.DOC_REFERENCE.TabIndex = 4;
             // 
             // kryptonLabel4
@@ -368,7 +368,7 @@
             // 
             this.txtItemName.Location = new System.Drawing.Point(170, 3);
             this.txtItemName.Name = "txtItemName";
-            this.txtItemName.Size = new System.Drawing.Size(161, 20);
+            this.txtItemName.Size = new System.Drawing.Size(161, 23);
             this.txtItemName.TabIndex = 26;
             // 
             // btnItemCode
@@ -393,7 +393,7 @@
             this.ITEM_CODE.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.ITEM_CODE.Location = new System.Drawing.Point(73, 3);
             this.ITEM_CODE.Name = "ITEM_CODE";
-            this.ITEM_CODE.Size = new System.Drawing.Size(66, 20);
+            this.ITEM_CODE.Size = new System.Drawing.Size(66, 23);
             this.ITEM_CODE.TabIndex = 0;
             this.ITEM_CODE.TextChanged += new System.EventHandler(this.ITEM_CODE_TextChanged);
             this.ITEM_CODE.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Entry_KeyDown);
@@ -431,7 +431,7 @@
             // 
             this.BATCH.Location = new System.Drawing.Point(73, 1);
             this.BATCH.Name = "BATCH";
-            this.BATCH.Size = new System.Drawing.Size(258, 20);
+            this.BATCH.Size = new System.Drawing.Size(258, 23);
             this.BATCH.TabIndex = 0;
             this.BATCH.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Entry_KeyDown);
             // 
@@ -471,7 +471,7 @@
             // 
             this.PRICE.Location = new System.Drawing.Point(73, 55);
             this.PRICE.Name = "PRICE";
-            this.PRICE.Size = new System.Drawing.Size(258, 20);
+            this.PRICE.Size = new System.Drawing.Size(258, 23);
             this.PRICE.TabIndex = 2;
             this.PRICE.TextChanged += new System.EventHandler(this.PRICE_TextChanged);
             this.PRICE.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Entry_KeyDown);
@@ -488,7 +488,7 @@
             // 
             this.QUANTITY.Location = new System.Drawing.Point(73, 29);
             this.QUANTITY.Name = "QUANTITY";
-            this.QUANTITY.Size = new System.Drawing.Size(258, 20);
+            this.QUANTITY.Size = new System.Drawing.Size(258, 23);
             this.QUANTITY.TabIndex = 1;
             this.QUANTITY.TextChanged += new System.EventHandler(this.QUANTITY_TextChanged);
             this.QUANTITY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Entry_KeyDown);
@@ -524,7 +524,7 @@
             // 
             this.TAX_AMT.Location = new System.Drawing.Point(231, 3);
             this.TAX_AMT.Name = "TAX_AMT";
-            this.TAX_AMT.Size = new System.Drawing.Size(100, 20);
+            this.TAX_AMT.Size = new System.Drawing.Size(100, 23);
             this.TAX_AMT.TabIndex = 1;
             this.TAX_AMT.Text = "0.00";
             this.TAX_AMT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Entry_KeyDown);
@@ -541,7 +541,7 @@
             // 
             this.TAX_PER.Location = new System.Drawing.Point(73, 3);
             this.TAX_PER.Name = "TAX_PER";
-            this.TAX_PER.Size = new System.Drawing.Size(94, 20);
+            this.TAX_PER.Size = new System.Drawing.Size(94, 23);
             this.TAX_PER.TabIndex = 0;
             this.TAX_PER.Text = "0";
             this.TAX_PER.TextChanged += new System.EventHandler(this.TAX_PER_TextChanged);
@@ -592,7 +592,7 @@
             this.ITEM_TOTAL.Location = new System.Drawing.Point(73, 3);
             this.ITEM_TOTAL.Name = "ITEM_TOTAL";
             this.ITEM_TOTAL.ReadOnly = true;
-            this.ITEM_TOTAL.Size = new System.Drawing.Size(258, 20);
+            this.ITEM_TOTAL.Size = new System.Drawing.Size(258, 23);
             this.ITEM_TOTAL.TabIndex = 0;
             this.ITEM_TOTAL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Entry_KeyDown);
             // 
@@ -644,7 +644,7 @@
             // 
             this.TOTAL_TAX.Location = new System.Drawing.Point(3, 29);
             this.TOTAL_TAX.Name = "TOTAL_TAX";
-            this.TOTAL_TAX.Size = new System.Drawing.Size(94, 20);
+            this.TOTAL_TAX.Size = new System.Drawing.Size(94, 23);
             this.TOTAL_TAX.TabIndex = 15;
             this.TOTAL_TAX.Text = "0.00";
             // 
@@ -669,7 +669,7 @@
             // 
             this.TOTAL_AMOUNT.Location = new System.Drawing.Point(3, 29);
             this.TOTAL_AMOUNT.Name = "TOTAL_AMOUNT";
-            this.TOTAL_AMOUNT.Size = new System.Drawing.Size(94, 20);
+            this.TOTAL_AMOUNT.Size = new System.Drawing.Size(94, 23);
             this.TOTAL_AMOUNT.TabIndex = 15;
             // 
             // kryptonLabel14

@@ -41,7 +41,7 @@ namespace Sys_Sols_Inventory.Accounts
             query += " case when(sum(t.DEBIT) - sum(t.CREDIT)) < 0 then 0 else (sum(t.DEBIT) - sum(t.CREDIT)) end Credit ";
             query += " from tb_Transactions t  inner join tb_Ledgers l on t.ACCID = l.LEDGERID ";
             query += " inner join ChartOfAccounts c on l.UNDER = c.ACC_ID ";
-            query += " where t.DATED between @startdate and @enddate and c.BS_IE_CODE = '3' ";
+            query += " where t.DATED between @startdate and @enddate and c.AccountCode like '03%' ";
             query += " group by c.AccountCode, c.ACC_ID, c.ACC_DESC, l.LEDGERID, l.LEDGERNAME ";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             Sys_Sols_Inventory.Class.CompanySetup comsetup = new Sys_Sols_Inventory.Class.CompanySetup();
@@ -49,22 +49,22 @@ namespace Sys_Sols_Inventory.Accounts
             dt = comsetup.GetCurrentFinancialYear();
             parameters.Add("@startdate", dt.Rows[0]["SDate"]);
             parameters.Add("@enddate", dt.Rows[0]["EDate"]);
-            dt = DbFunctions.GetDataTable(query, parameters);
+            datatableincexp = DbFunctions.GetDataTable(query, parameters);
             if (dt.Rows.Count == 0)
             {
                 MessageBox.Show("No Entries Found");
                 return;
             }
             dataExpense.AutoGenerateColumns = true;
-            dataExpense.DataSource = dt;
+            dataExpense.DataSource = datatableincexp;
                         dataExpense.Refresh();
             
-            string query2 = "Select '0104112323' AccountCode, '23' ACC_ID, 'Capital' ACC_DESC,  '45' LEDGERID, 'CAPITAL A/C' LEDGERNAME, (sum(t.DEBIT) - sum(t.CREDIT)) Amount, ";
+            string query2 = "Select '0456' AccountCode, '56' ACC_ID, 'Equity' ACC_DESC,  '45' LEDGERID, 'CAPITAL A/C' LEDGERNAME, (sum(t.DEBIT) - sum(t.CREDIT)) Amount, ";
             query2 += " case when(sum(t.DEBIT) - sum(t.CREDIT)) > 0 then (sum(t.DEBIT) - sum(t.CREDIT)) else 0 end Debit, ";
             query2 += " case when(sum(t.DEBIT) - sum(t.CREDIT)) < 0 then -(sum(t.DEBIT) - sum(t.CREDIT)) else 0 end Credit ";
             query2 += " from tb_Transactions t  inner join tb_Ledgers l on t.ACCID = l.LEDGERID ";
             query2 += " inner join ChartOfAccounts c on l.UNDER = c.ACC_ID ";
-            query2 += " where t.DATED between @startdate and @enddate and c.BS_IE_CODE = '3' ";
+            query2 += " where t.DATED between @startdate and @enddate and c.AccountCode like '03%' ";
             //query2 += " group by  l.LEDGERID, l.LEDGERNAME ";
             datatableincexp2 = DbFunctions.GetDataTable(query2, parameters);
             dataIncome.AutoGenerateColumns = true;
@@ -179,20 +179,20 @@ namespace Sys_Sols_Inventory.Accounts
                 return;
             }
 
-            string query = "Select @enddate Dated, c.AccountCode, c.ACC_ID, c.ACC_DESC, l.LEDGERID, l.LEDGERNAME, (sum(t.DEBIT) - sum(t.CREDIT)) Amount, ";
+            string query = "Select @enddate Dated, 'FYClosing' VoucherType, c.AccountCode, c.ACC_ID, c.ACC_DESC, l.LEDGERID, l.LEDGERNAME, (sum(t.DEBIT) - sum(t.CREDIT)) Amount, ";
             query += " case when(sum(t.DEBIT) - sum(t.CREDIT)) > 0 then 0 else -(sum(t.DEBIT) - sum(t.CREDIT)) end Debit, ";
             query += " case when(sum(t.DEBIT) - sum(t.CREDIT)) < 0 then 0 else (sum(t.DEBIT) - sum(t.CREDIT)) end Credit ";
             query += " from tb_Transactions t  inner join tb_Ledgers l on t.ACCID = l.LEDGERID ";
             query += " inner join ChartOfAccounts c on l.UNDER = c.ACC_ID ";
-            query += " where t.DATED between @startdate and @enddate and c.BS_IE_CODE = '4' ";
+            query += " where t.DATED between @startdate and @enddate and c.AccountCode like '04%' ";
             query += " group by c.AccountCode, c.ACC_ID, c.ACC_DESC, l.LEDGERID, l.LEDGERNAME ";
             query += " union all ";
-            query += "Select @openingdate Dated, c.AccountCode, c.ACC_ID, c.ACC_DESC, l.LEDGERID, l.LEDGERNAME, -(sum(t.DEBIT) - sum(t.CREDIT)) Amount, ";
+            query += "Select @openingdate Dated, 'FYOpening' VoucherType, c.AccountCode, c.ACC_ID, c.ACC_DESC, l.LEDGERID, l.LEDGERNAME, -(sum(t.DEBIT) - sum(t.CREDIT)) Amount, ";
             query += " case when(sum(t.DEBIT) - sum(t.CREDIT)) > 0 then (sum(t.DEBIT) - sum(t.CREDIT)) else 0 end Debit, ";
             query += " case when(sum(t.DEBIT) - sum(t.CREDIT)) < 0 then -(sum(t.DEBIT) - sum(t.CREDIT)) else 0 end Credit ";
             query += " from tb_Transactions t  inner join tb_Ledgers l on t.ACCID = l.LEDGERID ";
             query += " inner join ChartOfAccounts c on l.UNDER = c.ACC_ID ";
-            query += " where t.DATED between @startdate and @enddate and c.BS_IE_CODE = '4' ";
+            query += " where t.DATED between @startdate and @enddate and c.AccountCode like '04%' ";
             query += " group by c.AccountCode, c.ACC_ID, c.ACC_DESC, l.LEDGERID, l.LEDGERNAME ";
 
 
@@ -226,6 +226,7 @@ if (selectedfinancialyear != null)
                 dateTimePicker1.Value = selectedfinancialyear.EDate;
                 checkBox2.Checked = selectedfinancialyear.Status;
                 checkBox1.Checked = selectedfinancialyear.CurrentFY;
+                textBox4.Text = selectedfinancialyear.NoSeriesSuffix;
             }
 
         }
@@ -299,14 +300,15 @@ if (selectedfinancialyear != null)
             DataTable ds = new DataTable();
             ds = comsetup.GetCurrentFinancialYear();
 
-            foreach (DataRow dr in datatableincexp.Rows)
+            foreach (DataRow dr in datatablebalancesheet1.Rows)
             {
                 Transactions trans = new Transactions();
                 trans.ACCID = dr["LEDGERID"].ToString();
                 trans.ACCNAME = dr["LEDGERNAME"].ToString();
                 trans.VOUCHERNO = this.textBox1.Text;
-                trans.VOUCHERTYPE = "FYClosing";
-                trans.DATED = datatableincexp.Rows[0]["EDate"].ToString();
+                trans.VOUCHERTYPE = dr["VOUCHERTYPE"].ToString();
+               // trans.DATED = datatableincexp.Rows[0]["EDate"].ToString();
+                trans.DATED = dr["DATED"].ToString();
                 trans.CurrentDate = DateTime.Today;
                 trans.SYSTEMTIME = DateTime.UtcNow.ToShortTimeString();
                 trans.USERID = "Admin";
@@ -328,9 +330,13 @@ if (selectedfinancialyear != null)
 
 
             }
+            datatablebalancesheet1.Clear();
+            TrialBalanceGrid.DataSource = datatablebalancesheet1;
+            MessageBox.Show("Transaction carryforwarded to new FY successfully.");
+
         }
 
-    private static List<FinancialYear>  GetAllFinancialYear()
+        private static List<FinancialYear>  GetAllFinancialYear()
     {
             string query = "Select * from tbl_FinancialYear";
             DataTable dt = DbFunctions.GetDataTable(query);
@@ -339,12 +345,12 @@ if (selectedfinancialyear != null)
             {
                 FinancialYear fy = new FinancialYear();
                 fy.FinaYearId = Convert.ToInt16(dr["FinaYearId"]);
-                fy.FinancialYearCode = dr["FinancialYearCode"].ToString();
+                fy.FinancialYearCode = dr["FinancialYearCode"] == DBNull.Value ? "" :  dr["FinancialYearCode"].ToString();
                 fy.SDate = Convert.ToDateTime(dr["Sdate"]);
                 fy.EDate = Convert.ToDateTime(dr["EDate"]);
                 fy.AllowPostingFrom = dr["AllowPostingFrom"] == DBNull.Value ? Convert.ToDateTime(dr["Sdate"]) : Convert.ToDateTime(dr["AllowPostingFrom"]);
                 fy.AllowPostingTill = dr["AllowPostingTill"] == DBNull.Value ? Convert.ToDateTime(dr["EDate"]) : Convert.ToDateTime(dr["AllowPostingTill"]);
-                fy.Status = Convert.ToBoolean(dr["Status"]);
+                fy.Status = dr["Status"] == DBNull.Value ? false :  Convert.ToBoolean(dr["Status"]);
                 fy.CurrentFY = Convert.ToBoolean(dr["CurrentFY"]);
                 fy.NoSeriesSuffix = dr["NoSeriesSuffix"].ToString();
                 FYears.Add(fy);

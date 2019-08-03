@@ -27,7 +27,8 @@ namespace Sys_Sols_Inventory
         private bool hasSaleExclusive = false;
         private bool hasSaleExclusive1 = false;
         private bool hasPriceBatch = false;
-        private bool IsService = false;   
+        private bool IsService = false;
+        List<string> salesdocumentlist = new List<string>();
         string hcnNO = "";
         string productType = "";
         string c_price = "";
@@ -933,7 +934,7 @@ namespace Sys_Sols_Inventory
             }
 
             string query = "Declare @MaxDocID as int, @NoSeriesSuffix as varchar(5) ";
-            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from INV_SALES_HDR p right join tbl_FinancialYear f on p.DOC_DATE_GRE between f.SDate and f.EDate ";
+            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from INV_SALES_HDR p right join tbl_FinancialYear f on Convert(Varchar, p.DOC_DATE_GRE, 111) between f.SDate and f.EDate ";
             if (saletype == "SalesEstimate") query += " and p.DOC_TYPE = 'SAL.EST' ";
             if (saletype == "Sales") query += " and p.DOC_TYPE in ('SAL.CRD','SAL.CSS') ";
             query += " where f.CurrentFY = 1 ";
@@ -944,6 +945,7 @@ namespace Sys_Sols_Inventory
             {
                 Billno = VOUCHNUM.Text = dt.Rows[0]["DOCID"].ToString();
                 DOC_NO.Text = dt.Rows[0]["DOCNo"].ToString();
+                InvSalesHdrDB.DocNo = DOC_NO.Text;
             }
 
 
@@ -1122,7 +1124,12 @@ namespace Sys_Sols_Inventory
                 
             }*/
 
-
+            string query = "Select distinct DOC_NO, DOC_DATE_GRE, DOC_ID from INV_Sales_HDR h inner join tbl_financialyear f on Convert(Varchar, h.DOC_DATE_GRE, 111) between f.SDate and f.EDate and f.CurrentFY = 1 Order by DOC_DATE_GRE, DOC_ID ";
+            DataTable dt = DbFunctions.GetDataTable(query);
+            foreach(DataRow dr in dt.Rows)
+            {
+                salesdocumentlist.Add(dr["DOC_NO"].ToString());
+            }
            
             
 
@@ -3698,6 +3705,15 @@ namespace Sys_Sols_Inventory
         private void btnSave_Click(object sender, EventArgs e)
         {
              TransDate = DOC_DATE_GRE.Value;
+            InvSalesHdrDB.DocDateGre = DOC_DATE_GRE.Value;
+            InvSalesHdrDB.Branch = lg.Branch;
+            
+            if(!ComSet.IsCurrentFY(TransDate))
+            {
+                MessageBox.Show("Transaction date not within Financial Year Range!!!");
+                return;
+
+            }
             if (PAY_CODE.Text == "CHQ")
             {
                 TransDate = Convert.ToDateTime(CHQ_DATE.Value);
@@ -3753,6 +3769,7 @@ namespace Sys_Sols_Inventory
                     }
                     query = "INSERT INTO INV_SALES_HDR(DOC_ID,DOC_NO,DOC_TYPE,DOC_DATE_GRE,DOC_DATE_HIJ,CURRENCY_CODE,DOC_REFERENCE,CUSTOMER_CODE,CUSTOMER_NAME_ENG,SALESMAN_CODE,NOTES,TAX_TOTAL,VAT,DISCOUNT,TOTAL_AMOUNT,PAY_CODE,CARD_NO,FREIGHT,ROUNDOFF,CESS,CUSLEVELDISCOUNT,BRANCH,SALE_TYPE,SHIP_NAME,SHIP_ADRESS,SHIP_PHONE,SHIP_GST,SHIP_STATE,SHIP_TR_MODE,SHIP_VEHICLE_NO,SHIP_SUPPLY_DATE,SHIP_PLICE_OF_SUPPLY,PONO,CUST_ADDRESS,OTHER_EXPENSES,PROJECTID) ";
                     query += "VALUES('" + Convert.ToInt32(VOUCHNUM.Text) + "','" + DOC_NO.Text + "','" + type + "','" + DOC_DATE_GRE.Value + "','" + DOC_DATE_HIJ.Text + "','" + CURRENCY_CODE.Text + "','" + DOC_REFERENCE.Text + "','" + CUSTOMER_CODE.Text + "','" + CUSTOMER_NAME.Text + "','" + SALESMAN_CODE.Text + "','" + NOTES.Text + "','" + Convert.ToDecimal(TAX_TOTAL.Text) + "','" + Convert.ToDecimal(VATT.Text) + "','" + discount + "','" + Convert.ToDecimal(TOTAL_AMOUNT.Text) + "','" + PAY_CODE.Text + "','" + CARD_NO.Text + "','" + Convert.ToDecimal(txtFreight.Text) + "','" + txtRoundOff.Text + "','" + ((!TXT_CESS.Text.Equals("")) ? Convert.ToDecimal(TXT_CESS.Text) : 0) + "','" + chkCustomeleveldiscount.Checked + "','" + lg.Branch + "','" + cmbInvType.SelectedValue + "','" + txt_shiping_name.Text + "','" + txt_shipping_address.Text + "','" + txt_shipping_address1.Text + "','" + txt_shipping_gstin.Text + "','" + txt_shipping_state.Text + "','" + txt_transportation.Text + "','" + txt_vehicle.Text + "','" + txt_date.Value.ToString("MM/dd/yyyy") + "','" + txt_placesupply.Text + "','" + tb_pono.Text + "','" + txt_address.Text + "','" + Convert.ToDecimal(txtLoadingCharge.Text) + "','"+cmb_projects.SelectedValue+"')";
+                    salesdocumentlist.Add(DOC_NO.Text);
                 }
                 else
                 {
@@ -3880,6 +3897,7 @@ namespace Sys_Sols_Inventory
                     //conn.Close();
                     DbFunctions.InsertUpdate(query);
                     InsertTransaction();
+                    InventoryRepositery.InventorySales(InvSalesHdrDB);
                     if (Convert.ToDouble(txtLoadingCharge.Text) > 0)
                     {
                         DataTable dt = Ledg.SelectledgerByName("LOADING CHARGE ON SALES");
@@ -3974,7 +3992,7 @@ namespace Sys_Sols_Inventory
                             //cmd.ExecuteNonQuery();
                             //conn.Close();
                             DbFunctions.InsertUpdate(query);
-
+                            InventoryRepositery.InventorySales(InvSalesHdrDB);
                             InsertTransaction();
                             FreightTransaction();
                             RoundOFFTransaction();
@@ -4709,9 +4727,10 @@ namespace Sys_Sols_Inventory
             //cmd.CommandType = CommandType.Text;
             //conn.Open();
             value = Convert.ToString(RecRecieptVoucherHdrDB.getMaxRecNoRecVouch());
+            RecMaxVoucher = value;
             //conn.Close();
 
-            if (value.Equals("0"))
+      /*      if (value.Equals("0"))
             {
                 //cmd.CommandText = "SELECT VouchStartFrom FROM GEN_VOUCH_STARTFROM WHERE VouchTypeCode='PAY'";
                 //cmd.CommandType = CommandType.Text;
@@ -4720,10 +4739,11 @@ namespace Sys_Sols_Inventory
                 //conn.Close();
             }
             else
-            {
+            {*/
                 maxId = Convert.ToInt32(value);
                 RecMaxVoucher = (maxId + 1).ToString();
-            }
+            /*
+            }*/
         }
         public void receiptVoucherTransaction(string recVoucherNo)
         {
@@ -21120,11 +21140,28 @@ namespace Sys_Sols_Inventory
             double grossTotal1 = 0, discTotal1 = 0, netTotal1 = 0, taxTotal1 = 0, itemTotal1 = 0;
             double taxTot, vatTot, discTot, amtTot, netTotAmt;
             double round, freight, cess;
+            string docno = DOC_NO.Text;
             Clear2();
             try
             {
-                VOUCHNUM.Text = (Convert.ToInt32(VOUCHNUM.Text) + 1).ToString();
-                checkvoucher(Convert.ToInt32(VOUCHNUM.Text));
+                //       VOUCHNUM.Text = (Convert.ToInt32(VOUCHNUM.Text) + 1).ToString();
+
+                if ((salesdocumentlist.IndexOf(docno) + 1) >= salesdocumentlist.Count())
+                {
+//                    btnClear.PerformClick();
+                    GetMaxDocID();
+                    return;
+                }
+                else
+                {
+                    DOC_NO.Text = salesdocumentlist.ElementAt(salesdocumentlist.IndexOf(docno) + 1);
+                }
+
+
+
+
+
+               // checkvoucher(Convert.ToInt32(VOUCHNUM.Text));
                 DataTable dt = new DataTable();
 
                 if (cmbInvType.SelectedIndex == 0)
@@ -21136,7 +21173,7 @@ namespace Sys_Sols_Inventory
                     //Adap.Fill(dt);
                     InvSalesHdrDB.DocId = Convert.ToDecimal(VOUCHNUM.Text); 
                     InvSalesHdrDB.SaleType = "";
-                    dt = InvSalesHdrDB.DetailsByDocIDSaleType_Dt();
+                    dt = InvSalesHdrDB.DetailsByDocIDSaleType_Dt(DOC_NO.Text);
 
                 }
                 else
@@ -21149,7 +21186,7 @@ namespace Sys_Sols_Inventory
 
                     InvSalesHdrDB.DocId = Convert.ToDecimal(VOUCHNUM.Text); ;
                     InvSalesHdrDB.SaleType = cmbInvType.SelectedValue.ToString();
-                    dt = InvSalesHdrDB.DetailsByDocIDSaleType_Dt();
+                    dt = InvSalesHdrDB.DetailsByDocIDSaleType_Dt(DOC_NO.Text);
                 }
 
 
@@ -21158,6 +21195,7 @@ namespace Sys_Sols_Inventory
               
                         ID = Convert.ToString(dt.Rows[0]["DOC_NO"]);
                         DOC_NO.Text = ID;
+                        VOUCHNUM.Text = dt.Rows[0]["DOC_ID"].ToString();
                         DOC_DATE_GRE.Text = Convert.ToDateTime(Convert.ToString(dt.Rows[0]["DOC_DATE_GRE"].ToString())).ToString();
                         DOC_DATE_HIJ.Text = Convert.ToString(dt.Rows[0]["DOC_DATE_HIJ"]);
                         CURRENCY_CODE.Text = Convert.ToString(dt.Rows[0]["CURRENCY_CODE"]);
@@ -21374,11 +21412,28 @@ namespace Sys_Sols_Inventory
             double grossTotal1 = 0, discTotal1 = 0, netTotal1 = 0, taxTotal1 = 0, itemTotal1 = 0;
             double taxTot, vatTot, discTot, amtTot, netTotAmt;
             double round, freight, cess;
+            string docno = DOC_NO.Text;
             Clear2();
             try
             {
-                VOUCHNUM.Text = (Convert.ToInt32(VOUCHNUM.Text) - 1).ToString();
-                checkvoucher(Convert.ToInt32(VOUCHNUM.Text));
+                //             VOUCHNUM.Text = (Convert.ToInt32(VOUCHNUM.Text) - 1).ToString();
+
+                if (salesdocumentlist.IndexOf(docno) <= 0)
+                {
+                    string xxxx = VOUCHNUM.Text;
+                    if (salesdocumentlist.Count() > 0)
+                        DOC_NO.Text = salesdocumentlist.ElementAt(salesdocumentlist.Count() - 1);
+                    else return;
+
+
+                }
+                else
+                {
+                    DOC_NO.Text = salesdocumentlist.ElementAt(salesdocumentlist.IndexOf(docno) - 1);
+                }
+
+
+             //   checkvoucher(Convert.ToInt32(VOUCHNUM.Text));
 
                 DataTable dt = new DataTable();
                 if (cmbInvType.SelectedIndex == 0)
@@ -21390,7 +21445,7 @@ namespace Sys_Sols_Inventory
                     //Adap.Fill(dt);
                     InvSalesHdrDB.DocId = Convert.ToDecimal(VOUCHNUM.Text); ;
                     InvSalesHdrDB.SaleType = "";
-                    dt = InvSalesHdrDB.DetailsByDocIDSaleType_Dt();
+                    dt = InvSalesHdrDB.DetailsByDocIDSaleType_Dt(DOC_NO.Text);
                 }
                 else
                 {
@@ -21401,12 +21456,13 @@ namespace Sys_Sols_Inventory
                     //Adap.Fill(dt);
                     InvSalesHdrDB.DocId = Convert.ToDecimal(VOUCHNUM.Text); ;
                     InvSalesHdrDB.SaleType = cmbInvType.SelectedValue.ToString();
-                    dt = InvSalesHdrDB.DetailsByDocIDSaleType_Dt();
+                    dt = InvSalesHdrDB.DetailsByDocIDSaleType_Dt(DOC_NO.Text);
                 }
                 if (dt.Rows.Count > 0)
                 {                   
                         ID = dt.Rows[0]["DOC_NO"].ToString();
                         DOC_NO.Text = ID;
+                        VOUCHNUM.Text = dt.Rows[0]["DOC_ID"].ToString();
                         DOC_DATE_GRE.Text = Convert.ToDateTime(Convert.ToString(dt.Rows[0]["DOC_DATE_GRE"].ToString())).ToString();
                         DOC_DATE_HIJ.Text = Convert.ToString(dt.Rows[0]["DOC_DATE_HIJ"]);
                         CURRENCY_CODE.Text = Convert.ToString(dt.Rows[0]["CURRENCY_CODE"]);

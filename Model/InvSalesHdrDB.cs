@@ -435,6 +435,13 @@ namespace Sys_Sols_Inventory.Model
             return DbFunctions.GetDataTable(query);
         }
 
+        public DataTable DetailsByDocIDSaleType_Dt(string docno)
+        {
+            query = "SELECT * FROM INV_SALES_HDR WHERE DOC_NO = '" + docno + "'AND FLAGDEL='TRUE' AND SALE_TYPE= '" + saleType + "'";
+            return DbFunctions.GetDataTable(query);
+        }
+
+
         public DataTable MaxDocid_2()
         {
             query = "SELECT MAX(DOC_ID) AS Expr1 FROM INV_SALES_HDR WHERE (SALE_TYPE IS NULL OR SALE_TYPE='"+saleType+"') AND FLAGDEL='True'";

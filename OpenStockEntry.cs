@@ -58,6 +58,9 @@ namespace Sys_Sols_Inventory
 
         private void addItem()
         {
+
+
+
             if (ItemValid())
             {
                 int i = 0;
@@ -211,6 +214,7 @@ namespace Sys_Sols_Inventory
         {
             Class.CompanySetup CompStep = new Class.CompanySetup();
             DOC_DATE_GRE.Text = CompStep.GettDate();
+            GetMaxDocID();
 
             HasTax = General.IsEnabled(Settings.Tax);
             HasBatch = General.IsEnabled(Settings.Batch);
@@ -394,6 +398,30 @@ namespace Sys_Sols_Inventory
                // conn.Close();
             }
         }
+
+        private void GetMaxDocID()
+        {
+
+            int maxId;
+            String value;
+
+            string query = "Declare @MaxDocID as int, @NoSeriesSuffix as varchar(5) ";
+            query += " Select @MaxDocID = case when Max(DocumentNo) is null then 0 else Max(DocumentNo) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from ItemLedger p right join tbl_FinancialYear f on Convert(Varchar, p.EntryDate, 111) between f.SDate and f.EDate ";
+            query += " and p.EntryType = 'OpeningInventory' ";
+            
+            query += " where f.CurrentFY = 1 ";
+            query += " Select s.PRIFIX + @NoSeriesSuffix + Right(Replicate('0', s.SERIAL_LENGTH) + cast(@MaxDocID as varchar), s.SERIAL_LENGTH) DOCNo, @MaxDocID DocID from GEN_DOC_SERIAL s ";
+            query += " where s.DOC_TYPE = 'OpeningInventory' ";
+            DataTable dt = DbFunctions.GetDataTable(query);
+            if (dt.Rows.Count >= 1)
+            {
+               
+                DOC_NO.Text = dt.Rows[0]["DOCNo"].ToString();
+               
+            }
+
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (valid())
@@ -404,6 +432,7 @@ namespace Sys_Sols_Inventory
                     return;
                 }*/
                 StockEntry se = new StockEntry();
+                ItemLedger il = new ItemLedger();
                 stkHdr.DocNo = DOC_NO.Text;
                 stkHdr.DocDateGre = DOC_DATE_GRE.Value;
                 stkHdr.DocDateHij = DOC_DATE_HIJ.Text;
@@ -413,10 +442,19 @@ namespace Sys_Sols_Inventory
                 stkHdr.TotalAmount = Convert.ToDecimal(TOTAL_AMOUNT.Text);
                 stkHdr.DocType = "INV.STK.OPN";
                 stkHdr.Branch = lg.Branch;
+                il.Branch = lg.Branch;
+                il.EntryType = "OpeningInventory";
+                il.EntryDate = DOC_DATE_GRE.Value;
+                il.DocumentNo= DOC_NO.Text;
+
                 if (ID == "")
                 {
-                    DOC_NO.Text = General.generateStockID();
-                    stkHdr.DocNo = General.generateStockID();
+                    GetMaxDocID();
+                    //DOC_NO.Text =General.generateStockID();
+
+                    stkHdr.DocNo = DOC_NO.Text;
+                    //General.generateStockID();
+
                     //cmd.Connection = conn;
                     //cmd.CommandText = "INSERT INTO INV_STK_TRX_HDR(DOC_NO,DOC_DATE_GRE,DOC_DATE_HIJ,DOC_REFERENCE,NOTES,TAX_AMOUNT,TOTAL_AMOUNT,DOC_TYPE,BRANCH) VALUES('" + DOC_NO.Text + "','" + DOC_DATE_GRE.Value.ToString("MM/dd/yyyy") + "','" + DOC_DATE_HIJ.Text + "','" + DOC_REFERENCE.Text + "','" + NOTES.Text + "','"+TOTAL_TAX.Text+"','" + TOTAL_AMOUNT.Text + "','INV.STK.OPN','"+lg.Branch+"')";
                     //if (conn.State == ConnectionState.Open)
@@ -465,6 +503,15 @@ namespace Sys_Sols_Inventory
                         DataTable dt_rates = new DataTable();
                         dt_rates.Columns.Add("Rate_type", typeof(string));
                         dt_rates.Columns.Add("rate", typeof(double));
+
+                        il.ItemNo = item_id;
+                        il.Quantity = (float)qty;
+                        il.UOM = unit_code;
+                        il.UOMQuantity = (float)uom_qty;
+                        il.UnitCostApplied = c_price;
+                        il.CostValueApplied = il.UnitCostApplied * il.Quantity;
+                        il.EntryNo = InventoryRepositery.GetMaxEntryNO();
+                        il.BatchEntryNo = il.EntryNo;
                         for (int j = 14; j < dgItems.Columns.Count; j++)
                         {
                             DataRow dRow = dt_rates.NewRow();
@@ -486,20 +533,27 @@ namespace Sys_Sols_Inventory
                             try
                             {
                                 Exdat = DateTime.ParseExact(c["cExp"].Value.ToString(), "dd/MM/yyyy", null);
+                                if (Exdat > new DateTime(1910,1,1))
+                                il.ExpiryDate = Exdat;
                             }
                             catch
                             {
                                 Exdat = Convert.ToDateTime(c["cExp"].Value);
                             }
                         }
+                        
+                        
                         string flag = "";
                         string price_batch = "";
                         if (c["cBatch"].Value == null)
                             flag = "false";
                         else
                             flag = "true";
-                        if (c["cBatch"].Value != null)
+                        if (c["cBatch"].Value != null) { 
                             price_batch = c["cBatch"].Value.ToString();
+                            il.SupplierBatch = price_batch;
+                        }
+
                         //for price batch
 
                         string PRICE_BATCH = se.addStock_with_batch(item_id, total_qty.ToString(), c_price.ToString(), "", MRP, dt_rates, unit_code, price_batch, Exdat, flag, hasPriceBatch);
@@ -525,6 +579,7 @@ namespace Sys_Sols_Inventory
                     //  conn.Close();
                     DbFunctions.InsertUpdate(command);
                     MessageBox.Show("Stock Entry Added!");
+                    InventoryRepositery.Insert(il);
                 }
                 else
                 {

@@ -27,6 +27,7 @@ namespace Sys_Sols_Inventory
         CompanyCreation.CompanyCreation com = new CompanyCreation.CompanyCreation();
         SClass cls = new SClass();
         public string serverConnection = "";
+        string FYCODE;
         public frmCompanyDetails()
         {
             InitializeComponent();
@@ -110,6 +111,7 @@ namespace Sys_Sols_Inventory
                 cset.TIN_No = txt_tin.Text;
                 cset.WebSite = txt_website.Text;
                 cset.Logo = path;
+                cset.FYCODE = FYCODE;
                 cset.SDate = dtpFrom.Value;
                 cset.EDate = dtpTo.Value;
                 cset.Status = true;
@@ -245,19 +247,33 @@ namespace Sys_Sols_Inventory
         {
             panelProgress.Visible = false;
             panelProgress.Location = new Point(this.Size.Height / 2, (this.Width / 2) - (panelProgress.Width / 2));
+            getCountries();
             Setfinancialyear();
             bindTaxType();
-            getCountries();
+            
         }
         void getCountries()
         {
             DataSet ds = new DataSet();
-            ds.ReadXml(Application.StartupPath + @"\country.xml");
-            dt = ds.Tables[0];
+            if (File.Exists(Application.StartupPath + @"\country.xml"))
+            { 
+                ds.ReadXml(Application.StartupPath + @"\country.xml" );
+                foreach(DataTable dt in ds.Tables)
+                {
+                    cmbCountries.DataSource = dt;
+                    cmbCountries.DisplayMember = "DESC_ENG";
+                    cmbCountries.ValueMember = "CODE";
+                    
+
+                }
+
+//                dt = ds.Tables[0];
             //dt = cset.getCountries();
-            cmbCountries.DisplayMember = "DESC_ENG";
-            cmbCountries.ValueMember = "CODE";
-            cmbCountries.DataSource = dt;
+  //          cmbCountries.DisplayMember = "DESC_ENG";
+    //        cmbCountries.ValueMember = "CODE";
+      //      cmbCountries.DataSource = dt;
+            }else
+            { MessageBox.Show("Country.xml file is missing"); }
         }
         public void Setfinancialyear()
         {
@@ -269,6 +285,7 @@ namespace Sys_Sols_Inventory
                     dtpFrom.Value = dt;
                     DateTime dt2 = new DateTime(DateTime.Now.Year + 1, 3, 31);
                     dtpTo.Value = dt2;
+                    FYCODE = "FY" + DateTime.Now.Year.ToString();
                 }
                 else
                 {
@@ -276,7 +293,7 @@ namespace Sys_Sols_Inventory
                     dtpFrom.Value = dt;
                     DateTime dt2 = new DateTime(DateTime.Now.Year, 3, 31);
                     dtpTo.Value = dt2;
-
+                    FYCODE = "FY" + (DateTime.Now.Year -1).ToString();
                 }
             }
             catch { }

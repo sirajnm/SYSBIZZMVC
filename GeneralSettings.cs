@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,8 +45,14 @@ namespace Sys_Sols_Inventory
         DataTable dt1Inv = new DataTable();
         DataTable dtVouch = new DataTable();
         DataTable dt1Vouch = new DataTable();
-
+        bool addnumberseries = false;
         string query = "";
+
+        POS_Setup POSSetup = new POS_Setup();
+
+        BindingList<POS_ItemMenu> positemmenus = new BindingList<POS_ItemMenu>();
+        BindingList<POS_GeneratedMenu> generatedMenus = new BindingList<POS_GeneratedMenu>();
+
 
         public GeneralSettings()
         {
@@ -247,6 +254,75 @@ namespace Sys_Sols_Inventory
  
             }
 
+            string doctypestring = "Select distinct doc_type from Gen_Doc_Type";
+            string branchesstring = "Select CODE from Gen_Branch";
+            try
+            {
+                DataTable documenttypedt = DbFunctions.GetDataTable(doctypestring);
+                DocTypeCombo.DataSource = documenttypedt;
+                DocTypeCombo.DisplayMember = "DOC_TYPE";
+                DocTypeCombo.ValueMember = "DOC_TYPE";
+                DataTable branchdt = DbFunctions.GetDataTable(branchesstring);
+                BranchComboBox.DataSource = branchdt;
+                BranchComboBox.DisplayMember = "CODE";
+                BranchComboBox.ValueMember = "CODE";
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            string purchsetting = "Select LEDGERID, LEDGERNAME from tb_Ledgers";
+            string currentsettingquery = "Select PurchaseLedger, InventoryLedger, SalesLedger, COGSLedger from sys_setup";
+            try
+            {
+                DataTable Currentsettingstable = DbFunctions.GetDataTable(currentsettingquery);
+                DataTable purchledgers = DbFunctions.GetDataTable(purchsetting);
+                if (purchledgers.Rows.Count > 0)
+                { 
+                PurchLedgerCombo.DataSource = purchledgers;
+                PurchLedgerCombo.DisplayMember = "LEDGERNAME";
+                PurchLedgerCombo.ValueMember = "LEDGERID";
+              //  PurchLedgerCombo.SelectedValue = Convert.ToInt16(Currentsettingstable.Rows[0]["PurchaseLedger"]);
+                }
+                DataTable inventoryledger = DbFunctions.GetDataTable(purchsetting);
+                if (inventoryledger.Rows.Count > 0)
+                {
+                InventoryLedgerCombo.DataSource = inventoryledger;
+                InventoryLedgerCombo.DisplayMember = "LEDGERNAME";
+                InventoryLedgerCombo.ValueMember = "LEDGERID";
+              //  InventoryLedgerCombo.SelectedValue = Convert.ToInt16(Currentsettingstable.Rows[0]["InventoryLedger"]);
+                }
+                DataTable salesledger = DbFunctions.GetDataTable(purchsetting);
+                if (salesledger.Rows.Count > 0)
+                {
+                SalesLedgerCombo.DataSource = salesledger;
+                SalesLedgerCombo.DisplayMember = "LEDGERNAME";
+                SalesLedgerCombo.ValueMember = "LEDGERID";
+             //   SalesLedgerCombo.SelectedValue = Convert.ToInt16(Currentsettingstable.Rows[0]["SalesLedger"]);
+
+                }
+
+                DataTable cogsledger = DbFunctions.GetDataTable(purchsetting);
+                if (cogsledger.Rows.Count > 0)
+                {
+                COGSLedgerCombo.DataSource = cogsledger;
+                COGSLedgerCombo.DisplayMember = "LEDGERNAME";
+                COGSLedgerCombo.ValueMember = "LEDGERID";
+             //   COGSLedgerCombo.SelectedValue = Convert.ToInt16(Currentsettingstable.Rows[0]["COGSLedger"]);
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            
+
             string query2 = "Select * from GEN_DOC_SERIAL";
             try
             {
@@ -260,8 +336,8 @@ namespace Sys_Sols_Inventory
                     docserial.DOC_TYPE = dr["DOC_TYPE"].ToString();
                     docserial.PRIFIX = dr["PRIFIX"].ToString();
                     docserial.SUFIX = dr["SUFIX"].ToString();
-                    docserial.NEED_ZERO_BEFORE = Convert.ToInt16(dr["NEED_ZERO_BEFORE"]);
-                    docserial.SERIAL_LENGTH = Convert.ToInt16("SERIAL_LENGTH");
+                    docserial.NEED_ZERO_BEFORE = dr["NEED_ZERO_BEFORE"] == DBNull.Value ? 0 : Convert.ToInt16(dr["NEED_ZERO_BEFORE"]);
+                    docserial.SERIAL_LENGTH = dr["SERIAL_LENGTH"] == DBNull.Value ? 0 : Convert.ToInt16(dr["SERIAL_LENGTH"]);
                     docserial.MODULES_CODE = dr["MODULES_CODE"].ToString();
                     docserial.AUTO_NUM = dr["AUTO_NUM"].ToString();
                     seriallist.Add(docserial);
@@ -284,13 +360,17 @@ namespace Sys_Sols_Inventory
                 MessageBox.Show(ex.Message);
             }
 
+            string deliveryboysquery = "Select * from POS_DeliveryBoys";
+            DataTable deliverboysdt = DbFunctions.GetDataTable(deliveryboysquery);
+            deliveryboygrid.DataSource = deliverboysdt;
+            deliveryboygrid.AutoGenerateColumns = true;
             
             
             //dgInv.Rows[0].Visible = false;
             HasArabic = General.IsEnabled(Settings.Arabic);
-            HasType = General.IsEnabled(Settings.HasType);
+           HasType = General.IsEnabled(Settings.HasType);
             HasCategory = General.IsEnabled(Settings.HasCategory);
-            HasGroup = General.IsEnabled(Settings.HasGroup);
+           HasGroup = General.IsEnabled(Settings.HasGroup);
             HasTM = General.IsEnabled(Settings.HasTM);
             string statelbl=General.GetStatelabelText();
             lblState.Text = (!statelbl.Equals("")) ? "Current "+statelbl.First().ToString().ToUpper() + statelbl.Substring(1).ToLower()+":" : lblState.Text;
@@ -362,6 +442,14 @@ namespace Sys_Sols_Inventory
             {
                 cbx_Invoice.Items.Remove("Thermal VAT");
             }
+
+            POS_ItemMenu itemMenu = new POS_ItemMenu();
+            String menuquery = "Select * from POS_Menu";
+
+            DataTable posmenutable = DbFunctions.GetDataTable(query);
+
+            Pos_settings_load();
+
         }
         void load_CusAsSup()
         {
@@ -2174,6 +2262,8 @@ namespace Sys_Sols_Inventory
             }
             cset.DefaultSaleType = Convert.ToString(cmbSaleType.SelectedValue);
             cset.DefaultRateType = Convert.ToString(cmbRateType.SelectedValue);
+            cset.SalesLedger = Convert.ToInt16(SalesLedgerCombo.SelectedValue);
+            cset.COGSLedger = Convert.ToInt16(COGSLedgerCombo.SelectedValue);
             if (txtInvNo.Text != string.Empty)
             {
                 StartFrom();
@@ -2812,6 +2902,9 @@ namespace Sys_Sols_Inventory
                         cset.PUR_tax_Exclusive = false;
                         break;
                 }
+
+                cset.PurchaseAccountLedger = Convert.ToInt16(PurchLedgerCombo.SelectedValue);
+                cset.InventoryAccountLedger = Convert.ToInt16(InventoryLedgerCombo.SelectedValue);
                 cset.PUR_expcper = Convert.ToDecimal(tb_adexpence.Text);
                 cset.UpdateGeneralPurchaseSetup();
                 SavePurchaseType();
@@ -3337,6 +3430,62 @@ namespace Sys_Sols_Inventory
             
         }
 
+        private void DocSeriesAddNewButton_Click(object sender, EventArgs e)
+        {
+            addnumberseries = true;
+            docseriesid.Text = "";
+            DocTypeCombo.SelectedValue = "";
+            BranchComboBox.SelectedValue = "";
+            PrefixTexBox.Text = "";
+            SuffixTextBox.Text = "";
+            SerialIntervalNumeric.Value = 0;
+            SerialLengthNumeric.Value = 0;
+
+
+        }
+
+        private void DocSeriesSaveButton_Click(object sender, EventArgs e)
+        {
+            Class.GenDocSerial docserial = new Class.GenDocSerial();
+            docserial.BRANCH_CODE = BranchComboBox.Text;
+            docserial.DOC_TYPE = DocTypeCombo.SelectedValue.ToString();
+            docserial.PRIFIX = PrefixTexBox.Text;
+            docserial.SUFIX = SuffixTextBox.Text;
+            docserial.SERIAL_LENGTH = (int)SerialLengthNumeric.Value;
+            docserial.SERIAL_NO = (int)SerialIntervalNumeric.Value;
+            docserial.STORE_CODE = "";
+            docserial.AUTO_NUM = "";
+            if (addnumberseries)
+            {
+                
+                docserial.Insert();
+                MessageBox.Show("Number series successfully added.");
+            }
+            else
+            {
+                docserial.id = Convert.ToInt16(docseriesid.Text);
+                docserial.Update();
+                MessageBox.Show("Number Series Successfully updted");
+            }
+
+        }
+
+        private void NumberSeriesGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Class.GenDocSerial docserial = new Class.GenDocSerial((int)NumberSeriesGrid.CurrentRow.Cells["id"].Value);
+            addnumberseries = false;
+            docseriesid.Text = docserial.id.ToString();
+            DocTypeCombo.SelectedIndex = DocTypeCombo.Items.IndexOf(docserial.DOC_TYPE);
+            //  DocTypeCombo.SelectedText = docserial.DOC_TYPE;
+            BranchComboBox.SelectedIndex = BranchComboBox.Items.IndexOf(docserial.BRANCH_CODE);
+            //BranchComboBox.SelectedText = docserial.BRANCH_CODE;
+            PrefixTexBox.Text = docserial.PRIFIX;
+            SuffixTextBox.Text = docserial.SUFIX;
+            SerialIntervalNumeric.Value = docserial.SERIAL_NO;
+            SerialLengthNumeric.Value = docserial.SERIAL_LENGTH;
+            
+        }
+
         private void kryptonButton3_Click(object sender, EventArgs e)
         {
             InvTemplate frm = new InvTemplate();
@@ -3365,6 +3514,85 @@ namespace Sys_Sols_Inventory
             {
             }
         }
+
+        private void SavePOSGeneralSettingsButton_Click(object sender, EventArgs e)
+        {
+            POS_Setting_Save();
+        }
+
+        private void IsMultiTill_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToBoolean(IsMultiTill.CheckState))
+                DefaultTillComboBox.Enabled = false;
+            else DefaultTillComboBox.Enabled = true;
+        }
+
+        private void IsSingleShift_CheckStateChanged(object sender, EventArgs e)
+        {
+            if(Convert.ToBoolean(IsSingleShift.CheckState))
+            {
+                CashierIDTextBox.Enabled = true;
+                PasswordTextbox.Enabled = true;
+
+            }else
+            {
+                CashierIDTextBox.Enabled = false;
+                PasswordTextbox.Enabled = false;
+
+            }
+        }
+
+        private void UpdatetoItemMenu_Click(object sender, EventArgs e)
+        {
+            foreach (POS_GeneratedMenu generatedmenu in generatedMenus.Where(g => g.Available == true))
+            {
+                POS_ItemMenu itemMenu = new POS_ItemMenu();
+                itemMenu.ItemNo = generatedmenu.CODE;
+                itemMenu.MenuDescription = generatedmenu.DESC_ENG;
+                itemMenu.UOM = generatedmenu.UNIT_CODE;
+                itemMenu.Quantity = generatedmenu.PACK_SIZE;
+                itemMenu.Barcode = generatedmenu.BARCODE;
+                itemMenu.ItemCategory = generatedmenu.CATEGORY;
+                itemMenu.MenuState = "Add";
+                positemmenus.Add(itemMenu);
+            }
+            if (POS_Repositery.UpdateItemMenus(positemmenus.ToList()) >= 1)
+            {
+                positemmenus = new BindingList<POS_ItemMenu>(POS_Repositery.GetItemMenus());
+                generatedMenus = new BindingList<POS_GeneratedMenu>(POS_Repositery.GenerateItemMenus().Where(a => a.Available == false).ToList());
+                GeneratedMenuGrid.DataSource = generatedMenus;
+                GeneratedMenuGrid.Refresh();
+                this.Refresh();
+            }
+        }
+
+        private void deliveryboysavebutton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)deliveryboygrid.DataSource;
+            string delquery = "Delete POS_DeliveryBoys";
+            DbFunctions.InsertUpdate(delquery);
+            string insertquery = "Insert Into POS_DeliveryBoys Values(@DeliveryBoyID, @DeliveryBoyName,@EmployeeNo,@ContactNo,@Status)";
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                Dictionary<string, object> parameter = new Dictionary<string, object>();
+                parameter.Add("@DeliveryBoyID", dr["DeliveryBoyID"].ToString());
+                parameter.Add("@DeliveryBoyName", dr["DeliveryBoyName"].ToString());
+                parameter.Add("EmployeeNo", dr["EmployeeNo"].ToString());
+                parameter.Add("@ContactNo", dr["ContactNo"].ToString());
+                parameter.Add("@Status", dr["Status"]);
+                DbFunctions.InsertUpdate(insertquery, parameter);
+            }
+        }
+
+        private void UpdateItemMenu_Click(object sender, EventArgs e)
+        {
+            BindingList<POS_ItemMenu> availablemenus = (BindingList < POS_ItemMenu >)ItemMenuGrid.DataSource;
+            POS_Repositery.UpdateItemMenus(availablemenus.ToList());
+
+
+        }
+
         bool loadTempSettings()
         {
             bool val = false;
@@ -3384,6 +3612,206 @@ namespace Sys_Sols_Inventory
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void Pos_settings_load()
+        {
+
+            string localstorequery = "Select * from GEN_BRANCH";
+            try
+            {
+                DataTable localstoredt = DbFunctions.GetDataTable(localstorequery);
+                LocalStoreComboBox.DataSource = localstoredt;
+                LocalStoreComboBox.DisplayMember = "CODE";
+                LocalStoreComboBox.ValueMember = "CODE";
+                
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            string tillquery = "Select * from POS_Tills";
+            try
+            {
+                DataTable tilldt = DbFunctions.GetDataTable(tillquery);
+                DefaultTillComboBox.DataSource = tilldt;
+                DefaultTillComboBox.DisplayMember = "TillID";
+                DefaultTillComboBox.ValueMember = "TillID";
+                
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            string query = "Select * from tb_Ledgers";
+            try
+            {
+                DataTable salesacdt = DbFunctions.GetDataTable(query);
+                DataTable vatacdt = DbFunctions.GetDataTable(query);
+                DataTable discacdt = DbFunctions.GetDataTable(query);
+                SalesAcCombo.DataSource = salesacdt;
+                SalesAcCombo.DisplayMember = "LEDGERNAME";
+                SalesAcCombo.ValueMember = "LEDGERID";
+                VATACCombo.DataSource = vatacdt;
+                VATACCombo.DisplayMember = "LEDGERNAME";
+                VATACCombo.ValueMember = "LEDGERID";
+                DiscountACCombo.DataSource = discacdt;
+                DiscountACCombo.DisplayMember = "LEDGERNAME";
+                DiscountACCombo.ValueMember = "LEDGERID";
+
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            foreach (var printer in PrinterSettings.InstalledPrinters)
+            {
+                POSPrinterCombo.Items.Add(printer.ToString());
+                
+            }
+
+            if (POSSetup.LocalStoreNo != null)
+                LocalStoreComboBox.SelectedValue = POSSetup.LocalStoreNo;
+              else LocalStoreComboBox.SelectedIndex = -1;
+              if (POSSetup.DefaultTill != null)
+                DefaultTillComboBox.SelectedValue = POSSetup.DefaultTill;
+            else DefaultTillComboBox.SelectedIndex = -1;
+            if (POSSetup.POSPrinter != null)
+                POSPrinterCombo.SelectedIndex = POSPrinterCombo.Items.IndexOf(POSSetup.POSPrinter) >= 0 ? POSPrinterCombo.Items.IndexOf(POSSetup.POSPrinter) : -1;
+            else POSPrinterCombo.SelectedIndex = -1;
+            if (POSSetup.SalesAccount != null)
+                SalesAcCombo.SelectedValue = POSSetup.SalesAccount;
+            if (POSSetup.VATOutPutAccount != null)
+                VATACCombo.SelectedValue = POSSetup.VATOutPutAccount;
+            if (POSSetup.DiscountAccount != null)
+                DiscountACCombo.SelectedValue = POSSetup.DiscountAccount;
+
+            IsSingleShift.Checked = POSSetup.IsSingleShift;
+            IsMultiTill.Checked = POSSetup.IsMultiTill;
+         //   if (POSSetup.IsMultiTill)
+         //   {
+         //       DefaultTillComboBox.SelectedIndex = -1;
+        //        DefaultTillComboBox.Enabled = false;
+         //   }
+            if (!POSSetup.IsSingleShift)
+            {
+                CashierIDTextBox.Enabled = false;
+                PasswordTextbox.Enabled = false;
+            }
+            this.TRNTextBox.Text = POSSetup.TRNNumber;
+            this.ReceiptHeader1.Text = POSSetup.ReceiptHeader1;
+            this.ReceiptHeader2.Text = POSSetup.ReceiptHeader2;
+            this.ReceiptHeader3.Text = POSSetup.ReceiptHeader3;
+            this.ReceiptFooter1.Text = POSSetup.ReceiptFooter1;
+            this.ReceiptFooter2.Text = POSSetup.ReceiptFooter2;
+            this.ReceiptFooter3.Text = POSSetup.ReceiptFooter3;
+            this.CashierIDTextBox.Text = POSSetup.CashierID;
+            this.PasswordTextbox.Text = POSSetup.CashierPassword;
+            this.pagewidth.Value = Convert.ToDecimal(POSSetup.Pagewidth);
+            this.pageheight.Value = Convert.ToDecimal(POSSetup.PageHeight);
+
+
+            generatedMenus = new BindingList<POS_GeneratedMenu>(POS_Repositery.GenerateItemMenus().Where(a => a.Available == false).ToList());
+            GeneratedMenuGrid.AutoGenerateColumns = false;
+            GeneratedMenuGrid.DataSource = generatedMenus;
+            GeneratedMenuGrid.Font = new Font("Segoe UI Light", 10);
+            GeneratedMenuGrid.Columns.Add("desceng", "Description");
+            GeneratedMenuGrid.Columns.Add("category", "Category");
+            GeneratedMenuGrid.Columns.Add("uom", "UOM");
+            GeneratedMenuGrid.Columns.Add("qty", "Quantity");
+            DataGridViewCheckBoxColumn availablecolumn = new DataGridViewCheckBoxColumn();
+            availablecolumn.HeaderText = "Available";
+            GeneratedMenuGrid.Columns.Add(availablecolumn);
+            GeneratedMenuGrid.Columns[0].DataPropertyName = "DESC_ENG";
+            GeneratedMenuGrid.Columns[0].Width = 200;
+            GeneratedMenuGrid.Columns[1].DataPropertyName = "CATEGORY";
+            GeneratedMenuGrid.Columns[2].DataPropertyName = "UNIT_CODE";
+            GeneratedMenuGrid.Columns[3].DataPropertyName = "PACK_SIZE";
+            GeneratedMenuGrid.Columns[4].DataPropertyName = "Available";
+
+            positemmenus = new BindingList<POS_ItemMenu>(POS_Repositery.GetItemMenus());
+            ItemMenuGrid.AutoGenerateColumns = false;
+            ItemMenuGrid.DataSource = positemmenus;
+            ItemMenuGrid.Font = new Font("Segoe UI Light", 10);
+
+            ItemMenuGrid.Columns.Add("itemcategory", "Category");
+            ItemMenuGrid.Columns.Add("menudescription", "Menu Description");
+            ItemMenuGrid.Columns.Add("uom", "UOM");
+            ItemMenuGrid.Columns.Add("quantity", "Quantity");
+            ItemMenuGrid.Columns.Add("barcode", "Barcode");
+
+            ItemMenuGrid.Columns[0].DataPropertyName = "ItemCategory";
+            ItemMenuGrid.Columns[0].Width = 100;
+            ItemMenuGrid.Columns[1].DataPropertyName = "MenuDescription";
+            ItemMenuGrid.Columns[1].Width = 250;
+            ItemMenuGrid.Columns[2].DataPropertyName = "UOM";
+
+            ItemMenuGrid.Columns[3].DataPropertyName = "Quantity";
+            ItemMenuGrid.Columns[4].DataPropertyName = "Barcode";
+            ItemMenuGrid.Columns[4].Visible = false;
+
+
+
+
+
+        }
+
+        private void POS_Setting_Save()
+        {
+            if (this.LocalStoreComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please Select valid Local Store.");
+                return;
+            }
+            POSSetup.LocalStoreNo = this.LocalStoreComboBox.SelectedValue.ToString();
+
+            POSSetup.IsMultiTill = Convert.ToBoolean(this.IsMultiTill.CheckState);
+            POSSetup.IsSingleShift = Convert.ToBoolean(this.IsSingleShift.CheckState);
+            if(!POSSetup.IsMultiTill &&  this.DefaultTillComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Plese Select Valid Till ID.");
+                return;
+            }
+            POSSetup.DefaultTill = DefaultTillComboBox.SelectedValue.ToString();
+            if (POSSetup.IsSingleShift)
+            {
+                if( this.CashierIDTextBox.Text == "" || this.PasswordTextbox.Text == "")
+                {
+                    MessageBox.Show("Plese enter Cashier ID & Password");
+                    return;
+                }
+            }
+            POSSetup.CashierID = this.CashierIDTextBox.Text;
+            POSSetup.CashierPassword = this.PasswordTextbox.Text;
+
+            if(POSPrinterCombo.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select valid Printer.");
+                return;
+            }
+            POSSetup.TRNNumber = TRNTextBox.Text;
+            POSSetup.POSPrinter = POSPrinterCombo.SelectedItem.ToString();
+            POSSetup.ReceiptHeader1 = this.ReceiptHeader1.Text;
+            POSSetup.ReceiptHeader2 = this.ReceiptHeader2.Text;
+            POSSetup.ReceiptHeader3 = this.ReceiptHeader3.Text;
+            POSSetup.ReceiptFooter1 = this.ReceiptFooter1.Text;
+            POSSetup.ReceiptFooter2 = this.ReceiptFooter2.Text;
+            POSSetup.ReceiptFooter3 = this.ReceiptFooter3.Text;
+            POSSetup.Pagewidth = Convert.ToSingle(this.pagewidth.Value);
+            POSSetup.PageHeight = Convert.ToSingle(this.pageheight.Value);
+            POSSetup.SalesAccount = SalesAcCombo.SelectedValue.ToString();
+            POSSetup.VATOutPutAccount = VATACCombo.SelectedValue.ToString();
+            POSSetup.DiscountAccount = DiscountACCombo.SelectedValue.ToString();
+            POSSetup.Update();
+            
         }
     }
 }

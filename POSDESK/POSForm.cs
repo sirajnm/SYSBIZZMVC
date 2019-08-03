@@ -122,8 +122,9 @@ namespace Sys_Sols_Inventory.POSDESK
                     BalanceAmount_TextBox.Text = "0";
                     transdetailstemplist = new BindingList<TransactionDetailTEMP>();
                     payments = new BindingList<TransactionPayment>();
-
-
+                    toolStripStatusLabel4.Text = shift.CashierID;
+                    toolStripStatusLabel6.Text = shift.ShiftStartDate.ToShortDateString();
+                    UpdateTotalArea();
 
                     CreatePOSGrid();
                     if (!MainTabControl.TabPages.Contains(NewTransaction))
@@ -142,6 +143,7 @@ namespace Sys_Sols_Inventory.POSDESK
                         MainTabControl.TabPages.Add(SalesTab);
                     }
                     toolStripStatus.Text = "Sales";
+                    toolStripStatusLabel2.Text = transtemp.TransactionNo;
                 }
                 if (_transstatus == "Return")
                 {
@@ -315,7 +317,7 @@ namespace Sys_Sols_Inventory.POSDESK
                 paymentbutton[x].Text = menuline.MenuDescription;
                 paymentbutton[x].Name = menuline.MenuCommand;
                 paymentbutton[x].Width = paymentbuttonpanel.Width - 5;
-                paymentbutton[x].Height = (paymentbuttonpanel.Height / paymentmenucount) -5;
+                paymentbutton[x].Height = paymentbuttonpanel.Height / paymentmenucount - paymentmenucount;
                 paymentbutton[x].BackColor = Color.FromName(menuline.MenuColor);
                 paymentbutton[x].FlatStyle = FlatStyle.Flat;
                 paymentbutton[x].FlatAppearance.BorderColor = Color.FromName(menuline.MenuColor);
@@ -327,19 +329,20 @@ namespace Sys_Sols_Inventory.POSDESK
             }
             i = 0;
             int mainmenucount = MenuLines.Where(m => m.MenuHeader == "MainMenu").Count();
-            int mainbuttonheight = NewTransactionPanel.Height / mainmenucount;
+            int mainbuttonheight = NewTransactionPanel.Height / mainmenucount - mainmenucount;
             foreach (POS_MenuLine menuline in MenuLines.Where(m => m.MenuHeader == "MainMenu").OrderBy(m => m.MenuSortOrder))
             {
                 int x = i;
                 mainbutton[x] = new Button();
 
-                if (x==0)
-                mainbutton[x].Text = menuline.MenuDescription + " "+ NewTransactionPanel.Height.ToString()+ " " +mainbuttonheight.ToString() ;
-                else
-                mainbutton[x].Text = menuline.MenuDescription;
+                
+
+                
+                
                 mainbutton[x].Name = menuline.MenuCommand;
                 mainbutton[x].Width = NewTransactionPanel.Width - 5;
                 mainbutton[x].Height = mainbuttonheight;
+                mainbutton[x].Text = menuline.MenuDescription;
                 mainbutton[x].BackColor = Color.FromName(menuline.MenuColor);
                 mainbutton[x].FlatStyle = FlatStyle.Flat;
                 mainbutton[x].FlatAppearance.BorderColor = Color.FromName(menuline.MenuColor);
@@ -353,16 +356,15 @@ namespace Sys_Sols_Inventory.POSDESK
             
 
             int salesmenucount = MenuLines.Where(m => m.MenuHeader == "Sales").Count();
-            int salesbuttonheight = SalesButtonLayoutPanel.Height / salesmenucount ;
+            int salesbuttonheight = SalesButtonLayoutPanel.Height / salesmenucount - salesmenucount;
             i = 0;
             foreach (POS_MenuLine menuline in MenuLines.Where(m => m.MenuHeader == "Sales").OrderBy(m => m.MenuSortOrder))
             {
                 int x = i;
                 salesbutton[x] = new Button();
-                if (x==0)
-                salesbutton[x].Text = menuline.MenuDescription + " " + SalesButtonLayoutPanel.Height.ToString() + " " + salesbuttonheight.ToString() ;
-                else
-                    salesbutton[x].Text = menuline.MenuDescription;
+                
+                salesbutton[x].Text = menuline.MenuDescription ;
+                
                 salesbutton[x].Name = menuline.MenuCommand;
                 salesbutton[x].Width = SalesButtonLayoutPanel.Width - 5;
                 salesbutton[x].Height = salesbuttonheight;
@@ -422,25 +424,42 @@ namespace Sys_Sols_Inventory.POSDESK
             Button[] payondeliverybutton = new Button[6];
             
             i = 0;
-            
-            int payondeliverybuttonheight = PayOnDeliveryPanel.Height / MenuLines.Where(a => a.MenuHeader == "PayOnDelivery").Count() - 5;
-            foreach (POS_MenuLine menuline in MenuLines.Where(m => m.MenuHeader == "PayOnDelivery").OrderBy(m => m.MenuSortOrder))
+            List<POS_DeliveryBoy> Deliveryboys = POS_Repositery.GetDeliveryBoys();
+            int payondeliverybuttonheight = PayOnDeliveryPanel.Height / (Deliveryboys.Count+1) - 5;
+            foreach (POS_DeliveryBoy deliveryboy in Deliveryboys)
             {
                 int x = i;
                 payondeliverybutton[x] = new Button();
-                payondeliverybutton[x].Text = menuline.MenuDescription;
-                payondeliverybutton[x].Name = menuline.MenuCommand;
+                payondeliverybutton[x].Text = deliveryboy.DeliveryBoyName;
+                payondeliverybutton[x].Name = deliveryboy.DeliveryBoyID;
                 payondeliverybutton[x].Width = PayOnDeliveryPanel.Width;
                 payondeliverybutton[x].Height = payondeliverybuttonheight;
-                payondeliverybutton[x].BackColor = Color.FromName(menuline.MenuColor); 
+                payondeliverybutton[x].BackColor = Color.FromName("Purple"); 
                 payondeliverybutton[x].FlatStyle = FlatStyle.Flat;
-                payondeliverybutton[x].FlatAppearance.BorderColor = Color.FromName(menuline.MenuColor);  
-                payondeliverybutton[x].ForeColor = Color.FromArgb(Color.FromName(menuline.MenuColor).ToArgb() ^ 0xffffff);
+                payondeliverybutton[x].FlatAppearance.BorderColor = Color.FromName("Purple");  
+                payondeliverybutton[x].ForeColor = Color.FromArgb(Color.FromName("Purple").ToArgb() ^ 0xffffff);
                 payondeliverybutton[x].Font = new Font("Segoe UI Light", 13f);
                 payondeliverybutton[x].Click += (sender1, args) => DeliveryFunction(payondeliverybutton[x].Name);
                 PayOnDeliveryPanel.Controls.Add(payondeliverybutton[x]);
                 i += 1;
 
+                if( i == Deliveryboys.Count )
+                {
+                    int y = i;
+                    payondeliverybutton[y] = new Button();
+                    payondeliverybutton[y].Text = "Back";
+                    payondeliverybutton[y].Name = "Back";
+                    payondeliverybutton[y].Width = PayOnDeliveryPanel.Width;
+                    payondeliverybutton[y].Height = payondeliverybuttonheight;
+                    payondeliverybutton[y].BackColor = Color.FromName("Yellow");
+                    payondeliverybutton[y].FlatStyle = FlatStyle.Flat;
+                    payondeliverybutton[y].FlatAppearance.BorderColor = Color.FromName("Yellow");
+                    payondeliverybutton[y].ForeColor = Color.FromArgb(Color.FromName("Yellow").ToArgb() ^ 0xffffff);
+                    payondeliverybutton[y].Font = new Font("Segoe UI Light", 13f);
+                    payondeliverybutton[y].Click += (sender1, args) => DeliveryFunction(payondeliverybutton[y].Name);
+                    PayOnDeliveryPanel.Controls.Add(payondeliverybutton[y]);
+
+                }
 
             }
             i = 0;
@@ -492,7 +511,39 @@ namespace Sys_Sols_Inventory.POSDESK
 
             if (val == 12)
             {
+                if(SearchBox.Text.Length > 0)
                 SearchBox.Text = SearchBox.Text.Substring(0, SearchBox.Text.Length - 1);
+
+            }
+
+            if (val == 13)
+            {
+                float qty = (float) POSGridView.CurrentRow.Cells["quantity"].Value;
+                if (qty > 0)
+                {
+                    TransSubStatus = "ChangeQty";
+                    SearchBox.Text = (qty + 1).ToString();
+                    SendKeys.Send("{ENTER}");
+
+                }
+            }
+
+            if (val == 14)
+            {
+                float qty = (float)POSGridView.CurrentRow.Cells["quantity"].Value;
+                if (qty > 1)
+                {
+                    TransSubStatus = "ChangeQty";
+                    SearchBox.Text = (qty - 1).ToString();
+                    SendKeys.Send("{ENTER}");
+                    return;
+
+                }
+                if (qty == 1)
+                {
+                    SalesFunction("VoidLine");
+
+                }
 
             }
 
@@ -568,16 +619,7 @@ namespace Sys_Sols_Inventory.POSDESK
             {
                 transtemp.TransactionStatus = "Delivery";
                 transtemp.Update();
-
-                foreach (DataGridViewRow row in POSGridView.Rows)
-                {
-                    if (row.Cells["Status"].Value.ToString() != "PayOnDelivery")
-                    {
-                        row.DefaultCellStyle.Font = new Font(this.Font, FontStyle.Strikeout);
-                    }
-                }
-
-
+                MainFunction("Delivery");
             }
 
 
@@ -600,10 +642,12 @@ namespace Sys_Sols_Inventory.POSDESK
                     TransStatus = transtemp.TransactionType;
                     transtemp.TransactionDetails = tlist;
                     transtemp.Update();
-                    transdetailstemplist = new BindingList<TransactionDetailTEMP>(tlist); 
+                    transdetailstemplist = new BindingList<TransactionDetailTEMP>(tlist);
                     //transtemp.TransactionDetails = POS_Repositery.TransactionDetailsTemp(shift.ShiftNo, shift.Branch, shift.TillID, POSGridView.CurrentRow.Cells[0].Value.ToString());
                     //transdetailstemplist = new BindingList<TransactionDetailTEMP>(transtemp.TransactionDetails);
+
                     POSGridView.DataSource = transdetailstemplist;
+                    CreatePOSGrid();
                     UpdateTotalArea();
 
 
@@ -702,10 +746,10 @@ namespace Sys_Sols_Inventory.POSDESK
                 POSGridView.Columns.Clear();
                 
                 POSGridView.Columns.Add("transno", "TransactionNo");
-                POSGridView.Columns.Add("transdate", "TransactionDate");
-                POSGridView.Columns.Add("transtime", "TransactionTime");
-                POSGridView.Columns.Add("Totqty", "TotalQty");
-                POSGridView.Columns.Add("amountpay", "AmounttoPay");
+                POSGridView.Columns.Add("transdate", "Date");
+                POSGridView.Columns.Add("transtime", "Time");
+                POSGridView.Columns.Add("Totqty", "Quantity");
+                POSGridView.Columns.Add("amountpay", "Amount");
 
                 
                 POSGridView.Columns[0].DataPropertyName = "TransactionNo";
@@ -1015,6 +1059,7 @@ namespace Sys_Sols_Inventory.POSDESK
                 transtemp.TransactionDetails = transdetail;
                 transdetailstemplist = new BindingList<TransactionDetailTEMP>(transdetail);
                 POSGridView.DataSource = transdetailstemplist;
+                    CreatePOSGrid();
                     UpdateTotalArea();
 
                 }
@@ -1255,6 +1300,18 @@ namespace Sys_Sols_Inventory.POSDESK
 
             }
 
+            if (menucommand == "VoidTransactions")
+            {
+                DialogResult dr = MessageBox.Show("Do you want to Cancel Transaction", "Confirm", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
+                {
+                    transtemp.VoidTransaction();
+                    TransStatus = "NewTransaction";
+                }
+                    
+                
+            }
+
             if (menucommand == "Discount" && POSGridView.Rows.Count > 0)
             {
                 if( SearchBox.Text == "")
@@ -1375,6 +1432,7 @@ namespace Sys_Sols_Inventory.POSDESK
                         if (result == DialogResult.OK)
                         {
                             POS_Customer customer = new POS_Customer();
+                            customer.CustomerLedger = frm.CustomerLedger;
                             customer.CustomerMobileNo = frm.CustomerMobileNo;
                             customer.CustomerName = frm.CustomerName;
                             customer.CustomerAddress1 = frm.CustomerAddress1;
@@ -1437,8 +1495,23 @@ namespace Sys_Sols_Inventory.POSDESK
                 return;
             }
             
+            if(TransStatus == "NewTransaction")
+            {
+                MessageLabel.Text = "No Transaction for Payment";
+                System.Media.SystemSounds.Beep.Play();
+                return;
 
-            if(paymentmethod == "Post")
+            }
+            if(transtemp.AmountForPay == 0)
+            {
+                MessageLabel.Text = "Amount for Pay is Zero.";
+                System.Media.SystemSounds.Beep.Play();
+                return;
+
+
+            }
+
+            if (paymentmethod == "Post")
             {
                 if( Math.Round( transtemp.BalanceAmount,0) == 0)
                 {
@@ -1455,7 +1528,17 @@ namespace Sys_Sols_Inventory.POSDESK
                         TransSubStatus = "";
 
                     }
+                    else
+                    {
+                        MessageLabel.Text = "Payment Processing Error";
+                        System.Media.SystemSounds.Exclamation.Play();
+                    }
                     return;
+                }
+                else
+                {
+                    MessageLabel.Text = "Balance is not Zero, Cannot Complete.";
+                    System.Media.SystemSounds.Exclamation.Play();
                 }
                 return;
             }
@@ -1557,6 +1640,12 @@ namespace Sys_Sols_Inventory.POSDESK
             if (POSGridView.CurrentRow != null)
             {
                 int line_no = (int)POSGridView.CurrentRow.Cells["lineno"].Value;
+                if (Convert.ToBoolean(POSGridView.CurrentRow.Cells["void"].Value))
+                {
+                    MessageLabel.Text = "Suspended Line quantity cannot be changed";
+                    System.Media.SystemSounds.Beep.Play();
+                    return;
+                }
                 //MessageBox.Show(POSGridView.CurrentRow.Cells["lineno"].Value.ToString());
                 TransactionDetailTEMP trandetailtemp = transtemp.TransactionDetails.Where(d => d.TransactionNo == transtemp.TransactionNo && d.Branch == transtemp.Branch && d.LineNo == line_no).FirstOrDefault();
                 if (SearchBox.Text != "")
@@ -1616,7 +1705,7 @@ namespace Sys_Sols_Inventory.POSDESK
             cellstyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             POSGridView.Columns[0].DataPropertyName = "Barcode";
             POSGridView.Columns[1].DataPropertyName = "ItemDescription";
-            POSGridView.Columns[1].Width = 400;
+            POSGridView.Columns[1].Width = 150;
             POSGridView.Columns[2].DataPropertyName = "PriceVAT";
             POSGridView.Columns[2].DefaultCellStyle = cellstyle;
             POSGridView.Columns[3].DataPropertyName = "Quantity";
@@ -1644,10 +1733,26 @@ namespace Sys_Sols_Inventory.POSDESK
         
         public void UpdateTotalArea()
         {
-            this.TotalQuantity_TextBox.Text = transtemp.TotalQty.ToString("#,###.##");
-            this.AmountforPay_TextBox.Text = transtemp.AmountForPay.ToString("#,###.##");
-            this.PaidAmountTextBox.Text = transtemp.PaidAmount.ToString("#,###.##");
-            this.BalanceAmount_TextBox.Text = transtemp.BalanceAmount.ToString("#,###.##");
+            if (transtemp == null)
+            {
+                this.totalquantity = 0;
+                this.TotalAmounttoPay = 0;
+                this.paidamount = 0;
+                this.balanceamount = 0;
+
+            }
+            else
+            {
+                this.totalquantity = transtemp.TotalQty;
+                this.TotalAmounttoPay = transtemp.AmountForPay;
+                this.paidamount = transtemp.PaidAmount;
+                this.balanceamount = transtemp.BalanceAmount;
+
+            }
+            this.TotalQuantity_TextBox.Text = this.totalquantity.ToString("#,###.##");
+            this.AmountforPay_TextBox.Text = this.TotalAmounttoPay.ToString("#,###.##");
+            this.PaidAmountTextBox.Text = this.paidamount.ToString("#,###.##");
+            this.BalanceAmount_TextBox.Text = this.balanceamount.ToString("#,###.##");
             this.Refresh();
         }
 

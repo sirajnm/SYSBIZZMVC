@@ -291,6 +291,15 @@ namespace Sys_Sols_Inventory.Model
             string query = "SELECT * FROM PAY_PAYMENT_VOUCHER_HDR LEFT OUTER JOIN GEN_PAYTYPE ON PAY_PAYMENT_VOUCHER_HDR.PAY_CODE=GEN_PAYTYPE.CODE WHERE REC_NO='" + recNo+ "'";
             return DbFunctions.GetDataTable(query);
         }
+        public DataTable getAllPaymentVoucher(string docno)
+        {
+            string query = "SELECT * FROM PAY_PAYMENT_VOUCHER_HDR LEFT OUTER JOIN GEN_PAYTYPE ON PAY_PAYMENT_VOUCHER_HDR.PAY_CODE=GEN_PAYTYPE.CODE WHERE DOC_NO='" + docno + "'";
+            
+            
+                return DbFunctions.GetDataTable(query);
+            
+        }
+
         public object  getDocDateGre()
         {
             string query = "SELECT DOC_DATE_GRE FROM PAY_PAYMENT_VOUCHER_HDR WHERE REC_NO='" + recNo + "'";

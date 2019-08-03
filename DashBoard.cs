@@ -520,11 +520,11 @@ namespace Sys_Sols_Inventory
                 Class.CompanySetup cset = new Class.CompanySetup();
                 DataTable dt = new DataTable();
                 cset.Status = true;
-                dt = cset.GetFinancialYear();
+                dt = cset.GetCurrentFinancialYear();
 
-                Datefrom = Convert.ToDateTime(dt.Rows[0][1]);
+                Datefrom = Convert.ToDateTime(dt.Rows[0]["SDate"]);
 
-                Dateto = Convert.ToDateTime(dt.Rows[0][2]);
+                Dateto = Convert.ToDateTime(dt.Rows[0]["EDate"]);
             }
             catch
             {
@@ -536,9 +536,9 @@ namespace Sys_Sols_Inventory
             DataTable dt = new DataTable();
             Class.CompanySetup ComSet = new Class.CompanySetup();
             ComSet.Status = true;
-            dt = ComSet.GetFinancialYear();
+            dt = ComSet.GetCurrentFinancialYear();
 
-            DateTime startDate = Convert.ToDateTime(dt.Rows[0][1]);
+            DateTime startDate = Convert.ToDateTime(dt.Rows[0]["SDate"]);
             dash.AccId = 21;
             dash.AccName = "CASH ACCOUNT";
             dash.StartDate = startDate;
@@ -1807,7 +1807,8 @@ namespace Sys_Sols_Inventory
             if (flag == 0)
             {
                 POSDESK.POSForm cn = new POSDESK.POSForm();
-                ComponentFactory.Krypton.Navigator.KryptonPage kp = new ComponentFactory.Krypton.Navigator.KryptonPage();
+                cn.Show();
+              /*  ComponentFactory.Krypton.Navigator.KryptonPage kp = new ComponentFactory.Krypton.Navigator.KryptonPage();
                 mdi.maindocpanel.Pages.Add(kp);
 
                 cn.Show();
@@ -1823,6 +1824,7 @@ namespace Sys_Sols_Inventory
                 cn.FormBorderStyle = FormBorderStyle.None;
 
                 mdi.maindocpanel.SelectedPage = kp;
+                */
             }
             flag = 0;
         }

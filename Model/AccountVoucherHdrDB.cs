@@ -235,7 +235,7 @@ namespace Sys_Sols_Inventory.Model
         }
         public int insertData()
         {
-            string query = "INSERT INTO ACCOUNT_VOUCHER_HDR (DOC_NO,REC_NO,DOC_DATE_GRE,DOC_DATE_HIJ,CUR_CODE,AMOUNT,PAY_CODE,BANK_CODE,ACC_DETAILS,CHQ_NO,CHQ_DATE,CREDIT_CODE,DESC2,DEBIT_CODE,DESC1,NOTES,TOTAL_PAID,TOTAL_CURRENT,TOTAL_BALANCE,Project_Id) VALUES('" + docNo + "','" + recNo + "','" + docDateGre.ToString("MM/dd/yyyy") + "','" + docDateHij + "','" + curCode + "','" + amount + "','" + payCode + "','" + bankCode + "','" + accountDetails + "','" + chqNo + "','" + (payCode == "CHQ" ? chqDate.ToString("MM/dd/yyyy") : null) + "','" + creditCode + "','" + desc2 + "','" + debitcode + "','" + desc1 + "','" + notes + "','" + totalPaid + "','" + totalCurrent + "','" + totalBalance + "','" + projectid + "')";
+            string query = "INSERT INTO ACCOUNT_VOUCHER_HDR (DOC_ID, DOC_NO,REC_NO,DOC_DATE_GRE,DOC_DATE_HIJ,CUR_CODE,AMOUNT,PAY_CODE,BANK_CODE,ACC_DETAILS,CHQ_NO,CHQ_DATE,CREDIT_CODE,DESC2,DEBIT_CODE,DESC1,NOTES,TOTAL_PAID,TOTAL_CURRENT,TOTAL_BALANCE,Project_Id) VALUES('"+docId+ "','" + docNo + "','" + recNo + "','" + docDateGre.ToString("MM/dd/yyyy") + "','" + docDateHij + "','" + curCode + "','" + amount + "','" + payCode + "','" + bankCode + "','" + accountDetails + "','" + chqNo + "','" + (payCode == "CHQ" ? chqDate.ToString("MM/dd/yyyy") : null) + "','" + creditCode + "','" + desc2 + "','" + debitcode + "','" + desc1 + "','" + notes + "','" + totalPaid + "','" + totalCurrent + "','" + totalBalance + "','" + projectid + "')";
             return DbFunctions.InsertUpdate(query);
         }
         public int updateDataByDocNo(string tableHDR)
@@ -270,6 +270,13 @@ namespace Sys_Sols_Inventory.Model
             string query = "SELECT * FROM ACCOUNT_VOUCHER_HDR LEFT OUTER JOIN GEN_PAYTYPE ON ACCOUNT_VOUCHER_HDR.PAY_CODE=GEN_PAYTYPE.CODE WHERE REC_NO='" + recNo + "'";
             return DbFunctions.GetDataTable(query);
         }
+
+        public DataTable getAllData(string docno)
+        {
+            string query = "SELECT * FROM ACCOUNT_VOUCHER_HDR LEFT OUTER JOIN GEN_PAYTYPE ON ACCOUNT_VOUCHER_HDR.PAY_CODE=GEN_PAYTYPE.CODE WHERE DOC_NO='" + docno + "'";
+            return DbFunctions.GetDataTable(query);
+        }
+
         public object getDocDateGre()
         {
             string query = "SELECT DOC_DATE_GRE FROM ACCOUNT_VOUCHER_HDR WHERE REC_NO='" + recNo + "'";

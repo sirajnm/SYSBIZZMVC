@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -254,6 +255,8 @@ namespace Sys_Sols_Inventory.Model
             string query = "SELECT * FROM INV_SAL_ORD_DTL WHERE DOC_ID = '" + docId + "'";
             return DbFunctions.GetDataReader(query);
         }
+
+        
         
     }
 }

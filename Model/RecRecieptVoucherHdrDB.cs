@@ -217,12 +217,20 @@ namespace Sys_Sols_Inventory.Model
         }
         public object getMaxRecNoRecVouch()
         {
-            string query = "SELECT ISNULL(MAX(CONVERT(DECIMAL(18,0),REC_NO)), 0) FROM REC_RECEIPTVOUCHER_HDR";
-            return DbFunctions.GetAValue(query);
+           
+
+//            string query = "select Max(vh.DOC_NO) from REC_RECEIPTVOUCHER_HDR vh inner join tbl_FinancialYear fy ";
+ //           query += " on vh.DOC_DATE_GRE between fy.SDate and fy.EDate and fy.CurrentFY = 1 ";
+
+            string query = "SELECT ISNULL(MAX(CONVERT(DECIMAL(18,0),REC_NO)), 0) FROM REC_RECEIPTVOUCHER_HDR h inner join tbl_FinancialYear fy ";
+            query += "on convert(varchar, h.DOC_DATE_GRE, 111) between fy.SDate and fy.EDate and fy.CurrentFY = 1 ";
+           return DbFunctions.GetAValue(query);
         }
         public object getVouchStartFrom()
         {
-            string query = "SELECT VouchStartFrom FROM GEN_VOUCH_STARTFROM WHERE VouchTypeCode='REC'";
+            string query = "select Min(vh.DOC_NO) from REC_RECEIPTVOUCHER_HDR vh inner join tbl_FinancialYear fy ";
+            query += " on convert(varchar, vh.DOC_DATE_GRE, 111) between fy.SDate and fy.EDate and fy.CurrentFY = 1 "; 
+            //query = "SELECT VouchStartFrom FROM GEN_VOUCH_STARTFROM WHERE VouchTypeCode='REC'";
             return DbFunctions.GetAValue(query);
         }
         public int deleteByDocNo()
@@ -235,6 +243,12 @@ namespace Sys_Sols_Inventory.Model
             string query = "SELECT * FROM REC_RECEIPTVOUCHER_HDR LEFT OUTER JOIN GEN_PAYTYPE ON REC_RECEIPTVOUCHER_HDR.PAY_CODE=GEN_PAYTYPE.CODE WHERE REC_NO='" + recNo + "'";
             return DbFunctions.GetDataTable(query);
         }
+        public DataTable getAllRecieptVoucher(string docno)
+        {
+            string query = "SELECT * FROM REC_RECEIPTVOUCHER_HDR LEFT OUTER JOIN GEN_PAYTYPE ON REC_RECEIPTVOUCHER_HDR.PAY_CODE=GEN_PAYTYPE.CODE WHERE DOC_NO='" + docno + "'";
+            return DbFunctions.GetDataTable(query);
+        }
+
         public object getDocDateGre()
         {
             string query = "SELECT DOC_DATE_GRE FROM REC_RECEIPTVOUCHER_HDR WHERE REC_NO='" + recNo + "'";

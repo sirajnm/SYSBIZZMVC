@@ -94,7 +94,12 @@ namespace Sys_Sols_Inventory.Model
             get { return fsort; }
             set { fsort = value; }
         }
-
+        public float GetUOM()
+        {
+            String query = "SELECT PACK_SIZE FROM INV_ITEM_DIRECTORY_UNITS WHERE ITEM_CODE = '" + itemCode + "' and UNIT_CODE = '"+ Unitcode+ "'  ";
+            object a = DbFunctions.GetAValue(query);
+            return a != null ? Convert.ToSingle(a): 0 ;
+        }
         public SqlDataReader GetDataByItemCode()
         {
             string query = "SELECT UNIT_CODE,PACK_SIZE,BARCODE FROM INV_ITEM_DIRECTORY_UNITS WHERE ITEM_CODE = '" + itemCode + "'";

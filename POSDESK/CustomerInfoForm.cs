@@ -6,14 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MetroFramework;
-using MetroFramework.Forms;
 using Sys_Sols_Inventory.Model;
 
 
 namespace Sys_Sols_Inventory.POSDESK
 {
-    public partial class CustomerInfoForm : MetroForm
+    public partial class CustomerInfoForm : Form
     {
         private bool _creditcustomer;
         public string CustomerMobileNo

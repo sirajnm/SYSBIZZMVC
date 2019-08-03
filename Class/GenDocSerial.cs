@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +26,31 @@ public int id { get; set; }
         {
 
         }
+        public GenDocSerial(int docid)
+        {
+            string query = "Select * from GEN_DOC_SERIAL where id = "+ docid;
+            DataTable dt = DbFunctions.GetDataTable(query);
+            foreach(DataRow dr in dt.Rows)
+            {
+                id = dr["id"] == null ? 0 : Convert.ToInt16(dr["id"]);
+                if (id == 0) break;
+                BRANCH_CODE = dr["BRANCH_CODE"].ToString();
+                DOC_TYPE = dr["DOC_TYPE"].ToString();
+                PRIFIX = dr["PRIFIX"].ToString();
+                SUFIX = dr["SUFIX"].ToString();
+                SERIAL_NO = dr["SERIAL_NO"] == null ? 0 : Convert.ToInt16(dr["SERIAL_NO"]);
+                SERIAL_LENGTH = dr["SERIAL_LENGTH"] == null ? 0 : Convert.ToInt16(dr["SERIAL_LENGTH"]);
 
+
+            }
+
+        }
         public bool Insert()
         {
-            string query = "Insert Into Gen_Doc_Serial (id, BRANCH_CODE, STORE_CODE, DOC_TYPE, SERIAL_NO, PRIFIX, SUFIX, AUTO_NUM, NEED_ZERO_BEFORE, SERIAL_LENGTH,MODULES_CODE)";
-            query += " values(@id, @BRANCH_CODE, @STORE_CODE, @DOC_TYPE, @SERIAL_NO, @PRIFIX, @SUFIX, @AUTO_NUM, @NEED_ZERO_BEFORE, @SERIAL_LENGTH, @MODULES_CODE) ";
+            string query = "Insert Into Gen_Doc_Serial ( BRANCH_CODE, STORE_CODE, DOC_TYPE, SERIAL_NO, PRIFIX, SUFIX,  NEED_ZERO_BEFORE, SERIAL_LENGTH)";
+            query += " values( @BRANCH_CODE, @STORE_CODE, @DOC_TYPE, @SERIAL_NO, @PRIFIX, @SUFIX,  @NEED_ZERO_BEFORE, @SERIAL_LENGTH) ";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("@id", id);
+            
             parameters.Add("@BRANCH_CODE", BRANCH_CODE);
             parameters.Add("@STORE_CODE", STORE_CODE);
             parameters.Add("@DOC_TYPE", DOC_TYPE);
@@ -41,7 +60,7 @@ public int id { get; set; }
             parameters.Add("@AUTO_NUM", AUTO_NUM);
             parameters.Add("@NEED_ZERO_BEFORE", NEED_ZERO_BEFORE);
             parameters.Add("@SERIAL_LENGTH", SERIAL_LENGTH);
-            parameters.Add("@MODULES_CODE", MODULES_CODE);
+         //   parameters.Add("@MODULES_CODE", MODULES_CODE);
             if (DbFunctions.InsertUpdate(query, parameters) >= 1)
                 return true;
             return false;

@@ -298,7 +298,7 @@ namespace Sys_Sols_Inventory
         }
         public static string GetStatelabelText()
         {
-            string Query = "select DIVISION_ENG from GEN_COUNTRY WHERE CODE=(SELECT COUNTRY FROM Tbl_CompanySetup)";
+            string Query = "select DESC_ENG from GEN_COUNTRY WHERE CODE=(SELECT COUNTRY FROM Tbl_CompanySetup)";
             string state = DbFunctions.GetAValue(Query).ToString();
             return state;
         }
@@ -508,6 +508,7 @@ namespace Sys_Sols_Inventory
           //  cmd.CommandText = "SELECT MAX(DOC_NO) FROM REC_RECEIPTVOUCHER_HDR WHERE DOC_NO LIKE '" + testvalue + "%'";
             //string id = Convert.ToString(cmd.ExecuteScalar());
          //   conn.Close();
+         /*
             string value = DateTime.Today.ToString("ddMMyy");
             string testvalue = (Convert.ToInt64(value)).ToString();
             string Query = "SELECT MAX(DOC_NO) FROM REC_RECEIPTVOUCHER_HDR WHERE DOC_NO LIKE '" + testvalue + "%'";
@@ -522,6 +523,22 @@ namespace Sys_Sols_Inventory
                 id = (Convert.ToInt64(id) + 1).ToString();
             }
             return id;
+            */
+            string vouchertype = "ReceiptVoucher";
+
+            string query = "Declare @MaxDocID as int, @NoSeriesSuffix as varchar(5) ";
+            query += " Select @MaxDocID = case when Max(Doc_ID) is null then 0 else Max(Doc_ID) end + 1, @NoSeriesSuffix = max(f.NoSeriesSuffix) from REC_RECEIPTVOUCHER_HDR p right join tbl_FinancialYear f on Convert(Varchar, p.DOC_DATE_GRE, 111) between f.SDate and f.EDate ";
+            query += " where f.CurrentFY = 1 ";
+            query += " Select s.PRIFIX + @NoSeriesSuffix + Right(Replicate('0', s.SERIAL_LENGTH) + cast(@MaxDocID as varchar), s.SERIAL_LENGTH) DOCNo, @MaxDocID DocID from GEN_DOC_SERIAL s ";
+            query += " where s.DOC_TYPE = '" + vouchertype + "' ";
+            DataTable dt = DbFunctions.GetDataTable(query);
+        if (dt.Rows.Count > 0)
+            {
+              return dt.Rows[0]["DOCNO"].ToString();
+                
+            }
+
+            return "";
 
         }
 
